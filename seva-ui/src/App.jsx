@@ -28,8 +28,20 @@ export default function App() {
     })
   }, [])
 
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight
+      setScrollProgress(total > 0 ? (window.scrollY / total) * 100 : 0)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <div className="app">
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
       <Navbar />
       <Hero eda={eda} />
       <ImpactStats />

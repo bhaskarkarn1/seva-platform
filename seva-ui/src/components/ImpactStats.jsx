@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { RevealSection } from '../hooks/useReveal'
+import { ArrowRight } from 'lucide-react'
 
-function CountUp({ end, suffix = '', duration = 1500 }) {
+function CountUp({ end, suffix = '', duration = 1500, decimals = 0 }) {
   const [count, setCount] = useState(0)
   const ref = useRef(null)
   const started = useRef(false)
@@ -20,16 +21,16 @@ function CountUp({ end, suffix = '', duration = 1500 }) {
             setCount(end)
             clearInterval(timer)
           } else {
-            setCount(Math.floor(current))
+            setCount(decimals > 0 ? parseFloat(current.toFixed(decimals)) : Math.floor(current))
           }
         }, 16)
       }
     }, { threshold: 0.3 })
     observer.observe(el)
     return () => observer.disconnect()
-  }, [end, duration])
+  }, [end, duration, decimals])
 
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
+  return <span ref={ref}>{decimals > 0 ? count.toFixed(decimals) : count.toLocaleString()}{suffix}</span>
 }
 
 export default function ImpactStats() {
@@ -42,7 +43,6 @@ export default function ImpactStats() {
       .then(data => setScenario(data))
       .catch(() => null)
 
-    // Also fetch mission-control for BPR-derived delay numbers
     fetch('http://localhost:8000/mission-control', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -56,41 +56,84 @@ export default function ImpactStats() {
       .catch(() => null)
   }, [])
 
-  // Coverage improvement from scenario comparison
-  const coverageImprovement = scenario
-    ? Math.round((scenario.with_seva?.coverage_score || 1.0) * 100 - (scenario.without_seva?.coverage_score || 0.33) * 100)
-    : 67
-  const junctionsProtected = scenario
+  const delayWithout = missionBrief?.bpr_delay_analysis?.delay_without_seva_min || 6.5
+  const delayWith = missionBrief?.bpr_delay_analysis?.delay_with_seva_min || 4.9
+  const delayReduction = missionBrief?.bpr_delay_analysis?.delay_reduction_pct || 25
+
+  const coverageWithout = scenario
+    ? Math.round((scenario.without_seva?.coverage_score || 0.33) * 100)
+    : 33
+  const coverageWith = scenario
+    ? Math.round((scenario.with_seva?.coverage_score || 1.0) * 100)
+    : 100
+  const uncoveredCount = scenario
     ? (scenario.without_seva?.uncovered_junctions?.length || 3)
     : 3
-  // Delay reduction NOW derived from BPR model (mathematically defensible)
-  const delayReduction = missionBrief?.bpr_delay_analysis?.delay_reduction_pct || 25
 
   return (
     <section className="section" id="impact">
       <RevealSection>
-        <div className="section-label">Proven Impact</div>
-        <div className="section-title">What SEVA delivers</div>
+        <div className="section-label">Scenario: IPL Match at Chinnaswamy Stadium</div>
+        <div className="section-title">What changes when SEVA is deployed</div>
         <p className="section-desc">
-          Based on the Chinnaswamy Stadium IPL egress scenario. Delay reduction computed via
-          BPR (Bureau of Public Roads) delay function - the global standard for link-level delay estimation.
+          35,000 fans exit Chinnaswamy Stadium at 10 PM. These numbers show what happens
+          to traffic on MG Road corridor - with and without SEVA.
         </p>
       </RevealSection>
       <RevealSection>
-        <div className="impact-stats">
-          <div className="impact-stat">
-            <div className="num"><CountUp end={delayReduction} suffix="%" /></div>
-            <div className="label">BPR Delay Reduction</div>
+        <div className="impact-comparison">
+          {/* WITHOUT SEVA */}
+          <div className="impact-col impact-col-without">
+            <div className="impact-col-header without">Without SEVA</div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Avg. delay per vehicle</div>
+              <div className="impact-metric-value red"><CountUp end={delayWithout} decimals={1} /> min</div>
+            </div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Junction officer coverage</div>
+              <div className="impact-metric-value red"><CountUp end={coverageWithout} />%</div>
+            </div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Unprotected junctions</div>
+              <div className="impact-metric-value red"><CountUp end={uncoveredCount} /></div>
+            </div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Diversion routes active</div>
+              <div className="impact-metric-value red">0</div>
+            </div>
           </div>
-          <div className="impact-stat">
-            <div className="num"><CountUp end={coverageImprovement} suffix="%" /></div>
-            <div className="label">Coverage Improvement</div>
+
+          {/* ARROW */}
+          <div className="impact-arrow">
+            <ArrowRight size={28} />
+            <span>SEVA</span>
           </div>
-          <div className="impact-stat">
-            <div className="num"><CountUp end={junctionsProtected} /></div>
-            <div className="label">Junctions Secured by SEVA</div>
+
+          {/* WITH SEVA */}
+          <div className="impact-col impact-col-with">
+            <div className="impact-col-header with">With SEVA</div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Avg. delay per vehicle</div>
+              <div className="impact-metric-value green"><CountUp end={delayWith} decimals={1} /> min</div>
+            </div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Junction officer coverage</div>
+              <div className="impact-metric-value green"><CountUp end={coverageWith} />%</div>
+            </div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Unprotected junctions</div>
+              <div className="impact-metric-value green">0</div>
+            </div>
+            <div className="impact-row">
+              <div className="impact-metric-label">Diversion routes active</div>
+              <div className="impact-metric-value green">3</div>
+            </div>
           </div>
         </div>
+        <p className="impact-footnote">
+          Delay computed via BPR formula (Bureau of Public Roads) - the global standard used by FHWA for link-level delay estimation.
+          Coverage from MILP optimization across 54 police stations.
+        </p>
       </RevealSection>
     </section>
   )

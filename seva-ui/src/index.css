@@ -62,6 +62,20 @@ h1, h2, h3, h4, h5, h6 {
 a { color: var(--blue); text-decoration: none; }
 a:hover { color: var(--blue-dark); }
 
+/* ---- SCROLL PROGRESS BAR ---- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
+  background: linear-gradient(90deg, #2563EB, #7c3aed, #2563EB);
+  background-size: 200% 100%;
+  animation: gradientShift 3s ease infinite;
+  transition: width 0.1s linear;
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* ---- NAVBAR ---- */
 .navbar {
   display: flex; align-items: center; justify-content: space-between;
@@ -111,7 +125,37 @@ a:hover { color: var(--blue-dark); }
 .hero {
   text-align: center;
   padding: 80px 48px 64px;
-  background: linear-gradient(180deg, var(--blue-light) 0%, var(--white) 100%);
+  background: linear-gradient(180deg, var(--blue-light) 0%, var(--white) 60%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 20%, rgba(37,99,235,0.06) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(124,58,237,0.04) 0%, transparent 50%);
+  animation: heroFloat 20s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -2%) rotate(1deg); }
+  66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
+}
+.hero h1 .accent {
+  background: linear-gradient(135deg, #2563EB 0%, #7c3aed 50%, #2563EB 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientText 4s ease infinite;
+}
+@keyframes gradientText {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
 }
 .hero-pill {
   display: inline-flex; align-items: center; gap: 8px;
@@ -131,7 +175,7 @@ a:hover { color: var(--blue-dark); }
   font-size: 3.8rem; font-weight: 900; line-height: 1;
   margin-bottom: 8px; letter-spacing: -0.03em;
 }
-.hero h1 .accent { color: var(--blue); }
+
 .hero-subtitle {
   font-size: 1.4rem; font-weight: 600; color: var(--gray-600);
   letter-spacing: 0.02em; margin-bottom: 24px;
@@ -251,28 +295,90 @@ a:hover { color: var(--blue-dark); }
 .metric-box .value.amber { color: var(--amber); }
 .metric-box .sub { font-size: 0.78rem; color: var(--gray-400); margin-top: 4px; }
 
-/* ---- IMPACT STATS ---- */
-.impact-stats {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
-  max-width: 900px; margin: 0 auto;
+/* ---- IMPACT COMPARISON (Before/After) ---- */
+.impact-comparison {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 32px;
+  max-width: 900px;
+  margin: 0 auto 24px;
+  align-items: stretch;
 }
-.impact-stat {
-  text-align: center; padding: 32px 20px;
-  background: linear-gradient(135deg, var(--blue-light), var(--white));
-  border-radius: var(--radius-lg); border: 1px solid var(--blue-100);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.impact-col {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.impact-stat:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 12px 36px rgba(37, 99, 235, 0.15);
+.impact-col:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.08);
 }
-.impact-stat .num {
-  font-size: 3rem; font-weight: 900; color: var(--blue);
-  line-height: 1;
+.impact-col-header {
+  padding: 14px 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: center;
 }
-.impact-stat .label {
-  font-size: 0.95rem; font-weight: 600; color: var(--gray-600);
-  margin-top: 8px;
+.impact-col-header.without {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  color: var(--red);
+  border-bottom: 2px solid #fecaca;
+}
+.impact-col-header.with {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  color: var(--green);
+  border-bottom: 2px solid #bbf7d0;
+}
+.impact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.impact-row:last-child { border-bottom: none; }
+.impact-metric-label {
+  font-size: 0.84rem;
+  color: var(--gray-600);
+  font-weight: 500;
+}
+.impact-metric-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.impact-metric-value.red { color: var(--red); }
+.impact-metric-value.green { color: var(--green); }
+.impact-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.impact-arrow svg {
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+@keyframes arrowPulse {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(6px); opacity: 0.6; }
+}
+.impact-footnote {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
 /* ---- BADGE ---- */
@@ -412,8 +518,7 @@ a:hover { color: var(--blue-dark); }
   .navbar-brand { font-size: 1.1rem; }
   .navbar-brand span:last-child { display: none; }
   .nav-status-item { display: none; }
-  .impact-stats { grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-  .impact-stat .num { font-size: 2.2rem; }
+  .impact-comparison { grid-template-columns: 1fr auto 1fr; gap: 20px; }
   .approach-grid { max-width: 100%; grid-template-columns: repeat(2, 1fr); }
   .approach-card:nth-child(-n+4),
   .approach-card:nth-child(5),
@@ -434,9 +539,9 @@ a:hover { color: var(--blue-dark); }
   .hero-stats { gap: 24px; }
   .hero-stat .num { font-size: 1.8rem; }
   .section-title { font-size: 1.5rem; }
-  .impact-stats { grid-template-columns: 1fr; gap: 12px; }
-  .impact-stat { padding: 20px 16px; }
-  .impact-stat .num { font-size: 2rem; }
+  .impact-comparison { grid-template-columns: 1fr; gap: 16px; }
+  .impact-arrow { flex-direction: row; padding: 8px 0; }
+  .impact-arrow svg { animation: none; }
   .page-tabs { flex-wrap: wrap; gap: 2px; }
   .page-tab { padding: 8px 12px; font-size: 0.78rem; }
   .card-grid { grid-template-columns: 1fr; gap: 16px; }

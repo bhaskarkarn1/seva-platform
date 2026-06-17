@@ -18,9 +18,6 @@ export default function Navbar() {
       <div className="navbar-brand">
         <Shield size={24} color="#2563EB" strokeWidth={2.5} />
         <span style={{ fontWeight: 900, color: '#0f172a' }}>SEVA</span>
-        <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: 500, marginLeft: -4 }}>
-          Smart Event-driven Vulnerability Analyzer
-        </span>
       </div>
 
       {/* Live operational strip */}
