@@ -162,15 +162,21 @@ function buildStaticBrief(config) {
     // Bell curve peaking at event hour
     const dist = Math.abs(i - 2)
     const intensity = Math.max(0.1, 1.0 - dist * 0.2)
+    const congMult = +(1.0 + intensity * (p.risk === 'CRITICAL' ? 0.45 : p.risk === 'HIGH' ? 0.3 : 0.15)).toFixed(2)
+    const status = congMult > 1.3 ? 'OVER_CAPACITY' : congMult > 1.15 ? 'NEAR_CAPACITY' : 'NORMAL'
     return {
       hour: `${h.toString().padStart(2, '0')}:00`,
+      congestion_multiplier: congMult,
       congestion_level: +(intensity * (p.risk === 'CRITICAL' ? 0.95 : p.risk === 'HIGH' ? 0.75 : 0.5)).toFixed(2),
+      label: i < 2 ? 'Pre-Event Build-up' : i < 5 ? 'Peak Congestion' : 'Post-Event Clearance',
       phase: i < 2 ? 'Pre-Event Build-up' : i < 5 ? 'Peak Congestion' : 'Post-Event Clearance',
-      is_peak: i >= 2 && i <= 4
+      is_peak: i >= 2 && i <= 4,
+      status,
+      estimated_delay_min: +(congMult * 5 - 5).toFixed(1)
     }
   })
 
-  const peakEntry = timeline.reduce((max, t) => t.congestion_level > max.congestion_level ? t : max, timeline[0])
+  const peakEntry = timeline.reduce((max, t) => t.congestion_multiplier > max.congestion_multiplier ? t : max, timeline[0])
 
   return {
     status: 'COMPUTED',
@@ -201,6 +207,7 @@ function buildStaticBrief(config) {
     barricade_plan: {
       total: p.barricades,
       positions: barricadePositions,
+      barricades: barricadePositions,
       containment_pct: p.barricades >= 3 ? 87 : 72,
       methodology: 'Junction-based perimeter containment at high-connectivity intersections'
     },
@@ -226,6 +233,9 @@ function buildStaticBrief(config) {
     temporal_impact_curve: {
       timeline,
       peak_label: peakEntry.hour,
+      peak_congestion_multiplier: peakEntry.congestion_multiplier,
+      hours_over_capacity: timeline.filter(t => t.status === 'OVER_CAPACITY').length,
+      hours_near_capacity: timeline.filter(t => t.status === 'NEAR_CAPACITY').length,
       duration_hours: p.resolution.median_hrs
     },
     bpr_delay_analysis: {

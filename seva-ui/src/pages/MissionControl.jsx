@@ -161,7 +161,8 @@ export default function MissionControl() {
             const newCfg = { cause: preset.cause, corridor: preset.corridor, hour: preset.hour, lat: preset.lat, lon: preset.lon };
             setConfig(newCfg);
             addLog(`Scenario selected: ${preset.label}`);
-            runSimulation(newCfg);
+            // Defer simulation to next tick to avoid React state race
+            setTimeout(() => runSimulation(newCfg), 0);
           }} style={{
             padding: '0.375rem 0.875rem', border: '1px solid #cbd5e1', borderRadius: 20,
             background: config.cause === preset.cause && config.corridor === preset.corridor ? '#2563eb' : 'white',
