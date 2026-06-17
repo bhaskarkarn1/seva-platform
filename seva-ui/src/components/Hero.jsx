@@ -100,37 +100,35 @@ export default function Hero({ eda }) {
         <div className="approach-grid">
           {[
             { num: '01', icon: AlertTriangle, color: '#dc2626', title: 'Event Detection & Classification',
-              desc: 'Classify incoming events by type, severity, and expected impact using LightGBM models trained on 8,057 historical events from the ASTraM dataset.',
-              detail: 'PR-AUC: 0.9945 | ROC-AUC: 0.9999' },
+              desc: 'LightGBM models classify events by type, severity, and expected impact from 8,057 ASTraM events.',
+              detail: 'PR-AUC: 0.9945' },
             { num: '02', icon: TrendingDown, color: '#2563eb', title: 'Traffic Impact Forecasting',
-              desc: 'Forecast hour-by-hour congestion using the BPR (Bureau of Public Roads) delay function. Estimate attendance → vehicles → V/C ratios for each approach corridor.',
-              detail: 'BPR Formula: delay = t₀ × (1 + 0.15 × (V/C)⁴)' },
+              desc: 'BPR delay function forecasts congestion. Estimates attendance to vehicle to V/C ratios per corridor.',
+              detail: 'BPR: t0 x (1 + 0.15 x (V/C)^4)' },
             { num: '03', icon: Users, color: '#7c3aed', title: 'Optimal Officer Deployment',
-              desc: 'Mixed Integer Linear Programming (MILP) via OR-Tools allocates officers from 54 police stations with capacity and distance constraints.',
-              detail: 'Constraint: 5km max distance, station capacity limits' },
+              desc: 'MILP via OR-Tools allocates officers from 54 stations with capacity and distance constraints.',
+              detail: '5km max, station limits' },
             { num: '04', icon: Construction, color: '#ea580c', title: 'Barricade Placement',
-              desc: 'Junction-based perimeter containment at high-connectivity intersections. Uses angular distribution and historical event density to maximize containment.',
-              detail: 'Containment target: 70-90% of affected area' },
+              desc: 'Junction-based perimeter containment at high-connectivity intersections using angular distribution.',
+              detail: '70-90% containment' },
             { num: '05', icon: Navigation, color: '#16a34a', title: 'Diversion Planning',
-              desc: 'OSMnx-powered road graph rerouting computes shortest alternative paths. Quantifies detour distance and expected delay reduction for each diversion.',
-              detail: 'Bengaluru graph: 155K nodes, 394K edges' },
+              desc: 'OSMnx road graph rerouting computes shortest alternative paths with delay reduction estimates.',
+              detail: '155K nodes, 394K edges' },
             { num: '06', icon: Zap, color: '#0891b2', title: 'Real-Time Execution',
-              desc: 'One-click operational briefing generates deployment orders, barricade positions, diversion routes, and citizen advisories simultaneously.',
-              detail: 'Complete brief in <500ms' },
+              desc: 'One-click briefing generates deployment orders, barricade positions, and diversion routes.',
+              detail: 'Brief in <500ms' },
             { num: '07', icon: BookOpen, color: '#9333ea', title: 'Post-Event Learning',
-              desc: 'Closed-loop feedback compares predictions vs actual outcomes. Identifies drift, triggers model retraining, and continuously improves forecasting accuracy.',
-              detail: 'Automated retraining triggers with threshold alerts' },
+              desc: 'Closed-loop feedback compares predictions vs outcomes. Triggers model retraining on drift.',
+              detail: 'Auto retraining alerts' },
           ].map((step, i) => (
             <div key={i} className="approach-card">
-              <div className="approach-num" style={{ background: step.color + '15', color: step.color }}>{step.num}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                  <step.icon size={18} color={step.color} />
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>{step.title}</h4>
-                </div>
-                <p style={{ fontSize: '0.84rem', color: '#475569', lineHeight: 1.7, margin: '0 0 4px' }}>{step.desc}</p>
-                <div style={{ fontSize: '0.72rem', color: '#94a3b8', fontFamily: 'monospace' }}>{step.detail}</div>
+              <div className="approach-card-header">
+                <div className="approach-num" style={{ background: step.color + '15', color: step.color }}>{step.num}</div>
+                <step.icon size={20} color={step.color} />
               </div>
+              <h4 className="approach-card-title">{step.title}</h4>
+              <p className="approach-card-desc">{step.desc}</p>
+              <div className="approach-card-detail">{step.detail}</div>
             </div>
           ))}
         </div>
