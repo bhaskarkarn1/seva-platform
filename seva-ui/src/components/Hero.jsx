@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Shield, AlertTriangle, Users, Construction, Navigation, TrendingDown, BookOpen, Zap } from 'lucide-react'
+import { Shield, AlertTriangle, Users, Construction, Navigation, TrendingDown, BookOpen, Zap, ArrowRight } from 'lucide-react'
 import { RevealSection } from '../hooks/useReveal'
 
 function CountUp({ end, suffix = '', duration = 1500 }) {
@@ -29,6 +29,38 @@ function CountUp({ end, suffix = '', duration = 1500 }) {
   return <span ref={ref} className="count-up">{count.toLocaleString()}{suffix}</span>
 }
 
+const STATS = [
+  { end: 8057, label: 'Events Analyzed', icon: '📊' },
+  { end: 54, label: 'Police Stations', icon: '🏛', duration: 1000 },
+  { end: 22, label: 'Corridors Mapped', icon: '🗺', duration: 800 },
+  { end: 3, label: 'ML Models', icon: '🤖', duration: 600 },
+  { end: 5, label: 'Operational Engines', icon: '⚙️', duration: 600 },
+]
+
+const APPROACH_STEPS = [
+  { num: '01', icon: AlertTriangle, color: '#dc2626', title: 'Event Detection & Classification',
+    desc: 'LightGBM models classify events by type, severity, and expected impact from 8,057 ASTraM events.',
+    detail: 'PR-AUC: 0.9945' },
+  { num: '02', icon: TrendingDown, color: '#2563eb', title: 'Traffic Impact Forecasting',
+    desc: 'BPR delay function forecasts congestion. Estimates attendance to vehicle to V/C ratios per corridor.',
+    detail: 'BPR: t0 x (1 + 0.15 x (V/C)^4)' },
+  { num: '03', icon: Users, color: '#7c3aed', title: 'Optimal Officer Deployment',
+    desc: 'MILP via OR-Tools allocates officers from 54 stations with capacity and distance constraints.',
+    detail: '5km max, station limits' },
+  { num: '04', icon: Construction, color: '#ea580c', title: 'Barricade Placement',
+    desc: 'Junction-based perimeter containment at high-connectivity intersections using angular distribution.',
+    detail: '70-90% containment' },
+  { num: '05', icon: Navigation, color: '#16a34a', title: 'Diversion Planning',
+    desc: 'OSMnx road graph rerouting computes shortest alternative paths with delay reduction estimates.',
+    detail: '155K nodes, 394K edges' },
+  { num: '06', icon: Zap, color: '#0891b2', title: 'Real-Time Execution',
+    desc: 'One-click briefing generates deployment orders, barricade positions, and diversion routes.',
+    detail: 'Brief in <500ms' },
+  { num: '07', icon: BookOpen, color: '#9333ea', title: 'Post-Event Learning',
+    desc: 'Closed-loop feedback compares predictions vs outcomes. Triggers model retraining on drift.',
+    detail: 'Auto retraining alerts' },
+]
+
 export default function Hero({ eda }) {
   const total = eda?.total_events || 8057
   const stationCount = eda?.station_profiles?.length || 54
@@ -36,46 +68,62 @@ export default function Hero({ eda }) {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Premium Design */}
       <section className="hero" id="overview">
-        <h1>
-          <span className="accent">SEVA</span>
-        </h1>
-        <p className="hero-subtitle">Smart Event-driven Vulnerability Analyzer</p>
-        <p className="hero-sub">
-          An AI-powered operational command center for <strong>Bengaluru Traffic Police</strong> that forecasts 
-          event-driven congestion, deploys officers optimally, places barricades strategically, and 
-          activates diversions - all before the first vehicle arrives.
-        </p>
+        {/* Animated Background Orbs */}
+        <div className="hero-orbs">
+          <div className="hero-orb hero-orb-1" />
+          <div className="hero-orb hero-orb-2" />
+          <div className="hero-orb hero-orb-3" />
+        </div>
 
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          {/* Live Badge */}
+          <div className="hero-pill">
+            <span className="dot" />
+            Flipkart Gridlock 6.0 | Problem Statement 2
+          </div>
 
+          <h1>
+            <span className="accent">SEVA</span>
+          </h1>
+          <p className="hero-subtitle">Smart Event-driven Vulnerability Analyzer</p>
+          <p className="hero-sub">
+            An AI-powered operational command center for <strong>Bengaluru Traffic Police</strong> that forecasts 
+            event-driven congestion, deploys officers optimally, places barricades strategically, and 
+            activates diversions - all before the first vehicle arrives.
+          </p>
 
+          {/* Stats Cards */}
+          <div className="hero-stats-grid">
+            {STATS.map((s, i) => (
+              <div key={i} className="hero-stat-card">
+                <span className="hero-stat-icon">{s.icon}</span>
+                <div className="hero-stat-num">
+                  <CountUp end={i === 0 ? total : i === 1 ? stationCount : i === 2 ? corridorCount : s.end} duration={s.duration || 1500} />
+                </div>
+                <div className="hero-stat-label">{s.label}</div>
+              </div>
+            ))}
+          </div>
 
-        <div className="hero-stats">
-          <div className="hero-stat">
-            <div className="num"><CountUp end={total} /></div>
-            <div className="label">Events Analyzed</div>
-          </div>
-          <div className="hero-stat">
-            <div className="num"><CountUp end={stationCount} duration={1000} /></div>
-            <div className="label">Police Stations</div>
-          </div>
-          <div className="hero-stat">
-            <div className="num"><CountUp end={corridorCount} duration={800} /></div>
-            <div className="label">Corridors Mapped</div>
-          </div>
-          <div className="hero-stat">
-            <div className="num"><CountUp end={3} duration={600} /></div>
-            <div className="label">ML Models</div>
-          </div>
-          <div className="hero-stat">
-            <div className="num"><CountUp end={5} duration={600} /></div>
-            <div className="label">Operational Engines</div>
-          </div>
+          {/* CTA */}
+          <a href="#dashboard" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            background: 'linear-gradient(135deg, #2563eb, #7c3aed)', color: 'white',
+            padding: '14px 32px', borderRadius: 12, fontWeight: 700, fontSize: '0.95rem',
+            marginTop: 32, textDecoration: 'none', transition: 'all 0.3s',
+            boxShadow: '0 4px 20px rgba(37,99,235,0.3)'
+          }}
+          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(37,99,235,0.4)' }}
+          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(37,99,235,0.3)' }}
+          >
+            Launch Command Center <ArrowRight size={18} />
+          </a>
         </div>
       </section>
 
-      {/* How We Tackle It Section */}
+      {/* Approach Section */}
       <section className="section" id="approach" style={{ background: '#f8fafc' }}>
         <RevealSection>
           <div className="section-label">Our Approach</div>
@@ -85,29 +133,7 @@ export default function Hero({ eda }) {
           </p>
         </RevealSection>
         <div className="approach-grid">
-          {[
-            { num: '01', icon: AlertTriangle, color: '#dc2626', title: 'Event Detection & Classification',
-              desc: 'LightGBM models classify events by type, severity, and expected impact from 8,057 ASTraM events.',
-              detail: 'PR-AUC: 0.9945' },
-            { num: '02', icon: TrendingDown, color: '#2563eb', title: 'Traffic Impact Forecasting',
-              desc: 'BPR delay function forecasts congestion. Estimates attendance to vehicle to V/C ratios per corridor.',
-              detail: 'BPR: t0 x (1 + 0.15 x (V/C)^4)' },
-            { num: '03', icon: Users, color: '#7c3aed', title: 'Optimal Officer Deployment',
-              desc: 'MILP via OR-Tools allocates officers from 54 stations with capacity and distance constraints.',
-              detail: '5km max, station limits' },
-            { num: '04', icon: Construction, color: '#ea580c', title: 'Barricade Placement',
-              desc: 'Junction-based perimeter containment at high-connectivity intersections using angular distribution.',
-              detail: '70-90% containment' },
-            { num: '05', icon: Navigation, color: '#16a34a', title: 'Diversion Planning',
-              desc: 'OSMnx road graph rerouting computes shortest alternative paths with delay reduction estimates.',
-              detail: '155K nodes, 394K edges' },
-            { num: '06', icon: Zap, color: '#0891b2', title: 'Real-Time Execution',
-              desc: 'One-click briefing generates deployment orders, barricade positions, and diversion routes.',
-              detail: 'Brief in <500ms' },
-            { num: '07', icon: BookOpen, color: '#9333ea', title: 'Post-Event Learning',
-              desc: 'Closed-loop feedback compares predictions vs outcomes. Triggers model retraining on drift.',
-              detail: 'Auto retraining alerts' },
-          ].map((step, i) => (
+          {APPROACH_STEPS.map((step, i) => (
             <div key={i} className="approach-card">
               <div className="approach-card-header">
                 <div className="approach-num" style={{ background: step.color + '15', color: step.color }}>{step.num}</div>
