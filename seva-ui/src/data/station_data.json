@@ -1,0 +1,380 @@
+{
+  "Adugodi": {
+    "lat": 12.933852,
+    "lon": 77.619435,
+    "capacity": 11,
+    "historical_events": 120,
+    "closure_rate": 0.0917
+  },
+  "Ashok Nagar": {
+    "lat": 12.962331,
+    "lon": 77.60982,
+    "capacity": 13,
+    "historical_events": 168,
+    "closure_rate": 0.0893
+  },
+  "Banashankari": {
+    "lat": 12.923207,
+    "lon": 77.556852,
+    "capacity": 10,
+    "historical_events": 102,
+    "closure_rate": 0.0294
+  },
+  "Banaswadi": {
+    "lat": 13.000783,
+    "lon": 77.656709,
+    "capacity": 17,
+    "historical_events": 242,
+    "closure_rate": 0.0826
+  },
+  "Basavanagudi": {
+    "lat": 12.942621,
+    "lon": 77.571381,
+    "capacity": 7,
+    "historical_events": 47,
+    "closure_rate": 0.2128
+  },
+  "Bellandur": {
+    "lat": 12.919061,
+    "lon": 77.669779,
+    "capacity": 9,
+    "historical_events": 95,
+    "closure_rate": 0.0632
+  },
+  "Byatarayanapura": {
+    "lat": 12.949366,
+    "lon": 77.534259,
+    "capacity": 19,
+    "historical_events": 296,
+    "closure_rate": 0.0439
+  },
+  "Chamarajpet": {
+    "lat": 12.965557,
+    "lon": 77.563669,
+    "capacity": 14,
+    "historical_events": 188,
+    "closure_rate": 0.1277
+  },
+  "Chikkabanavara": {
+    "lat": 13.048085,
+    "lon": 77.506261,
+    "capacity": 10,
+    "historical_events": 117,
+    "closure_rate": 0.0256
+  },
+  "Chikkajala": {
+    "lat": 13.164904,
+    "lon": 77.640509,
+    "capacity": 8,
+    "historical_events": 72,
+    "closure_rate": 0.0139
+  },
+  "City Market": {
+    "lat": 12.961732,
+    "lon": 77.57835,
+    "capacity": 6,
+    "historical_events": 27,
+    "closure_rate": 0.2222
+  },
+  "Cubbon Park": {
+    "lat": 12.978169,
+    "lon": 77.595552,
+    "capacity": 15,
+    "historical_events": 204,
+    "closure_rate": 0.0637
+  },
+  "Devanahalli Airport": {
+    "lat": 13.237649,
+    "lon": 77.701804,
+    "capacity": 6,
+    "historical_events": 36,
+    "closure_rate": 0.0278
+  },
+  "Electronic City": {
+    "lat": 12.851408,
+    "lon": 77.664642,
+    "capacity": 11,
+    "historical_events": 121,
+    "closure_rate": 0.0248
+  },
+  "HAL Old Airport": {
+    "lat": 12.953048,
+    "lon": 77.697174,
+    "capacity": 22,
+    "historical_events": 354,
+    "closure_rate": 0.0424
+  },
+  "HSR Layout": {
+    "lat": 12.910226,
+    "lon": 77.631607,
+    "capacity": 10,
+    "historical_events": 116,
+    "closure_rate": 0.0862
+  },
+  "Halasur": {
+    "lat": 12.969269,
+    "lon": 77.62588,
+    "capacity": 10,
+    "historical_events": 116,
+    "closure_rate": 0.069
+  },
+  "Halasuru Gate": {
+    "lat": 12.967166,
+    "lon": 77.587274,
+    "capacity": 19,
+    "historical_events": 294,
+    "closure_rate": 0.1497
+  },
+  "Hebbala": {
+    "lat": 13.044025,
+    "lon": 77.595723,
+    "capacity": 11,
+    "historical_events": 135,
+    "closure_rate": 0.0741
+  },
+  "Hennuru": {
+    "lat": 13.044606,
+    "lon": 77.633388,
+    "capacity": 18,
+    "historical_events": 273,
+    "closure_rate": 0.0769
+  },
+  "High ground": {
+    "lat": 12.988778,
+    "lon": 77.585601,
+    "capacity": 14,
+    "historical_events": 180,
+    "closure_rate": 0.0889
+  },
+  "Hulimavu": {
+    "lat": 12.872834,
+    "lon": 77.604544,
+    "capacity": 10,
+    "historical_events": 116,
+    "closure_rate": 0.0
+  },
+  "J.P. Nagar": {
+    "lat": 12.903282,
+    "lon": 77.590223,
+    "capacity": 11,
+    "historical_events": 124,
+    "closure_rate": 0.0887
+  },
+  "Jalahalli": {
+    "lat": 13.043468,
+    "lon": 77.54871,
+    "capacity": 14,
+    "historical_events": 194,
+    "closure_rate": 0.0619
+  },
+  "Jayanagara": {
+    "lat": 12.920924,
+    "lon": 77.58771,
+    "capacity": 13,
+    "historical_events": 176,
+    "closure_rate": 0.1023
+  },
+  "Jeevanbheemanagar": {
+    "lat": 12.97317,
+    "lon": 77.645591,
+    "capacity": 11,
+    "historical_events": 125,
+    "closure_rate": 0.088
+  },
+  "Jnanabharathi": {
+    "lat": 12.960836,
+    "lon": 77.507781,
+    "capacity": 11,
+    "historical_events": 131,
+    "closure_rate": 0.0611
+  },
+  "K.G. Halli": {
+    "lat": 13.030609,
+    "lon": 77.620336,
+    "capacity": 8,
+    "historical_events": 72,
+    "closure_rate": 0.25
+  },
+  "K.R. Pura": {
+    "lat": 13.016153,
+    "lon": 77.70573,
+    "capacity": 16,
+    "historical_events": 228,
+    "closure_rate": 0.1272
+  },
+  "K.S. Layout": {
+    "lat": 12.909228,
+    "lon": 77.55791,
+    "capacity": 9,
+    "historical_events": 86,
+    "closure_rate": 0.0116
+  },
+  "Kamakshipalya": {
+    "lat": 12.987769,
+    "lon": 77.508315,
+    "capacity": 15,
+    "historical_events": 219,
+    "closure_rate": 0.0594
+  },
+  "Kengeri": {
+    "lat": 12.913604,
+    "lon": 77.485245,
+    "capacity": 7,
+    "historical_events": 40,
+    "closure_rate": 0.3
+  },
+  "Kodigehalli": {
+    "lat": 13.04709,
+    "lon": 77.585783,
+    "capacity": 18,
+    "historical_events": 271,
+    "closure_rate": 0.059
+  },
+  "Madiwala": {
+    "lat": 12.917823,
+    "lon": 77.621389,
+    "capacity": 14,
+    "historical_events": 183,
+    "closure_rate": 0.0383
+  },
+  "Magadi Road": {
+    "lat": 12.97366,
+    "lon": 77.556495,
+    "capacity": 11,
+    "historical_events": 139,
+    "closure_rate": 0.0504
+  },
+  "Mahadevapura": {
+    "lat": 12.992782,
+    "lon": 77.717891,
+    "capacity": 11,
+    "historical_events": 120,
+    "closure_rate": 0.05
+  },
+  "Malleshwaram": {
+    "lat": 13.005118,
+    "lon": 77.56187,
+    "capacity": 8,
+    "historical_events": 79,
+    "closure_rate": 0.1013
+  },
+  "Mico Layout": {
+    "lat": 12.913391,
+    "lon": 77.604886,
+    "capacity": 10,
+    "historical_events": 116,
+    "closure_rate": 0.069
+  },
+  "No Police Station": {
+    "lat": 13.036078,
+    "lon": 77.499981,
+    "capacity": 15,
+    "historical_events": 214,
+    "closure_rate": 0.0561
+  },
+  "Peenya": {
+    "lat": 13.038822,
+    "lon": 77.514598,
+    "capacity": 13,
+    "historical_events": 178,
+    "closure_rate": 0.0393
+  },
+  "Pulikeshinagar(F.Town)": {
+    "lat": 12.996772,
+    "lon": 77.614307,
+    "capacity": 8,
+    "historical_events": 69,
+    "closure_rate": 0.1739
+  },
+  "R.T. Nagar": {
+    "lat": 13.0155,
+    "lon": 77.589584,
+    "capacity": 11,
+    "historical_events": 125,
+    "closure_rate": 0.104
+  },
+  "Rajajinagar": {
+    "lat": 13.005,
+    "lon": 77.540903,
+    "capacity": 10,
+    "historical_events": 102,
+    "closure_rate": 0.0686
+  },
+  "Sadashivanagar": {
+    "lat": 13.010334,
+    "lon": 77.579708,
+    "capacity": 20,
+    "historical_events": 301,
+    "closure_rate": 0.0731
+  },
+  "Sheshadripuram": {
+    "lat": 12.986802,
+    "lon": 77.572708,
+    "capacity": 10,
+    "historical_events": 118,
+    "closure_rate": 0.1186
+  },
+  "Shivajinagar": {
+    "lat": 12.983047,
+    "lon": 77.602359,
+    "capacity": 9,
+    "historical_events": 89,
+    "closure_rate": 0.0562
+  },
+  "Thalagattapura": {
+    "lat": 12.872428,
+    "lon": 77.54895,
+    "capacity": 7,
+    "historical_events": 44,
+    "closure_rate": 0.0682
+  },
+  "Upparpet": {
+    "lat": 12.976805,
+    "lon": 77.577189,
+    "capacity": 8,
+    "historical_events": 60,
+    "closure_rate": 0.1
+  },
+  "V.V.Puram (C.Pet)": {
+    "lat": 12.958232,
+    "lon": 77.572952,
+    "capacity": 6,
+    "historical_events": 37,
+    "closure_rate": 0.0811
+  },
+  "Vijayanagara": {
+    "lat": 12.979281,
+    "lon": 77.542188,
+    "capacity": 7,
+    "historical_events": 58,
+    "closure_rate": 0.0862
+  },
+  "Whitefield": {
+    "lat": 12.95069,
+    "lon": 77.740794,
+    "capacity": 13,
+    "historical_events": 179,
+    "closure_rate": 0.0391
+  },
+  "Wilson Garden": {
+    "lat": 12.947584,
+    "lon": 77.592528,
+    "capacity": 10,
+    "historical_events": 105,
+    "closure_rate": 0.1714
+  },
+  "Yelahanka": {
+    "lat": 13.101419,
+    "lon": 77.596026,
+    "capacity": 23,
+    "historical_events": 377,
+    "closure_rate": 0.0371
+  },
+  "Yeshwanthpura": {
+    "lat": 13.026195,
+    "lon": 77.544797,
+    "capacity": 18,
+    "historical_events": 279,
+    "closure_rate": 0.0358
+  }
+}

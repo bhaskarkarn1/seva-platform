@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { BookOpen, CheckCircle, AlertTriangle, Database, TrendingUp, RefreshCw } from 'lucide-react';
-
-const API = 'http://localhost:8000';
+import { fetchPostEventLearning } from '../data/api';
 
 export default function PostEventLearning() {
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API}/post-event-learning`)
-      .then(r => r.json())
-      .then(setReport)
+    fetchPostEventLearning()
+      .then(data => { if (data) setReport(data); })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);

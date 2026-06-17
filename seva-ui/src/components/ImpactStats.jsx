@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { RevealSection } from '../hooks/useReveal'
 import { ArrowRight } from 'lucide-react'
+import { fetchScenario, fetchMissionBrief } from '../data/api'
 
 function CountUp({ end, suffix = '', duration = 1500, decimals = 0 }) {
   const [count, setCount] = useState(0)
@@ -38,22 +39,12 @@ export default function ImpactStats() {
   const [missionBrief, setMissionBrief] = useState(null)
 
   useEffect(() => {
-    fetch('http://localhost:8000/scenario/chinnaswamy')
-      .then(r => r.json())
-      .then(data => setScenario(data))
-      .catch(() => null)
+    fetchScenario().then(data => setScenario(data)).catch(() => null)
 
-    fetch('http://localhost:8000/mission-control', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event_type: 'unplanned', cause: 'public_event',
-        lat: 12.9784, lon: 77.5998, corridor: 'CBD', hour: 20
-      })
-    })
-      .then(r => r.json())
-      .then(data => setMissionBrief(data))
-      .catch(() => null)
+    fetchMissionBrief({
+      cause: 'public_event', lat: 12.9784, lon: 77.5998,
+      corridor: 'CBD', hour: 20
+    }).then(data => setMissionBrief(data)).catch(() => null)
   }, [])
 
   const delayWithout = missionBrief?.bpr_delay_analysis?.delay_without_seva_min || 6.5

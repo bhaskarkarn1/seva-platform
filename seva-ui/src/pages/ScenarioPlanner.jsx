@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Marker, Tooltip, Circle } from 'react-leaflet'
 import L from 'leaflet'
 import { Construction, Shield } from 'lucide-react'
-
-const API = 'http://localhost:8000'
+import { fetchScenario } from '../data/api'
 
 const greenIcon = new L.Icon({
   iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
@@ -22,8 +21,7 @@ export default function ScenarioPlanner() {
 
   const runScenario = () => {
     setLoading(true)
-    fetch(`${API}/scenario/chinnaswamy`)
-      .then(r => r.json())
+    fetchScenario()
       .then(data => { setResult(data); setLoading(false) })
       .catch(() => setLoading(false))
   }

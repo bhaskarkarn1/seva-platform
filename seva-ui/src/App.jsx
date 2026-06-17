@@ -6,8 +6,7 @@ import ImpactStats from './components/ImpactStats'
 import Capabilities from './components/Capabilities'
 import Dashboard from './pages/Dashboard'
 import Footer from './components/Footer'
-
-const API = 'http://localhost:8000'
+import { fetchEda, fetchMetrics, fetchStations } from './data/api'
 
 export default function App() {
   const [eda, setEda] = useState(null)
@@ -17,9 +16,9 @@ export default function App() {
 
   useEffect(() => {
     Promise.all([
-      fetch(`${API}/eda`).then(r => r.json()).catch(() => null),
-      fetch(`${API}/metrics`).then(r => r.json()).catch(() => null),
-      fetch(`${API}/stations`).then(r => r.json()).catch(() => null),
+      fetchEda(),
+      fetchMetrics(),
+      fetchStations(),
     ]).then(([edaData, metricsData, stationsData]) => {
       setEda(edaData)
       setMetrics(metricsData)

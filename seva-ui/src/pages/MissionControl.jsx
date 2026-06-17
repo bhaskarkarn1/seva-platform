@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import L from 'leaflet';
-import { Shield, Users, Construction, Navigation, AlertTriangle, Clock, MapPin, ChevronDown, ChevronUp, Zap, TrendingDown, ArrowRight, Waves, Megaphone, BookOpen } from 'lucide-react';
-
-const API = 'http://localhost:8000';
+import { Shield, Users, Construction, Navigation, AlertTriangle, Clock, MapPin, ChevronDown, ChevronUp, Zap, TrendingDown, ArrowRight, Waves, Megaphone, BookOpen, History } from 'lucide-react';
+import { fetchMissionBrief } from '../data/api';
 
 const RISK_COLORS = {
   CRITICAL: '#dc2626',
@@ -71,23 +70,17 @@ export default function MissionControl() {
   const [brief, setBrief] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showTechnical, setShowTechnical] = useState(false);
+  const [briefHistory, setBriefHistory] = useState([]);
+  const [showHistory, setShowHistory] = useState(false);
 
   const runSimulation = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/mission-control`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event_type: 'unplanned',
-          cause: config.cause,
-          lat: config.lat,
-          lon: config.lon,
-          corridor: config.corridor,
-          hour: config.hour
-        })
-      });
-      const data = await res.json();
+      const data = await fetchMissionBrief(config);
+      // Push current brief to history before replacing
+      if (brief) {
+        setBriefHistory(prev => [{ brief, timestamp: new Date().toLocaleTimeString(), config: { ...config } }, ...prev].slice(0, 10));
+      }
       setBrief(data);
     } catch (e) {
       console.error('Mission control error:', e);
@@ -229,7 +222,7 @@ export default function MissionControl() {
                   { label: 'Primary Driver', value: brief.event.cause.replace(/_/g, ' ') },
                   { label: 'Corridor Risk', value: impact.congestion_level },
                   { label: 'Peak Hour', value: impact.is_peak_hour ? 'Yes - higher weight' : 'No - off-peak' },
-                  { label: 'Model', value: 'LightGBM (PR-AUC: 0.9945)' },
+                  { label: 'Method', value: 'ASTraM historical rates + domain calibration' },
                 ]} />
               <MetricCard icon={<MapPin size={18} />} label="Affected Junctions" value={impact.affected_junctions} color="#2563eb"
                 intel={[
@@ -688,6 +681,61 @@ export default function MissionControl() {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* Simulation History Log */}
+      {briefHistory.length > 0 && (
+        <div style={{ marginTop: '1.5rem' }}>
+          <button onClick={() => setShowHistory(!showHistory)} style={{
+            background: 'none', border: '1px solid #e2e8f0', borderRadius: 8, padding: '0.5rem 1rem',
+            cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.85rem',
+            color: '#64748b', fontWeight: 600, width: '100%', justifyContent: 'center'
+          }}>
+            <History size={14} /> Previous Simulations ({briefHistory.length})
+            {showHistory ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+          </button>
+          {showHistory && (
+            <div style={{ marginTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {briefHistory.map((entry, i) => {
+                const imp = entry.brief?.impact_assessment;
+                return (
+                  <div key={i}
+                    onClick={() => { setBrief(entry.brief); setConfig(entry.config); }}
+                    style={{
+                      background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10,
+                      padding: '0.75rem 1rem', cursor: 'pointer', transition: 'all 0.2s',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem'
+                    }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = '#2563eb'; e.currentTarget.style.background = '#eff6ff'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.background = '#f8fafc'; }}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <div style={{
+                        width: 8, height: 8, borderRadius: '50%',
+                        background: RISK_COLORS[imp?.risk_level] || '#94a3b8'
+                      }} />
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: '0.82rem', color: '#1e293b' }}>
+                          {entry.config.cause.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} - {entry.config.corridor}
+                        </div>
+                        <div style={{ fontSize: '0.7rem', color: '#94a3b8' }}>
+                          {entry.timestamp} | {imp?.risk_level} risk | {imp?.affected_junctions} junctions
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{
+                      background: RISK_BG[imp?.risk_level] || '#f1f5f9',
+                      color: RISK_COLORS[imp?.risk_level] || '#64748b',
+                      padding: '3px 10px', borderRadius: 6, fontSize: '0.7rem', fontWeight: 700
+                    }}>
+                      {imp?.risk_level}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>

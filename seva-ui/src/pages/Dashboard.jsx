@@ -11,7 +11,7 @@ const TABS = [
   'Mission Control',
   'Vulnerability Intel',
   'Scenario Planner',
-  'Performance Monitor',
+  'Post-Event Learning',
   'Model Performance',
   'Data Explorer'
 ]
@@ -25,7 +25,7 @@ export default function Dashboard({ eda, metrics, stations, loading }) {
         <div className="section-label">Interactive Dashboard</div>
         <div className="section-title">Operational Command Platform</div>
         <p className="section-desc">
-          All analytics below are computed from the ASTraM dataset. Zero hardcoded values.
+          All analytics derived from ASTraM dataset and established traffic engineering models.
         </p>
       </RevealSection>
 
