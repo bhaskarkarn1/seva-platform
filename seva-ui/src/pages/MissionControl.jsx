@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import L from 'leaflet';
 import { Shield, Users, Construction, Navigation, AlertTriangle, Clock, MapPin, ChevronDown, ChevronUp, Zap, TrendingDown, ArrowRight, Waves, Megaphone, BookOpen, History } from 'lucide-react';
@@ -71,14 +71,25 @@ export default function MissionControl() {
   const [loading, setLoading] = useState(false);
   const [showTechnical, setShowTechnical] = useState(false);
   const [briefHistory, setBriefHistory] = useState([]);
-  const [showHistory, setShowHistory] = useState(false);
+  const [showHistory, setShowHistory] = useState(true);
   const [error, setError] = useState(null);
+  const [activityLog, setActivityLog] = useState([]);
+  const logRef = useRef(null);
 
-  const runSimulation = async () => {
+  function addLog(msg, type = 'info') {
+    setActivityLog(prev => [...prev, { time: new Date(), msg, type }]);
+    setTimeout(() => { if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight; }, 50);
+  }
+
+  useEffect(() => { addLog('Mission Control initialized. Select a scenario or configure an event.'); }, []);
+
+  const runSimulation = async (overrideConfig) => {
+    const cfg = overrideConfig || config;
     setLoading(true);
     setError(null);
+    addLog(`Simulation started: ${cfg.cause.replace(/_/g, ' ')} | ${cfg.corridor} | ${cfg.hour}:00`);
     try {
-      const data = await fetchMissionBrief(config);
+      const data = await fetchMissionBrief(cfg);
       if (!data || !data.impact_assessment) {
         throw new Error('Invalid response');
       }
@@ -87,9 +98,15 @@ export default function MissionControl() {
         setBriefHistory(prev => [{ brief, timestamp: new Date().toLocaleTimeString(), config: { ...config } }, ...prev].slice(0, 10));
       }
       setBrief(data);
+      const risk = data.impact_assessment?.risk_level || 'UNKNOWN';
+      addLog(`Brief computed: ${risk} risk | ${data.officer_deployment?.total_officers || 0} officers | ${data.barricade_plan?.total || 0} barricades`, risk === 'CRITICAL' ? 'error' : risk === 'HIGH' ? 'warning' : 'success');
+      if (data.diversion_summary?.total_diversions) {
+        addLog(`${data.diversion_summary.total_diversions} diversion routes activated | ~${data.diversion_summary.expected_delay_reduction_pct}% delay reduction`, 'success');
+      }
     } catch (e) {
       console.error('Mission control error:', e);
       setError('Simulation failed. Please try again.');
+      addLog(`ERROR: ${e.message}`, 'error');
     }
     setLoading(false);
   };
@@ -140,9 +157,12 @@ export default function MissionControl() {
           { label: 'Festival Procession', cause: 'procession', corridor: 'Mysore Road', hour: 17, lat: 12.9568, lon: 77.5457 },
           { label: 'VIP Movement', cause: 'VIP_movement', corridor: 'Bellary Road', hour: 9, lat: 13.0068, lon: 77.5728 },
         ].map(preset => (
-          <button key={preset.label} onClick={() => setConfig({
-            cause: preset.cause, corridor: preset.corridor, hour: preset.hour, lat: preset.lat, lon: preset.lon
-          })} style={{
+          <button key={preset.label} onClick={() => {
+            const newCfg = { cause: preset.cause, corridor: preset.corridor, hour: preset.hour, lat: preset.lat, lon: preset.lon };
+            setConfig(newCfg);
+            addLog(`Scenario selected: ${preset.label}`);
+            runSimulation(newCfg);
+          }} style={{
             padding: '0.375rem 0.875rem', border: '1px solid #cbd5e1', borderRadius: 20,
             background: config.cause === preset.cause && config.corridor === preset.corridor ? '#2563eb' : 'white',
             color: config.cause === preset.cause && config.corridor === preset.corridor ? 'white' : '#475569',
@@ -751,6 +771,31 @@ export default function MissionControl() {
           )}
         </div>
       )}
+
+      {/* Persistent Activity Log */}
+      <div style={{ marginTop: '1.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+          <Zap size={14} style={{ color: '#22c55e' }} />
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            Activity Log
+          </span>
+          <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>({activityLog.length} entries)</span>
+        </div>
+        <div ref={logRef} style={{
+          background: '#0f172a', borderRadius: 10, padding: '0.75rem 1rem', maxHeight: 180, overflowY: 'auto',
+          fontFamily: "'SF Mono', 'Fira Code', 'Consolas', monospace", fontSize: '0.72rem', lineHeight: 1.8
+        }}>
+          {activityLog.length === 0 ? (
+            <div style={{ color: '#475569' }}>Waiting for activity...</div>
+          ) : activityLog.map((entry, i) => (
+            <div key={i} style={{
+              color: entry.type === 'success' ? '#22c55e' : entry.type === 'warning' ? '#f59e0b' : entry.type === 'error' ? '#ef4444' : '#94a3b8'
+            }}>
+              <span style={{ color: '#475569' }}>[{entry.time.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })}]</span> {entry.msg}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
