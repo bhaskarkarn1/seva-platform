@@ -26,15 +26,15 @@ function CountUp({ end, suffix = '', duration = 1500 }) {
     return () => observer.disconnect()
   }, [end, duration])
 
-  return <span ref={ref} className="count-up">{count.toLocaleString()}{suffix}</span>
+  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
 }
 
 const STATS = [
-  { end: 8057, label: 'Events Analyzed', icon: '📊' },
-  { end: 54, label: 'Police Stations', icon: '🏛', duration: 1000 },
-  { end: 22, label: 'Corridors Mapped', icon: '🗺', duration: 800 },
-  { end: 3, label: 'ML Models', icon: '🤖', duration: 600 },
-  { end: 5, label: 'Operational Engines', icon: '⚙️', duration: 600 },
+  { end: 8057, label: 'Events Analyzed', duration: 1500 },
+  { end: 54, label: 'Police Stations', duration: 1000 },
+  { end: 22, label: 'Corridors Mapped', duration: 800 },
+  { end: 3, label: 'ML Models', duration: 600 },
+  { end: 5, label: 'Operational Engines', duration: 600 },
 ]
 
 const APPROACH_STEPS = [
@@ -68,63 +68,46 @@ export default function Hero({ eda }) {
 
   return (
     <>
-      {/* Hero Section - Premium Design */}
+      {/* Hero Section */}
       <section className="hero" id="overview">
-        {/* Animated Background Orbs */}
-        <div className="hero-orbs">
-          <div className="hero-orb hero-orb-1" />
-          <div className="hero-orb hero-orb-2" />
-          <div className="hero-orb hero-orb-3" />
-        </div>
-
-        <div style={{ position: 'relative', zIndex: 2 }}>
-          {/* Live Badge */}
-          <div className="hero-pill">
-            <span className="dot" />
+        <div className="hero-inner">
+          {/* Badge */}
+          <div className="hero-badge">
+            <span className="hero-badge-dot" />
             Flipkart Gridlock 6.0 | Problem Statement 2
           </div>
 
-          <h1>
-            <span className="accent">SEVA</span>
+          <h1 className="hero-title">
+            <span className="hero-title-accent">SEVA</span>
           </h1>
-          <p className="hero-subtitle">Smart Event-driven Vulnerability Analyzer</p>
-          <p className="hero-sub">
+          <p className="hero-tagline">Smart Event-driven Vulnerability Analyzer</p>
+          <p className="hero-description">
             An AI-powered operational command center for <strong>Bengaluru Traffic Police</strong> that forecasts 
             event-driven congestion, deploys officers optimally, places barricades strategically, and 
             activates diversions - all before the first vehicle arrives.
           </p>
 
-          {/* Stats Cards */}
-          <div className="hero-stats-grid">
+          {/* Stats Row */}
+          <div className="hero-stats-row">
             {STATS.map((s, i) => (
-              <div key={i} className="hero-stat-card">
-                <span className="hero-stat-icon">{s.icon}</span>
-                <div className="hero-stat-num">
-                  <CountUp end={i === 0 ? total : i === 1 ? stationCount : i === 2 ? corridorCount : s.end} duration={s.duration || 1500} />
+              <div key={i} className="hero-stat-item">
+                <div className="hero-stat-number">
+                  <CountUp end={i === 0 ? total : i === 1 ? stationCount : i === 2 ? corridorCount : s.end} duration={s.duration} />
                 </div>
-                <div className="hero-stat-label">{s.label}</div>
+                <div className="hero-stat-text">{s.label}</div>
               </div>
             ))}
           </div>
 
           {/* CTA */}
-          <a href="#dashboard" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'linear-gradient(135deg, #2563eb, #7c3aed)', color: 'white',
-            padding: '14px 32px', borderRadius: 12, fontWeight: 700, fontSize: '0.95rem',
-            marginTop: 32, textDecoration: 'none', transition: 'all 0.3s',
-            boxShadow: '0 4px 20px rgba(37,99,235,0.3)'
-          }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 32px rgba(37,99,235,0.4)' }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(37,99,235,0.3)' }}
-          >
+          <a href="#dashboard" className="hero-cta">
             Launch Command Center <ArrowRight size={18} />
           </a>
         </div>
       </section>
 
       {/* Approach Section */}
-      <section className="section" id="approach" style={{ background: '#f8fafc' }}>
+      <section className="section" id="approach">
         <RevealSection>
           <div className="section-label">Our Approach</div>
           <div className="section-title">How SEVA Tackles Event-Driven Congestion</div>
@@ -136,7 +119,7 @@ export default function Hero({ eda }) {
           {APPROACH_STEPS.map((step, i) => (
             <div key={i} className="approach-card">
               <div className="approach-card-header">
-                <div className="approach-num" style={{ background: step.color + '15', color: step.color }}>{step.num}</div>
+                <div className="approach-num" style={{ background: step.color + '12', color: step.color }}>{step.num}</div>
                 <step.icon size={20} color={step.color} />
               </div>
               <h4 className="approach-card-title">{step.title}</h4>
