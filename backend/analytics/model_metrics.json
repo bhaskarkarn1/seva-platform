@@ -1,0 +1,57 @@
+{
+  "closure": {
+    "pr_auc": 0.9945,
+    "f1": 0.9892,
+    "threshold": 0.1172,
+    "train_size": 5504,
+    "test_size": 2553,
+    "pos_rate_train": 0.0665,
+    "top_features": {
+      "event_spread_km": 0.227,
+      "has_end_coords": 0.0222,
+      "cause_accident": 0.007,
+      "desc_length": 0.0018,
+      "longitude": 0.0008,
+      "cause_procession": 0.0,
+      "cause_pot_holes": 0.0,
+      "cause_others": 0.0,
+      "cause_construction": 0.0,
+      "cause_congestion": 0.0
+    }
+  },
+  "priority": {
+    "roc_auc": 0.9999,
+    "f1": 0.9997,
+    "top_features": {
+      "is_non_corridor": 0.3637,
+      "corridor_events_last_7d": 0.2014,
+      "zone_freq": 0.0082,
+      "corridor_freq": 0.0039,
+      "cause_pot_holes": 0.0023,
+      "longitude": 0.002,
+      "event_spread_km": 0.0012,
+      "address_length": 0.0011,
+      "station_freq": 0.001,
+      "spatial_cluster_id": 0.0006
+    }
+  },
+  "resolution": {
+    "mae_median": 12.98,
+    "median_abs_error": 0.73,
+    "interval_coverage_50pct": 0.4434,
+    "train_size": 1856,
+    "test_size": 893,
+    "top_features": {
+      "cause_vehicle_breakdown": 0.9895,
+      "cause_pot_holes": 0.623,
+      "is_authenticated": 0.5113,
+      "longitude": 0.2798,
+      "hour_of_day": 0.1754,
+      "cause_water_logging": 0.1495,
+      "cause_accident": 0.1081,
+      "cause_others": 0.0708,
+      "desc_length": 0.0638,
+      "latitude": 0.0272
+    }
+  }
+}

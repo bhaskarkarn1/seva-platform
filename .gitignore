@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+venv/
+.env
+
+# Node
+node_modules/
+seva-ui/dist/
+seva-ui/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Cache
+cache/
+*.cache
+.pytest_cache/
+
+# Model artifacts (large files)
+# backend/ml/artifacts/*.pkl
+
+# OS
+Thumbs.db

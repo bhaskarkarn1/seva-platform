@@ -1,0 +1,2400 @@
+{
+  "total_events": 8057,
+  "date_range": {
+    "start": "2023-11-09 19:24:48.154000+00:00",
+    "end": "2024-04-08 17:11:42.780000+00:00"
+  },
+  "event_type_dist": {
+    "unplanned": 7692,
+    "planned": 365
+  },
+  "event_cause_dist": {
+    "vehicle_breakdown": 4886,
+    "others": 636,
+    "pot_holes": 537,
+    "water_logging": 458,
+    "construction": 438,
+    "accident": 365,
+    "tree_fall": 284,
+    "road_conditions": 170,
+    "congestion": 136,
+    "procession": 66,
+    "public_event": 45,
+    "protest": 14,
+    "Debris": 12,
+    "vip_movement": 4,
+    "test_demo": 3,
+    "Fog / Low Visibility": 2,
+    "debris": 1
+  },
+  "priority_dist": {
+    "High": 4974,
+    "Low": 3083
+  },
+  "closure_dist": {
+    "false": 7461,
+    "true": 596
+  },
+  "status_dist": {
+    "closed": 6989,
+    "active": 999,
+    "resolved": 69
+  },
+  "authenticated_dist": {
+    "yes": 7051,
+    "no": 1006
+  },
+  "station_profiles": [
+    {
+      "station": "Yelahanka",
+      "total_events": 377,
+      "closure_count": 14,
+      "closure_rate": 0.0371,
+      "high_priority_pct": 0.7613,
+      "median_resolution_hrs": 1.09,
+      "mean_lat": 13.101419,
+      "mean_lon": 77.596026,
+      "top_causes": {
+        "vehicle_breakdown": 251,
+        "accident": 32,
+        "others": 25
+      },
+      "peak_hours": {
+        "20": 45,
+        "7": 30,
+        "5": 29
+      }
+    },
+    {
+      "station": "HAL Old Airport",
+      "total_events": 354,
+      "closure_count": 15,
+      "closure_rate": 0.0424,
+      "high_priority_pct": 0.8927,
+      "median_resolution_hrs": 1.1,
+      "mean_lat": 12.953048,
+      "mean_lon": 77.697174,
+      "top_causes": {
+        "vehicle_breakdown": 136,
+        "construction": 130,
+        "pot_holes": 27
+      },
+      "peak_hours": {
+        "21": 82,
+        "20": 57,
+        "19": 41
+      }
+    },
+    {
+      "station": "Sadashivanagar",
+      "total_events": 301,
+      "closure_count": 22,
+      "closure_rate": 0.0731,
+      "high_priority_pct": 0.7774,
+      "median_resolution_hrs": 0.83,
+      "mean_lat": 13.010334,
+      "mean_lon": 77.579708,
+      "top_causes": {
+        "vehicle_breakdown": 216,
+        "others": 26,
+        "tree_fall": 22
+      },
+      "peak_hours": {
+        "4": 24,
+        "5": 23,
+        "19": 23
+      }
+    },
+    {
+      "station": "Byatarayanapura",
+      "total_events": 296,
+      "closure_count": 13,
+      "closure_rate": 0.0439,
+      "high_priority_pct": 0.9257,
+      "median_resolution_hrs": 0.68,
+      "mean_lat": 12.949366,
+      "mean_lon": 77.534259,
+      "top_causes": {
+        "vehicle_breakdown": 237,
+        "others": 35,
+        "accident": 7
+      },
+      "peak_hours": {
+        "19": 34,
+        "6": 31,
+        "21": 31
+      }
+    },
+    {
+      "station": "Halasuru Gate",
+      "total_events": 294,
+      "closure_count": 44,
+      "closure_rate": 0.1497,
+      "high_priority_pct": 0.7211,
+      "median_resolution_hrs": 0.71,
+      "mean_lat": 12.967166,
+      "mean_lon": 77.587274,
+      "top_causes": {
+        "vehicle_breakdown": 234,
+        "others": 16,
+        "water_logging": 16
+      },
+      "peak_hours": {
+        "6": 32,
+        "4": 28,
+        "21": 27
+      }
+    },
+    {
+      "station": "Yeshwanthpura",
+      "total_events": 279,
+      "closure_count": 10,
+      "closure_rate": 0.0358,
+      "high_priority_pct": 0.9104,
+      "median_resolution_hrs": 0.75,
+      "mean_lat": 13.026195,
+      "mean_lon": 77.544797,
+      "top_causes": {
+        "vehicle_breakdown": 228,
+        "others": 11,
+        "tree_fall": 11
+      },
+      "peak_hours": {
+        "20": 31,
+        "21": 31,
+        "5": 24
+      }
+    },
+    {
+      "station": "Hennuru",
+      "total_events": 273,
+      "closure_count": 21,
+      "closure_rate": 0.0769,
+      "high_priority_pct": 0.7289,
+      "median_resolution_hrs": 2.42,
+      "mean_lat": 13.044606,
+      "mean_lon": 77.633388,
+      "top_causes": {
+        "vehicle_breakdown": 104,
+        "construction": 63,
+        "others": 32
+      },
+      "peak_hours": {
+        "19": 34,
+        "20": 34,
+        "4": 34
+      }
+    },
+    {
+      "station": "Kodigehalli",
+      "total_events": 271,
+      "closure_count": 16,
+      "closure_rate": 0.059,
+      "high_priority_pct": 0.8745,
+      "median_resolution_hrs": 1.29,
+      "mean_lat": 13.04709,
+      "mean_lon": 77.585783,
+      "top_causes": {
+        "vehicle_breakdown": 139,
+        "congestion": 38,
+        "construction": 23
+      },
+      "peak_hours": {
+        "4": 40,
+        "5": 38,
+        "6": 28
+      }
+    },
+    {
+      "station": "Banaswadi",
+      "total_events": 242,
+      "closure_count": 20,
+      "closure_rate": 0.0826,
+      "high_priority_pct": 0.8017,
+      "median_resolution_hrs": 0.87,
+      "mean_lat": 13.000783,
+      "mean_lon": 77.656709,
+      "top_causes": {
+        "vehicle_breakdown": 168,
+        "construction": 19,
+        "others": 13
+      },
+      "peak_hours": {
+        "19": 32,
+        "20": 26,
+        "6": 20
+      }
+    },
+    {
+      "station": "K.R. Pura",
+      "total_events": 228,
+      "closure_count": 29,
+      "closure_rate": 0.1272,
+      "high_priority_pct": 0.0702,
+      "median_resolution_hrs": 0.87,
+      "mean_lat": 13.016153,
+      "mean_lon": 77.70573,
+      "top_causes": {
+        "vehicle_breakdown": 164,
+        "others": 19,
+        "water_logging": 16
+      },
+      "peak_hours": {
+        "6": 22,
+        "21": 20,
+        "18": 18
+      }
+    },
+    {
+      "station": "Kamakshipalya",
+      "total_events": 219,
+      "closure_count": 13,
+      "closure_rate": 0.0594,
+      "high_priority_pct": 0.8402,
+      "median_resolution_hrs": 0.92,
+      "mean_lat": 12.987769,
+      "mean_lon": 77.508315,
+      "top_causes": {
+        "vehicle_breakdown": 149,
+        "others": 24,
+        "pot_holes": 10
+      },
+      "peak_hours": {
+        "6": 29,
+        "5": 27,
+        "20": 21
+      }
+    },
+    {
+      "station": "No Police Station",
+      "total_events": 214,
+      "closure_count": 12,
+      "closure_rate": 0.0561,
+      "high_priority_pct": 0.0,
+      "median_resolution_hrs": null,
+      "mean_lat": 13.036078,
+      "mean_lon": 77.499981,
+      "top_causes": {
+        "vehicle_breakdown": 132,
+        "accident": 30,
+        "others": 27
+      },
+      "peak_hours": {
+        "20": 24,
+        "7": 19,
+        "21": 19
+      }
+    },
+    {
+      "station": "Cubbon Park",
+      "total_events": 204,
+      "closure_count": 13,
+      "closure_rate": 0.0637,
+      "high_priority_pct": 0.7647,
+      "median_resolution_hrs": 1.09,
+      "mean_lat": 12.978169,
+      "mean_lon": 77.595552,
+      "top_causes": {
+        "vehicle_breakdown": 111,
+        "water_logging": 35,
+        "others": 22
+      },
+      "peak_hours": {
+        "19": 22,
+        "4": 18,
+        "3": 17
+      }
+    },
+    {
+      "station": "Jalahalli",
+      "total_events": 194,
+      "closure_count": 12,
+      "closure_rate": 0.0619,
+      "high_priority_pct": 0.768,
+      "median_resolution_hrs": 0.75,
+      "mean_lat": 13.043468,
+      "mean_lon": 77.54871,
+      "top_causes": {
+        "vehicle_breakdown": 146,
+        "others": 20,
+        "tree_fall": 10
+      },
+      "peak_hours": {
+        "5": 19,
+        "20": 16,
+        "21": 16
+      }
+    },
+    {
+      "station": "Chamarajpet",
+      "total_events": 188,
+      "closure_count": 24,
+      "closure_rate": 0.1277,
+      "high_priority_pct": 0.6436,
+      "median_resolution_hrs": 0.79,
+      "mean_lat": 12.965557,
+      "mean_lon": 77.563669,
+      "top_causes": {
+        "vehicle_breakdown": 117,
+        "water_logging": 20,
+        "others": 19
+      },
+      "peak_hours": {
+        "6": 23,
+        "21": 20,
+        "5": 17
+      }
+    },
+    {
+      "station": "Madiwala",
+      "total_events": 183,
+      "closure_count": 7,
+      "closure_rate": 0.0383,
+      "high_priority_pct": 0.8361,
+      "median_resolution_hrs": 0.8,
+      "mean_lat": 12.917823,
+      "mean_lon": 77.621389,
+      "top_causes": {
+        "vehicle_breakdown": 81,
+        "pot_holes": 75,
+        "water_logging": 10
+      },
+      "peak_hours": {
+        "5": 37,
+        "2": 18,
+        "6": 15
+      }
+    },
+    {
+      "station": "High ground",
+      "total_events": 180,
+      "closure_count": 16,
+      "closure_rate": 0.0889,
+      "high_priority_pct": 0.5778,
+      "median_resolution_hrs": 1.16,
+      "mean_lat": 12.988778,
+      "mean_lon": 77.585601,
+      "top_causes": {
+        "vehicle_breakdown": 127,
+        "water_logging": 18,
+        "tree_fall": 12
+      },
+      "peak_hours": {
+        "6": 25,
+        "20": 17,
+        "21": 17
+      }
+    },
+    {
+      "station": "Whitefield",
+      "total_events": 179,
+      "closure_count": 7,
+      "closure_rate": 0.0391,
+      "high_priority_pct": 0.2067,
+      "median_resolution_hrs": 0.64,
+      "mean_lat": 12.95069,
+      "mean_lon": 77.740794,
+      "top_causes": {
+        "vehicle_breakdown": 88,
+        "pot_holes": 23,
+        "congestion": 22
+      },
+      "peak_hours": {
+        "22": 26,
+        "3": 14,
+        "2": 13
+      }
+    },
+    {
+      "station": "Peenya",
+      "total_events": 178,
+      "closure_count": 7,
+      "closure_rate": 0.0393,
+      "high_priority_pct": 0.7303,
+      "median_resolution_hrs": 0.61,
+      "mean_lat": 13.038822,
+      "mean_lon": 77.514598,
+      "top_causes": {
+        "vehicle_breakdown": 137,
+        "others": 17,
+        "accident": 11
+      },
+      "peak_hours": {
+        "21": 20,
+        "3": 14,
+        "2": 14
+      }
+    },
+    {
+      "station": "Jayanagara",
+      "total_events": 176,
+      "closure_count": 18,
+      "closure_rate": 0.1023,
+      "high_priority_pct": 0.125,
+      "median_resolution_hrs": 1.55,
+      "mean_lat": 12.920924,
+      "mean_lon": 77.58771,
+      "top_causes": {
+        "accident": 54,
+        "vehicle_breakdown": 53,
+        "tree_fall": 23
+      },
+      "peak_hours": {
+        "23": 59,
+        "21": 21,
+        "22": 13
+      }
+    },
+    {
+      "station": "Ashok Nagar",
+      "total_events": 168,
+      "closure_count": 15,
+      "closure_rate": 0.0893,
+      "high_priority_pct": 0.7857,
+      "median_resolution_hrs": 1.17,
+      "mean_lat": 12.962331,
+      "mean_lon": 77.60982,
+      "top_causes": {
+        "vehicle_breakdown": 83,
+        "others": 23,
+        "water_logging": 20
+      },
+      "peak_hours": {
+        "6": 19,
+        "22": 15,
+        "19": 14
+      }
+    },
+    {
+      "station": "Magadi Road",
+      "total_events": 139,
+      "closure_count": 7,
+      "closure_rate": 0.0504,
+      "high_priority_pct": 0.7698,
+      "median_resolution_hrs": 0.52,
+      "mean_lat": 12.97366,
+      "mean_lon": 77.556495,
+      "top_causes": {
+        "vehicle_breakdown": 99,
+        "others": 14,
+        "pot_holes": 7
+      },
+      "peak_hours": {
+        "21": 18,
+        "6": 14,
+        "1": 12
+      }
+    },
+    {
+      "station": "Hebbala",
+      "total_events": 135,
+      "closure_count": 10,
+      "closure_rate": 0.0741,
+      "high_priority_pct": 0.9407,
+      "median_resolution_hrs": 0.82,
+      "mean_lat": 13.044025,
+      "mean_lon": 77.595723,
+      "top_causes": {
+        "vehicle_breakdown": 75,
+        "accident": 17,
+        "construction": 16
+      },
+      "peak_hours": {
+        "20": 15,
+        "19": 13,
+        "0": 12
+      }
+    },
+    {
+      "station": "Jnanabharathi",
+      "total_events": 131,
+      "closure_count": 8,
+      "closure_rate": 0.0611,
+      "high_priority_pct": 0.0992,
+      "median_resolution_hrs": 0.84,
+      "mean_lat": 12.960836,
+      "mean_lon": 77.507781,
+      "top_causes": {
+        "vehicle_breakdown": 94,
+        "others": 20,
+        "accident": 9
+      },
+      "peak_hours": {
+        "21": 17,
+        "20": 16,
+        "6": 12
+      }
+    },
+    {
+      "station": "Jeevanbheemanagar",
+      "total_events": 125,
+      "closure_count": 11,
+      "closure_rate": 0.088,
+      "high_priority_pct": 0.872,
+      "median_resolution_hrs": 0.68,
+      "mean_lat": 12.97317,
+      "mean_lon": 77.645591,
+      "top_causes": {
+        "vehicle_breakdown": 70,
+        "pot_holes": 20,
+        "tree_fall": 9
+      },
+      "peak_hours": {
+        "7": 14,
+        "6": 12,
+        "5": 11
+      }
+    },
+    {
+      "station": "R.T. Nagar",
+      "total_events": 125,
+      "closure_count": 13,
+      "closure_rate": 0.104,
+      "high_priority_pct": 0.552,
+      "median_resolution_hrs": 1.49,
+      "mean_lat": 13.0155,
+      "mean_lon": 77.589584,
+      "top_causes": {
+        "vehicle_breakdown": 79,
+        "others": 14,
+        "water_logging": 12
+      },
+      "peak_hours": {
+        "5": 16,
+        "21": 15,
+        "6": 15
+      }
+    },
+    {
+      "station": "J.P. Nagar",
+      "total_events": 124,
+      "closure_count": 11,
+      "closure_rate": 0.0887,
+      "high_priority_pct": 0.7419,
+      "median_resolution_hrs": 5.35,
+      "mean_lat": 12.903282,
+      "mean_lon": 77.590223,
+      "top_causes": {
+        "vehicle_breakdown": 45,
+        "water_logging": 21,
+        "pot_holes": 17
+      },
+      "peak_hours": {
+        "21": 27,
+        "5": 15,
+        "6": 15
+      }
+    },
+    {
+      "station": "Electronic City",
+      "total_events": 121,
+      "closure_count": 3,
+      "closure_rate": 0.0248,
+      "high_priority_pct": 0.3058,
+      "median_resolution_hrs": 0.95,
+      "mean_lat": 12.851408,
+      "mean_lon": 77.664642,
+      "top_causes": {
+        "vehicle_breakdown": 86,
+        "accident": 18,
+        "pot_holes": 9
+      },
+      "peak_hours": {
+        "20": 18,
+        "0": 9,
+        "6": 9
+      }
+    },
+    {
+      "station": "Adugodi",
+      "total_events": 120,
+      "closure_count": 11,
+      "closure_rate": 0.0917,
+      "high_priority_pct": 0.6,
+      "median_resolution_hrs": 0.97,
+      "mean_lat": 12.933852,
+      "mean_lon": 77.619435,
+      "top_causes": {
+        "vehicle_breakdown": 54,
+        "pot_holes": 31,
+        "water_logging": 8
+      },
+      "peak_hours": {
+        "21": 15,
+        "23": 15,
+        "19": 11
+      }
+    },
+    {
+      "station": "Mahadevapura",
+      "total_events": 120,
+      "closure_count": 6,
+      "closure_rate": 0.05,
+      "high_priority_pct": 0.325,
+      "median_resolution_hrs": 0.7,
+      "mean_lat": 12.992782,
+      "mean_lon": 77.717891,
+      "top_causes": {
+        "vehicle_breakdown": 64,
+        "water_logging": 17,
+        "others": 11
+      },
+      "peak_hours": {
+        "18": 14,
+        "22": 10,
+        "21": 9
+      }
+    },
+    {
+      "station": "Sheshadripuram",
+      "total_events": 118,
+      "closure_count": 14,
+      "closure_rate": 0.1186,
+      "high_priority_pct": 0.0678,
+      "median_resolution_hrs": 0.82,
+      "mean_lat": 12.986802,
+      "mean_lon": 77.572708,
+      "top_causes": {
+        "vehicle_breakdown": 90,
+        "others": 12,
+        "water_logging": 7
+      },
+      "peak_hours": {
+        "21": 21,
+        "6": 18,
+        "22": 13
+      }
+    },
+    {
+      "station": "Chikkabanavara",
+      "total_events": 117,
+      "closure_count": 3,
+      "closure_rate": 0.0256,
+      "high_priority_pct": 0.547,
+      "median_resolution_hrs": 0.48,
+      "mean_lat": 13.048085,
+      "mean_lon": 77.506261,
+      "top_causes": {
+        "vehicle_breakdown": 96,
+        "others": 9,
+        "accident": 4
+      },
+      "peak_hours": {
+        "20": 17,
+        "18": 12,
+        "2": 11
+      }
+    },
+    {
+      "station": "HSR Layout",
+      "total_events": 116,
+      "closure_count": 10,
+      "closure_rate": 0.0862,
+      "high_priority_pct": 0.9741,
+      "median_resolution_hrs": 0.67,
+      "mean_lat": 12.910226,
+      "mean_lon": 77.631607,
+      "top_causes": {
+        "vehicle_breakdown": 80,
+        "water_logging": 11,
+        "accident": 7
+      },
+      "peak_hours": {
+        "19": 13,
+        "21": 12,
+        "5": 10
+      }
+    },
+    {
+      "station": "Halasur",
+      "total_events": 116,
+      "closure_count": 8,
+      "closure_rate": 0.069,
+      "high_priority_pct": 0.569,
+      "median_resolution_hrs": 0.98,
+      "mean_lat": 12.969269,
+      "mean_lon": 77.62588,
+      "top_causes": {
+        "vehicle_breakdown": 75,
+        "water_logging": 18,
+        "pot_holes": 11
+      },
+      "peak_hours": {
+        "7": 13,
+        "6": 13,
+        "19": 11
+      }
+    },
+    {
+      "station": "Hulimavu",
+      "total_events": 116,
+      "closure_count": 0,
+      "closure_rate": 0.0,
+      "high_priority_pct": 0.569,
+      "median_resolution_hrs": 0.9,
+      "mean_lat": 12.872834,
+      "mean_lon": 77.604544,
+      "top_causes": {
+        "pot_holes": 72,
+        "vehicle_breakdown": 28,
+        "others": 5
+      },
+      "peak_hours": {
+        "21": 30,
+        "22": 27,
+        "1": 14
+      }
+    },
+    {
+      "station": "Mico Layout",
+      "total_events": 116,
+      "closure_count": 8,
+      "closure_rate": 0.069,
+      "high_priority_pct": 0.6638,
+      "median_resolution_hrs": 1.18,
+      "mean_lat": 12.913391,
+      "mean_lon": 77.604886,
+      "top_causes": {
+        "vehicle_breakdown": 69,
+        "water_logging": 16,
+        "construction": 9
+      },
+      "peak_hours": {
+        "20": 15,
+        "5": 14,
+        "8": 13
+      }
+    },
+    {
+      "station": "Wilson Garden",
+      "total_events": 105,
+      "closure_count": 18,
+      "closure_rate": 0.1714,
+      "high_priority_pct": 0.019,
+      "median_resolution_hrs": 0.73,
+      "mean_lat": 12.947584,
+      "mean_lon": 77.592528,
+      "top_causes": {
+        "vehicle_breakdown": 70,
+        "water_logging": 13,
+        "others": 9
+      },
+      "peak_hours": {
+        "7": 14,
+        "6": 13,
+        "20": 11
+      }
+    },
+    {
+      "station": "Banashankari",
+      "total_events": 102,
+      "closure_count": 3,
+      "closure_rate": 0.0294,
+      "high_priority_pct": 0.6765,
+      "median_resolution_hrs": 0.93,
+      "mean_lat": 12.923207,
+      "mean_lon": 77.556852,
+      "top_causes": {
+        "vehicle_breakdown": 73,
+        "road_conditions": 9,
+        "others": 6
+      },
+      "peak_hours": {
+        "21": 22,
+        "6": 10,
+        "4": 9
+      }
+    },
+    {
+      "station": "Rajajinagar",
+      "total_events": 102,
+      "closure_count": 7,
+      "closure_rate": 0.0686,
+      "high_priority_pct": 0.3529,
+      "median_resolution_hrs": 0.78,
+      "mean_lat": 13.005,
+      "mean_lon": 77.540903,
+      "top_causes": {
+        "vehicle_breakdown": 64,
+        "others": 9,
+        "tree_fall": 8
+      },
+      "peak_hours": {
+        "21": 17,
+        "5": 12,
+        "6": 10
+      }
+    },
+    {
+      "station": "Bellandur",
+      "total_events": 95,
+      "closure_count": 6,
+      "closure_rate": 0.0632,
+      "high_priority_pct": 0.6737,
+      "median_resolution_hrs": 0.63,
+      "mean_lat": 12.919061,
+      "mean_lon": 77.669779,
+      "top_causes": {
+        "vehicle_breakdown": 64,
+        "accident": 7,
+        "others": 7
+      },
+      "peak_hours": {
+        "20": 14,
+        "0": 9,
+        "21": 8
+      }
+    },
+    {
+      "station": "Shivajinagar",
+      "total_events": 89,
+      "closure_count": 5,
+      "closure_rate": 0.0562,
+      "high_priority_pct": 0.7865,
+      "median_resolution_hrs": 0.92,
+      "mean_lat": 12.983047,
+      "mean_lon": 77.602359,
+      "top_causes": {
+        "vehicle_breakdown": 48,
+        "pot_holes": 22,
+        "others": 11
+      },
+      "peak_hours": {
+        "4": 13,
+        "7": 11,
+        "21": 10
+      }
+    },
+    {
+      "station": "K.S. Layout",
+      "total_events": 86,
+      "closure_count": 1,
+      "closure_rate": 0.0116,
+      "high_priority_pct": 0.3372,
+      "median_resolution_hrs": 11.35,
+      "mean_lat": 12.909228,
+      "mean_lon": 77.55791,
+      "top_causes": {
+        "vehicle_breakdown": 43,
+        "pot_holes": 11,
+        "road_conditions": 8
+      },
+      "peak_hours": {
+        "5": 16,
+        "22": 15,
+        "21": 11
+      }
+    },
+    {
+      "station": "Malleshwaram",
+      "total_events": 79,
+      "closure_count": 8,
+      "closure_rate": 0.1013,
+      "high_priority_pct": 0.443,
+      "median_resolution_hrs": 1.31,
+      "mean_lat": 13.005118,
+      "mean_lon": 77.56187,
+      "top_causes": {
+        "vehicle_breakdown": 40,
+        "tree_fall": 13,
+        "others": 6
+      },
+      "peak_hours": {
+        "20": 10,
+        "7": 9,
+        "21": 8
+      }
+    },
+    {
+      "station": "Chikkajala",
+      "total_events": 72,
+      "closure_count": 1,
+      "closure_rate": 0.0139,
+      "high_priority_pct": 0.7361,
+      "median_resolution_hrs": 0.87,
+      "mean_lat": 13.164904,
+      "mean_lon": 77.640509,
+      "top_causes": {
+        "vehicle_breakdown": 39,
+        "accident": 11,
+        "public_event": 8
+      },
+      "peak_hours": {
+        "22": 10,
+        "20": 9,
+        "5": 8
+      }
+    },
+    {
+      "station": "K.G. Halli",
+      "total_events": 72,
+      "closure_count": 18,
+      "closure_rate": 0.25,
+      "high_priority_pct": 0.6806,
+      "median_resolution_hrs": 0.87,
+      "mean_lat": 13.030609,
+      "mean_lon": 77.620336,
+      "top_causes": {
+        "vehicle_breakdown": 33,
+        "construction": 15,
+        "others": 7
+      },
+      "peak_hours": {
+        "6": 10,
+        "23": 8,
+        "21": 7
+      }
+    },
+    {
+      "station": "Pulikeshinagar(F.Town)",
+      "total_events": 69,
+      "closure_count": 12,
+      "closure_rate": 0.1739,
+      "high_priority_pct": 0.1014,
+      "median_resolution_hrs": 1.0,
+      "mean_lat": 12.996772,
+      "mean_lon": 77.614307,
+      "top_causes": {
+        "vehicle_breakdown": 28,
+        "pot_holes": 15,
+        "tree_fall": 13
+      },
+      "peak_hours": {
+        "6": 11,
+        "22": 9,
+        "20": 7
+      }
+    },
+    {
+      "station": "Upparpet",
+      "total_events": 60,
+      "closure_count": 6,
+      "closure_rate": 0.1,
+      "high_priority_pct": 0.0,
+      "median_resolution_hrs": 0.69,
+      "mean_lat": 12.976805,
+      "mean_lon": 77.577189,
+      "top_causes": {
+        "vehicle_breakdown": 32,
+        "others": 15,
+        "pot_holes": 6
+      },
+      "peak_hours": {
+        "21": 8,
+        "22": 7,
+        "0": 5
+      }
+    },
+    {
+      "station": "Vijayanagara",
+      "total_events": 58,
+      "closure_count": 5,
+      "closure_rate": 0.0862,
+      "high_priority_pct": 0.7759,
+      "median_resolution_hrs": 0.79,
+      "mean_lat": 12.979281,
+      "mean_lon": 77.542188,
+      "top_causes": {
+        "vehicle_breakdown": 28,
+        "others": 10,
+        "pot_holes": 8
+      },
+      "peak_hours": {
+        "5": 13,
+        "22": 9,
+        "7": 7
+      }
+    },
+    {
+      "station": "Basavanagudi",
+      "total_events": 47,
+      "closure_count": 10,
+      "closure_rate": 0.2128,
+      "high_priority_pct": 0.0,
+      "median_resolution_hrs": 1.73,
+      "mean_lat": 12.942621,
+      "mean_lon": 77.571381,
+      "top_causes": {
+        "vehicle_breakdown": 13,
+        "tree_fall": 11,
+        "pot_holes": 9
+      },
+      "peak_hours": {
+        "6": 8,
+        "4": 6,
+        "21": 6
+      }
+    },
+    {
+      "station": "Thalagattapura",
+      "total_events": 44,
+      "closure_count": 3,
+      "closure_rate": 0.0682,
+      "high_priority_pct": 0.1136,
+      "median_resolution_hrs": 0.89,
+      "mean_lat": 12.872428,
+      "mean_lon": 77.54895,
+      "top_causes": {
+        "vehicle_breakdown": 20,
+        "pot_holes": 9,
+        "accident": 5
+      },
+      "peak_hours": {
+        "21": 8,
+        "22": 7,
+        "19": 5
+      }
+    },
+    {
+      "station": "Kengeri",
+      "total_events": 40,
+      "closure_count": 12,
+      "closure_rate": 0.3,
+      "high_priority_pct": 0.5,
+      "median_resolution_hrs": 0.66,
+      "mean_lat": 12.913604,
+      "mean_lon": 77.485245,
+      "top_causes": {
+        "vehicle_breakdown": 20,
+        "others": 9,
+        "accident": 4
+      },
+      "peak_hours": {
+        "3": 6,
+        "10": 3,
+        "2": 3
+      }
+    },
+    {
+      "station": "V.V.Puram (C.Pet)",
+      "total_events": 37,
+      "closure_count": 3,
+      "closure_rate": 0.0811,
+      "high_priority_pct": 0.1622,
+      "median_resolution_hrs": 0.81,
+      "mean_lat": 12.958232,
+      "mean_lon": 77.572952,
+      "top_causes": {
+        "vehicle_breakdown": 23,
+        "others": 3,
+        "accident": 3
+      },
+      "peak_hours": {
+        "21": 7,
+        "22": 3,
+        "6": 3
+      }
+    },
+    {
+      "station": "Devanahalli Airport",
+      "total_events": 36,
+      "closure_count": 1,
+      "closure_rate": 0.0278,
+      "high_priority_pct": 0.0,
+      "median_resolution_hrs": 0.94,
+      "mean_lat": 13.237649,
+      "mean_lon": 77.701804,
+      "top_causes": {
+        "vehicle_breakdown": 27,
+        "accident": 5,
+        "others": 3
+      },
+      "peak_hours": {
+        "19": 10,
+        "20": 5,
+        "2": 4
+      }
+    },
+    {
+      "station": "City Market",
+      "total_events": 27,
+      "closure_count": 6,
+      "closure_rate": 0.2222,
+      "high_priority_pct": 0.5185,
+      "median_resolution_hrs": 0.63,
+      "mean_lat": 12.961732,
+      "mean_lon": 77.57835,
+      "top_causes": {
+        "vehicle_breakdown": 16,
+        "water_logging": 4,
+        "construction": 3
+      },
+      "peak_hours": {
+        "7": 4,
+        "4": 4,
+        "11": 3
+      }
+    }
+  ],
+  "corridor_profiles": [
+    {
+      "corridor": "Non-corridor",
+      "total_events": 3084,
+      "closure_count": 330,
+      "closure_rate": 0.107,
+      "median_resolution_hrs": 0.98,
+      "top_causes": {
+        "vehicle_breakdown": 1645,
+        "others": 257,
+        "pot_holes": 244
+      }
+    },
+    {
+      "corridor": "Varthur Road",
+      "total_events": 75,
+      "closure_count": 8,
+      "closure_rate": 0.1067,
+      "median_resolution_hrs": 0.91,
+      "top_causes": {
+        "vehicle_breakdown": 52,
+        "construction": 8,
+        "water_logging": 7
+      }
+    },
+    {
+      "corridor": "Mysore Road",
+      "total_events": 728,
+      "closure_count": 71,
+      "closure_rate": 0.0975,
+      "median_resolution_hrs": 0.74,
+      "top_causes": {
+        "vehicle_breakdown": 562,
+        "others": 62,
+        "water_logging": 41
+      }
+    },
+    {
+      "corridor": "CBD 1",
+      "total_events": 25,
+      "closure_count": 2,
+      "closure_rate": 0.08,
+      "median_resolution_hrs": 0.75,
+      "top_causes": {
+        "pot_holes": 10,
+        "vehicle_breakdown": 9,
+        "others": 3
+      }
+    },
+    {
+      "corridor": "Airport New South Road",
+      "total_events": 63,
+      "closure_count": 5,
+      "closure_rate": 0.0794,
+      "median_resolution_hrs": 1.15,
+      "top_causes": {
+        "vehicle_breakdown": 31,
+        "construction": 19,
+        "road_conditions": 3
+      }
+    },
+    {
+      "corridor": "ORR North 1",
+      "total_events": 274,
+      "closure_count": 21,
+      "closure_rate": 0.0766,
+      "median_resolution_hrs": 0.88,
+      "top_causes": {
+        "vehicle_breakdown": 153,
+        "construction": 37,
+        "others": 24
+      }
+    },
+    {
+      "corridor": "CBD 2",
+      "total_events": 98,
+      "closure_count": 7,
+      "closure_rate": 0.0714,
+      "median_resolution_hrs": 1.28,
+      "top_causes": {
+        "vehicle_breakdown": 51,
+        "others": 13,
+        "pot_holes": 10
+      }
+    },
+    {
+      "corridor": "Old Airport Road",
+      "total_events": 74,
+      "closure_count": 5,
+      "closure_rate": 0.0676,
+      "median_resolution_hrs": 1.16,
+      "top_causes": {
+        "vehicle_breakdown": 40,
+        "others": 10,
+        "public_event": 6
+      }
+    },
+    {
+      "corridor": "ORR East 1",
+      "total_events": 242,
+      "closure_count": 16,
+      "closure_rate": 0.0661,
+      "median_resolution_hrs": 0.9,
+      "top_causes": {
+        "vehicle_breakdown": 154,
+        "pot_holes": 26,
+        "water_logging": 22
+      }
+    },
+    {
+      "corridor": "IRR(Thanisandra road)",
+      "total_events": 95,
+      "closure_count": 6,
+      "closure_rate": 0.0632,
+      "median_resolution_hrs": 0.82,
+      "top_causes": {
+        "pot_holes": 37,
+        "vehicle_breakdown": 24,
+        "water_logging": 11
+      }
+    },
+    {
+      "corridor": "West of Chord Road",
+      "total_events": 172,
+      "closure_count": 10,
+      "closure_rate": 0.0581,
+      "median_resolution_hrs": 0.73,
+      "top_causes": {
+        "vehicle_breakdown": 105,
+        "others": 18,
+        "pot_holes": 16
+      }
+    },
+    {
+      "corridor": "Hosur Road",
+      "total_events": 297,
+      "closure_count": 16,
+      "closure_rate": 0.0539,
+      "median_resolution_hrs": 1.01,
+      "top_causes": {
+        "vehicle_breakdown": 170,
+        "pot_holes": 60,
+        "others": 19
+      }
+    },
+    {
+      "corridor": "Bellary Road 1",
+      "total_events": 607,
+      "closure_count": 32,
+      "closure_rate": 0.0527,
+      "median_resolution_hrs": 0.87,
+      "top_causes": {
+        "vehicle_breakdown": 449,
+        "others": 53,
+        "accident": 20
+      }
+    },
+    {
+      "corridor": "Hennur Main Road",
+      "total_events": 94,
+      "closure_count": 4,
+      "closure_rate": 0.0426,
+      "median_resolution_hrs": 1.65,
+      "top_causes": {
+        "vehicle_breakdown": 34,
+        "congestion": 22,
+        "others": 14
+      }
+    },
+    {
+      "corridor": "ORR North 2",
+      "total_events": 235,
+      "closure_count": 10,
+      "closure_rate": 0.0426,
+      "median_resolution_hrs": 0.85,
+      "top_causes": {
+        "vehicle_breakdown": 147,
+        "congestion": 40,
+        "others": 21
+      }
+    },
+    {
+      "corridor": "Magadi Road",
+      "total_events": 243,
+      "closure_count": 10,
+      "closure_rate": 0.0412,
+      "median_resolution_hrs": 1.02,
+      "top_causes": {
+        "vehicle_breakdown": 170,
+        "others": 27,
+        "pot_holes": 13
+      }
+    },
+    {
+      "corridor": "Bellary Road 2",
+      "total_events": 379,
+      "closure_count": 12,
+      "closure_rate": 0.0317,
+      "median_resolution_hrs": 0.99,
+      "top_causes": {
+        "vehicle_breakdown": 269,
+        "accident": 42,
+        "others": 23
+      }
+    },
+    {
+      "corridor": "Bannerghata Road",
+      "total_events": 208,
+      "closure_count": 6,
+      "closure_rate": 0.0288,
+      "median_resolution_hrs": 0.81,
+      "top_causes": {
+        "vehicle_breakdown": 93,
+        "pot_holes": 45,
+        "water_logging": 35
+      }
+    },
+    {
+      "corridor": "Old Madras Road",
+      "total_events": 257,
+      "closure_count": 7,
+      "closure_rate": 0.0272,
+      "median_resolution_hrs": 0.69,
+      "top_causes": {
+        "vehicle_breakdown": 184,
+        "pot_holes": 23,
+        "water_logging": 15
+      }
+    },
+    {
+      "corridor": "Tumkur Road",
+      "total_events": 458,
+      "closure_count": 12,
+      "closure_rate": 0.0262,
+      "median_resolution_hrs": 0.61,
+      "top_causes": {
+        "vehicle_breakdown": 383,
+        "others": 33,
+        "accident": 16
+      }
+    },
+    {
+      "corridor": "ORR West 1",
+      "total_events": 166,
+      "closure_count": 3,
+      "closure_rate": 0.0181,
+      "median_resolution_hrs": 1.04,
+      "top_causes": {
+        "vehicle_breakdown": 105,
+        "water_logging": 15,
+        "road_conditions": 9
+      }
+    },
+    {
+      "corridor": "ORR East 2",
+      "total_events": 183,
+      "closure_count": 3,
+      "closure_rate": 0.0164,
+      "median_resolution_hrs": 0.7,
+      "top_causes": {
+        "construction": 98,
+        "vehicle_breakdown": 56,
+        "water_logging": 14
+      }
+    }
+  ],
+  "hourly_pattern": [
+    {
+      "hour": 0,
+      "total": 418,
+      "closures": 32,
+      "high_priority": 272
+    },
+    {
+      "hour": 1,
+      "total": 381,
+      "closures": 18,
+      "high_priority": 241
+    },
+    {
+      "hour": 2,
+      "total": 387,
+      "closures": 26,
+      "high_priority": 256
+    },
+    {
+      "hour": 3,
+      "total": 372,
+      "closures": 22,
+      "high_priority": 229
+    },
+    {
+      "hour": 4,
+      "total": 558,
+      "closures": 31,
+      "high_priority": 366
+    },
+    {
+      "hour": 5,
+      "total": 661,
+      "closures": 48,
+      "high_priority": 440
+    },
+    {
+      "hour": 6,
+      "total": 660,
+      "closures": 70,
+      "high_priority": 361
+    },
+    {
+      "hour": 7,
+      "total": 480,
+      "closures": 46,
+      "high_priority": 275
+    },
+    {
+      "hour": 8,
+      "total": 327,
+      "closures": 21,
+      "high_priority": 201
+    },
+    {
+      "hour": 9,
+      "total": 160,
+      "closures": 11,
+      "high_priority": 100
+    },
+    {
+      "hour": 10,
+      "total": 68,
+      "closures": 10,
+      "high_priority": 37
+    },
+    {
+      "hour": 11,
+      "total": 68,
+      "closures": 15,
+      "high_priority": 40
+    },
+    {
+      "hour": 12,
+      "total": 63,
+      "closures": 14,
+      "high_priority": 33
+    },
+    {
+      "hour": 13,
+      "total": 33,
+      "closures": 8,
+      "high_priority": 21
+    },
+    {
+      "hour": 14,
+      "total": 13,
+      "closures": 0,
+      "high_priority": 7
+    },
+    {
+      "hour": 15,
+      "total": 9,
+      "closures": 1,
+      "high_priority": 6
+    },
+    {
+      "hour": 16,
+      "total": 9,
+      "closures": 3,
+      "high_priority": 5
+    },
+    {
+      "hour": 17,
+      "total": 34,
+      "closures": 6,
+      "high_priority": 21
+    },
+    {
+      "hour": 18,
+      "total": 228,
+      "closures": 20,
+      "high_priority": 161
+    },
+    {
+      "hour": 19,
+      "total": 578,
+      "closures": 38,
+      "high_priority": 394
+    },
+    {
+      "hour": 20,
+      "total": 681,
+      "closures": 32,
+      "high_priority": 465
+    },
+    {
+      "hour": 21,
+      "total": 810,
+      "closures": 55,
+      "high_priority": 466
+    },
+    {
+      "hour": 22,
+      "total": 564,
+      "closures": 30,
+      "high_priority": 322
+    },
+    {
+      "hour": 23,
+      "total": 495,
+      "closures": 39,
+      "high_priority": 255
+    }
+  ],
+  "daily_pattern": [
+    {
+      "day_of_week": 0,
+      "total": 909,
+      "closures": 62
+    },
+    {
+      "day_of_week": 1,
+      "total": 1245,
+      "closures": 84
+    },
+    {
+      "day_of_week": 2,
+      "total": 1162,
+      "closures": 80
+    },
+    {
+      "day_of_week": 3,
+      "total": 1343,
+      "closures": 126
+    },
+    {
+      "day_of_week": 4,
+      "total": 1245,
+      "closures": 98
+    },
+    {
+      "day_of_week": 5,
+      "total": 1223,
+      "closures": 82
+    },
+    {
+      "day_of_week": 6,
+      "total": 930,
+      "closures": 64
+    }
+  ],
+  "event_spread_stats": {
+    "count": 607,
+    "mean_km": 0.155,
+    "median_km": 0.01,
+    "p95_km": 0.232,
+    "max_km": 13.898
+  },
+  "resolution_time": {
+    "valid_count": 2749,
+    "mean_hrs": 11.16,
+    "median_hrs": 0.88,
+    "p25_hrs": 0.41,
+    "p75_hrs": 1.86,
+    "p95_hrs": 84.82
+  },
+  "heatmap_data": [
+    {
+      "day_of_week": 0,
+      "hour": 0,
+      "count": 52
+    },
+    {
+      "day_of_week": 0,
+      "hour": 1,
+      "count": 43
+    },
+    {
+      "day_of_week": 0,
+      "hour": 2,
+      "count": 39
+    },
+    {
+      "day_of_week": 0,
+      "hour": 3,
+      "count": 47
+    },
+    {
+      "day_of_week": 0,
+      "hour": 4,
+      "count": 34
+    },
+    {
+      "day_of_week": 0,
+      "hour": 5,
+      "count": 33
+    },
+    {
+      "day_of_week": 0,
+      "hour": 6,
+      "count": 34
+    },
+    {
+      "day_of_week": 0,
+      "hour": 7,
+      "count": 35
+    },
+    {
+      "day_of_week": 0,
+      "hour": 8,
+      "count": 25
+    },
+    {
+      "day_of_week": 0,
+      "hour": 9,
+      "count": 14
+    },
+    {
+      "day_of_week": 0,
+      "hour": 10,
+      "count": 3
+    },
+    {
+      "day_of_week": 0,
+      "hour": 11,
+      "count": 7
+    },
+    {
+      "day_of_week": 0,
+      "hour": 12,
+      "count": 6
+    },
+    {
+      "day_of_week": 0,
+      "hour": 13,
+      "count": 2
+    },
+    {
+      "day_of_week": 0,
+      "hour": 14,
+      "count": 3
+    },
+    {
+      "day_of_week": 0,
+      "hour": 15,
+      "count": 2
+    },
+    {
+      "day_of_week": 0,
+      "hour": 16,
+      "count": 1
+    },
+    {
+      "day_of_week": 0,
+      "hour": 17,
+      "count": 6
+    },
+    {
+      "day_of_week": 0,
+      "hour": 18,
+      "count": 29
+    },
+    {
+      "day_of_week": 0,
+      "hour": 19,
+      "count": 87
+    },
+    {
+      "day_of_week": 0,
+      "hour": 20,
+      "count": 117
+    },
+    {
+      "day_of_week": 0,
+      "hour": 21,
+      "count": 157
+    },
+    {
+      "day_of_week": 0,
+      "hour": 22,
+      "count": 70
+    },
+    {
+      "day_of_week": 0,
+      "hour": 23,
+      "count": 63
+    },
+    {
+      "day_of_week": 1,
+      "hour": 0,
+      "count": 53
+    },
+    {
+      "day_of_week": 1,
+      "hour": 1,
+      "count": 59
+    },
+    {
+      "day_of_week": 1,
+      "hour": 2,
+      "count": 63
+    },
+    {
+      "day_of_week": 1,
+      "hour": 3,
+      "count": 56
+    },
+    {
+      "day_of_week": 1,
+      "hour": 4,
+      "count": 113
+    },
+    {
+      "day_of_week": 1,
+      "hour": 5,
+      "count": 112
+    },
+    {
+      "day_of_week": 1,
+      "hour": 6,
+      "count": 97
+    },
+    {
+      "day_of_week": 1,
+      "hour": 7,
+      "count": 52
+    },
+    {
+      "day_of_week": 1,
+      "hour": 8,
+      "count": 45
+    },
+    {
+      "day_of_week": 1,
+      "hour": 9,
+      "count": 15
+    },
+    {
+      "day_of_week": 1,
+      "hour": 10,
+      "count": 6
+    },
+    {
+      "day_of_week": 1,
+      "hour": 11,
+      "count": 11
+    },
+    {
+      "day_of_week": 1,
+      "hour": 12,
+      "count": 2
+    },
+    {
+      "day_of_week": 1,
+      "hour": 15,
+      "count": 2
+    },
+    {
+      "day_of_week": 1,
+      "hour": 16,
+      "count": 1
+    },
+    {
+      "day_of_week": 1,
+      "hour": 17,
+      "count": 7
+    },
+    {
+      "day_of_week": 1,
+      "hour": 18,
+      "count": 37
+    },
+    {
+      "day_of_week": 1,
+      "hour": 19,
+      "count": 76
+    },
+    {
+      "day_of_week": 1,
+      "hour": 20,
+      "count": 118
+    },
+    {
+      "day_of_week": 1,
+      "hour": 21,
+      "count": 124
+    },
+    {
+      "day_of_week": 1,
+      "hour": 22,
+      "count": 76
+    },
+    {
+      "day_of_week": 1,
+      "hour": 23,
+      "count": 120
+    },
+    {
+      "day_of_week": 2,
+      "hour": 0,
+      "count": 54
+    },
+    {
+      "day_of_week": 2,
+      "hour": 1,
+      "count": 47
+    },
+    {
+      "day_of_week": 2,
+      "hour": 2,
+      "count": 41
+    },
+    {
+      "day_of_week": 2,
+      "hour": 3,
+      "count": 52
+    },
+    {
+      "day_of_week": 2,
+      "hour": 4,
+      "count": 81
+    },
+    {
+      "day_of_week": 2,
+      "hour": 5,
+      "count": 87
+    },
+    {
+      "day_of_week": 2,
+      "hour": 6,
+      "count": 87
+    },
+    {
+      "day_of_week": 2,
+      "hour": 7,
+      "count": 82
+    },
+    {
+      "day_of_week": 2,
+      "hour": 8,
+      "count": 43
+    },
+    {
+      "day_of_week": 2,
+      "hour": 9,
+      "count": 23
+    },
+    {
+      "day_of_week": 2,
+      "hour": 10,
+      "count": 9
+    },
+    {
+      "day_of_week": 2,
+      "hour": 11,
+      "count": 9
+    },
+    {
+      "day_of_week": 2,
+      "hour": 12,
+      "count": 9
+    },
+    {
+      "day_of_week": 2,
+      "hour": 13,
+      "count": 4
+    },
+    {
+      "day_of_week": 2,
+      "hour": 14,
+      "count": 3
+    },
+    {
+      "day_of_week": 2,
+      "hour": 15,
+      "count": 1
+    },
+    {
+      "day_of_week": 2,
+      "hour": 16,
+      "count": 2
+    },
+    {
+      "day_of_week": 2,
+      "hour": 17,
+      "count": 2
+    },
+    {
+      "day_of_week": 2,
+      "hour": 18,
+      "count": 31
+    },
+    {
+      "day_of_week": 2,
+      "hour": 19,
+      "count": 95
+    },
+    {
+      "day_of_week": 2,
+      "hour": 20,
+      "count": 112
+    },
+    {
+      "day_of_week": 2,
+      "hour": 21,
+      "count": 149
+    },
+    {
+      "day_of_week": 2,
+      "hour": 22,
+      "count": 77
+    },
+    {
+      "day_of_week": 2,
+      "hour": 23,
+      "count": 62
+    },
+    {
+      "day_of_week": 3,
+      "hour": 0,
+      "count": 59
+    },
+    {
+      "day_of_week": 3,
+      "hour": 1,
+      "count": 57
+    },
+    {
+      "day_of_week": 3,
+      "hour": 2,
+      "count": 56
+    },
+    {
+      "day_of_week": 3,
+      "hour": 3,
+      "count": 48
+    },
+    {
+      "day_of_week": 3,
+      "hour": 4,
+      "count": 106
+    },
+    {
+      "day_of_week": 3,
+      "hour": 5,
+      "count": 123
+    },
+    {
+      "day_of_week": 3,
+      "hour": 6,
+      "count": 164
+    },
+    {
+      "day_of_week": 3,
+      "hour": 7,
+      "count": 74
+    },
+    {
+      "day_of_week": 3,
+      "hour": 8,
+      "count": 51
+    },
+    {
+      "day_of_week": 3,
+      "hour": 9,
+      "count": 23
+    },
+    {
+      "day_of_week": 3,
+      "hour": 10,
+      "count": 16
+    },
+    {
+      "day_of_week": 3,
+      "hour": 11,
+      "count": 12
+    },
+    {
+      "day_of_week": 3,
+      "hour": 12,
+      "count": 14
+    },
+    {
+      "day_of_week": 3,
+      "hour": 13,
+      "count": 7
+    },
+    {
+      "day_of_week": 3,
+      "hour": 15,
+      "count": 4
+    },
+    {
+      "day_of_week": 3,
+      "hour": 17,
+      "count": 5
+    },
+    {
+      "day_of_week": 3,
+      "hour": 18,
+      "count": 37
+    },
+    {
+      "day_of_week": 3,
+      "hour": 19,
+      "count": 96
+    },
+    {
+      "day_of_week": 3,
+      "hour": 20,
+      "count": 96
+    },
+    {
+      "day_of_week": 3,
+      "hour": 21,
+      "count": 126
+    },
+    {
+      "day_of_week": 3,
+      "hour": 22,
+      "count": 103
+    },
+    {
+      "day_of_week": 3,
+      "hour": 23,
+      "count": 66
+    },
+    {
+      "day_of_week": 4,
+      "hour": 0,
+      "count": 68
+    },
+    {
+      "day_of_week": 4,
+      "hour": 1,
+      "count": 58
+    },
+    {
+      "day_of_week": 4,
+      "hour": 2,
+      "count": 39
+    },
+    {
+      "day_of_week": 4,
+      "hour": 3,
+      "count": 49
+    },
+    {
+      "day_of_week": 4,
+      "hour": 4,
+      "count": 65
+    },
+    {
+      "day_of_week": 4,
+      "hour": 5,
+      "count": 100
+    },
+    {
+      "day_of_week": 4,
+      "hour": 6,
+      "count": 84
+    },
+    {
+      "day_of_week": 4,
+      "hour": 7,
+      "count": 88
+    },
+    {
+      "day_of_week": 4,
+      "hour": 8,
+      "count": 70
+    },
+    {
+      "day_of_week": 4,
+      "hour": 9,
+      "count": 38
+    },
+    {
+      "day_of_week": 4,
+      "hour": 10,
+      "count": 10
+    },
+    {
+      "day_of_week": 4,
+      "hour": 11,
+      "count": 12
+    },
+    {
+      "day_of_week": 4,
+      "hour": 12,
+      "count": 9
+    },
+    {
+      "day_of_week": 4,
+      "hour": 13,
+      "count": 4
+    },
+    {
+      "day_of_week": 4,
+      "hour": 14,
+      "count": 4
+    },
+    {
+      "day_of_week": 4,
+      "hour": 16,
+      "count": 1
+    },
+    {
+      "day_of_week": 4,
+      "hour": 17,
+      "count": 4
+    },
+    {
+      "day_of_week": 4,
+      "hour": 18,
+      "count": 39
+    },
+    {
+      "day_of_week": 4,
+      "hour": 19,
+      "count": 93
+    },
+    {
+      "day_of_week": 4,
+      "hour": 20,
+      "count": 112
+    },
+    {
+      "day_of_week": 4,
+      "hour": 21,
+      "count": 110
+    },
+    {
+      "day_of_week": 4,
+      "hour": 22,
+      "count": 123
+    },
+    {
+      "day_of_week": 4,
+      "hour": 23,
+      "count": 65
+    },
+    {
+      "day_of_week": 5,
+      "hour": 0,
+      "count": 61
+    },
+    {
+      "day_of_week": 5,
+      "hour": 1,
+      "count": 63
+    },
+    {
+      "day_of_week": 5,
+      "hour": 2,
+      "count": 73
+    },
+    {
+      "day_of_week": 5,
+      "hour": 3,
+      "count": 58
+    },
+    {
+      "day_of_week": 5,
+      "hour": 4,
+      "count": 91
+    },
+    {
+      "day_of_week": 5,
+      "hour": 5,
+      "count": 122
+    },
+    {
+      "day_of_week": 5,
+      "hour": 6,
+      "count": 117
+    },
+    {
+      "day_of_week": 5,
+      "hour": 7,
+      "count": 96
+    },
+    {
+      "day_of_week": 5,
+      "hour": 8,
+      "count": 39
+    },
+    {
+      "day_of_week": 5,
+      "hour": 9,
+      "count": 20
+    },
+    {
+      "day_of_week": 5,
+      "hour": 10,
+      "count": 8
+    },
+    {
+      "day_of_week": 5,
+      "hour": 11,
+      "count": 10
+    },
+    {
+      "day_of_week": 5,
+      "hour": 12,
+      "count": 13
+    },
+    {
+      "day_of_week": 5,
+      "hour": 13,
+      "count": 7
+    },
+    {
+      "day_of_week": 5,
+      "hour": 14,
+      "count": 1
+    },
+    {
+      "day_of_week": 5,
+      "hour": 16,
+      "count": 3
+    },
+    {
+      "day_of_week": 5,
+      "hour": 17,
+      "count": 5
+    },
+    {
+      "day_of_week": 5,
+      "hour": 18,
+      "count": 35
+    },
+    {
+      "day_of_week": 5,
+      "hour": 19,
+      "count": 77
+    },
+    {
+      "day_of_week": 5,
+      "hour": 20,
+      "count": 80
+    },
+    {
+      "day_of_week": 5,
+      "hour": 21,
+      "count": 99
+    },
+    {
+      "day_of_week": 5,
+      "hour": 22,
+      "count": 69
+    },
+    {
+      "day_of_week": 5,
+      "hour": 23,
+      "count": 76
+    },
+    {
+      "day_of_week": 6,
+      "hour": 0,
+      "count": 71
+    },
+    {
+      "day_of_week": 6,
+      "hour": 1,
+      "count": 54
+    },
+    {
+      "day_of_week": 6,
+      "hour": 2,
+      "count": 76
+    },
+    {
+      "day_of_week": 6,
+      "hour": 3,
+      "count": 62
+    },
+    {
+      "day_of_week": 6,
+      "hour": 4,
+      "count": 68
+    },
+    {
+      "day_of_week": 6,
+      "hour": 5,
+      "count": 84
+    },
+    {
+      "day_of_week": 6,
+      "hour": 6,
+      "count": 77
+    },
+    {
+      "day_of_week": 6,
+      "hour": 7,
+      "count": 53
+    },
+    {
+      "day_of_week": 6,
+      "hour": 8,
+      "count": 54
+    },
+    {
+      "day_of_week": 6,
+      "hour": 9,
+      "count": 27
+    },
+    {
+      "day_of_week": 6,
+      "hour": 10,
+      "count": 16
+    },
+    {
+      "day_of_week": 6,
+      "hour": 11,
+      "count": 7
+    },
+    {
+      "day_of_week": 6,
+      "hour": 12,
+      "count": 10
+    },
+    {
+      "day_of_week": 6,
+      "hour": 13,
+      "count": 9
+    },
+    {
+      "day_of_week": 6,
+      "hour": 14,
+      "count": 2
+    },
+    {
+      "day_of_week": 6,
+      "hour": 16,
+      "count": 1
+    },
+    {
+      "day_of_week": 6,
+      "hour": 17,
+      "count": 5
+    },
+    {
+      "day_of_week": 6,
+      "hour": 18,
+      "count": 20
+    },
+    {
+      "day_of_week": 6,
+      "hour": 19,
+      "count": 54
+    },
+    {
+      "day_of_week": 6,
+      "hour": 20,
+      "count": 46
+    },
+    {
+      "day_of_week": 6,
+      "hour": 21,
+      "count": 45
+    },
+    {
+      "day_of_week": 6,
+      "hour": 22,
+      "count": 46
+    },
+    {
+      "day_of_week": 6,
+      "hour": 23,
+      "count": 43
+    }
+  ]
+}
