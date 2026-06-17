@@ -48,21 +48,8 @@ export default function Hero({ eda }) {
           activates diversions - all before the first vehicle arrives.
         </p>
 
-        {/* What is this project about */}
-        <div style={{
-          background: 'white', border: '1px solid #e2e8f0', borderRadius: 14,
-          padding: '1.25rem 2rem', maxWidth: 800, margin: '0 auto 2rem', textAlign: 'left'
-        }}>
-          <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#2563eb', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
-            The Problem We Solve
-          </div>
-          <p style={{ fontSize: '0.92rem', color: '#334155', lineHeight: 1.8, margin: 0 }}>
-            Political rallies, IPL matches, festivals, construction, and sudden gatherings create localized traffic 
-            breakdowns in Bengaluru. Today, event impact is <strong>not quantified in advance</strong>, resource deployment 
-            is <strong>experience-driven</strong>, and there is <strong>no post-event learning system</strong>. SEVA solves all three 
-            with data-driven forecasting, mathematical optimization, and closed-loop performance monitoring.
-          </p>
-        </div>
+
+
 
         <div className="hero-stats">
           <div className="hero-stat">

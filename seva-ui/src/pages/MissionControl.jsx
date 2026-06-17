@@ -72,11 +72,16 @@ export default function MissionControl() {
   const [showTechnical, setShowTechnical] = useState(false);
   const [briefHistory, setBriefHistory] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+  const [error, setError] = useState(null);
 
   const runSimulation = async () => {
     setLoading(true);
+    setError(null);
     try {
       const data = await fetchMissionBrief(config);
+      if (!data || !data.impact_assessment) {
+        throw new Error('Invalid response');
+      }
       // Push current brief to history before replacing
       if (brief) {
         setBriefHistory(prev => [{ brief, timestamp: new Date().toLocaleTimeString(), config: { ...config } }, ...prev].slice(0, 10));
@@ -84,6 +89,7 @@ export default function MissionControl() {
       setBrief(data);
     } catch (e) {
       console.error('Mission control error:', e);
+      setError('Simulation failed. Please try again.');
     }
     setLoading(false);
   };
@@ -189,9 +195,16 @@ export default function MissionControl() {
         </button>
       </div>
 
+      {/* Error display */}
+      {error && (
+        <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 10, padding: '1rem', marginBottom: '1rem', color: '#dc2626', fontSize: '0.88rem', fontWeight: 600, textAlign: 'center' }}>
+          {error}
+        </div>
+      )}
+
       {/* Results */}
-      {brief && (
-        <div className="seq-reveal">
+      {brief && impact && (
+        <div className="seq-reveal" style={{ overflowX: 'hidden' }}>
           {/* Executive Summary Card - FOR POLICE */}
           <div style={{
             background: RISK_BG[impact.risk_level],
