@@ -158,33 +158,36 @@ async def load_all():
     
     print(f"Loaded {len(models)} models, {len(station_data)} stations, {len(eda_data)} EDA keys")
     
-    # Start road graph download in background (non-blocking)
-    import threading
-    def _load_graph():
-        try:
-            from engines.road_graph import load_graph
-            load_graph()
-        except Exception as e:
-            print(f"Road graph load warning: {e}")
-    threading.Thread(target=_load_graph, daemon=True).start()
+    # Road graph: skip OSMnx on Render (too much memory for 512MB free tier)
+    # The synthetic fallback in road_graph.py is sufficient
+    print("[Startup] Road graph: using synthetic graph (OSMnx skipped for free tier)")
 
-    # Keep-alive self-ping to prevent Render free tier sleep (every 13 min)
+    # Keep-alive self-ping to prevent Render free tier sleep
     import urllib.request
     import time as _time
+    import threading
     def _keep_alive():
         render_url = os.environ.get("RENDER_EXTERNAL_URL")
         if not render_url:
             print("[KeepAlive] No RENDER_EXTERNAL_URL set, skipping self-ping")
             return
         health_url = f"{render_url}/health"
-        print(f"[KeepAlive] Started — pinging {health_url} every 13 min")
+        print(f"[KeepAlive] Started — pinging {health_url} every 10 min")
+        fail_count = 0
         while True:
-            _time.sleep(780)  # 13 minutes
+            _time.sleep(600)  # 10 minutes — well within 15min sleep threshold
             try:
-                urllib.request.urlopen(health_url, timeout=10)
+                req = urllib.request.Request(health_url, method='GET')
+                resp = urllib.request.urlopen(req, timeout=15)
+                resp.read()  # fully consume response
+                fail_count = 0
                 print(f"[KeepAlive] Ping OK at {datetime.now().strftime('%H:%M:%S')}")
             except Exception as e:
-                print(f"[KeepAlive] Ping failed: {e}")
+                fail_count += 1
+                print(f"[KeepAlive] Ping failed ({fail_count}): {e}")
+                if fail_count > 3:
+                    # Try to recover by re-pinging sooner
+                    _time.sleep(60)
     threading.Thread(target=_keep_alive, daemon=True).start()
 
 @app.get("/health")

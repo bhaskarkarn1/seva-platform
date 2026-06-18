@@ -104,7 +104,6 @@ export default function MissionControl() {
       if (!data || !data.impact_assessment) {
         throw new Error('Invalid response');
       }
-      // Push current brief to history before replacing
       if (brief) {
         setBriefHistory(prev => [{ brief, timestamp: new Date().toLocaleTimeString(), config: { ...config } }, ...prev].slice(0, 10));
       }
@@ -118,8 +117,10 @@ export default function MissionControl() {
       console.error('Mission control error:', e);
       setError('Simulation failed. Please try again.');
       addLog(`ERROR: ${e.message}`, 'error');
+    } finally {
+      // GUARANTEE loading clears — this runs no matter what
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const impact = brief?.impact_assessment;

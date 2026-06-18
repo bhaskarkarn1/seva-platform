@@ -326,44 +326,39 @@ function buildStaticBrief(config) {
 }
 
 export async function fetchMissionBrief(config, onUpgrade) {
-  // FAST PATH: if backend was already marked dead, skip network entirely
-  if (backendAlive === false) {
-    return buildStaticBrief(config)
-  }
-
-  // RACE: return static data after 1.5s OR backend response, whichever comes first
-  const staticPromise = new Promise(resolve => setTimeout(() => resolve(null), 1500))
-  const livePromise = tryFetch(`${LIVE_API}/mission-control`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      event_type: 'unplanned',
-      cause: config.cause,
-      lat: config.lat,
-      lon: config.lon,
-      corridor: config.corridor,
-      hour: config.hour
-    })
-  })
-
-  const winner = await Promise.race([livePromise, staticPromise])
-
-  if (winner && winner.impact_assessment) {
-    // Backend was fast enough — use live data
-    return winner
-  }
-
-  // Backend too slow — return static immediately
+  // ALWAYS return static data immediately — zero network wait
   const staticData = buildStaticBrief(config)
 
-  // Silently attempt backend upgrade in background
-  if (onUpgrade) {
-    livePromise.then(live => {
-      if (live && live.impact_assessment) {
+  // Fire-and-forget: try backend in background, upgrade if it responds
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 4000)
+    fetch(`${LIVE_API}/mission-control`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({
+        event_type: 'unplanned',
+        cause: config.cause,
+        lat: config.lat,
+        lon: config.lon,
+        corridor: config.corridor,
+        hour: config.hour
+      })
+    }).then(res => {
+      clearTimeout(timeout)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      return res.json()
+    }).then(live => {
+      if (live && live.impact_assessment && onUpgrade) {
+        backendAlive = true
         onUpgrade(live)
       }
-    }).catch(() => {})
-  }
+    }).catch(() => {
+      clearTimeout(timeout)
+      backendAlive = false
+    })
+  } catch (_) { /* network unavailable */ }
 
   return staticData
 }
