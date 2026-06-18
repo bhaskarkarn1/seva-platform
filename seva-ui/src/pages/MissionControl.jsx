@@ -431,7 +431,7 @@ export default function MissionControl() {
                 <Circle center={[config.lat, config.lon]} radius={impact.impact_radius_km * 1000}
                   pathOptions={{ color: RISK_COLORS[impact.risk_level], fillOpacity: 0.08, weight: 2, dashArray: '6 4' }} />
                 {/* Officer deployment markers */}
-                {deployment.deployment_plan.map((d, i) => {
+                {(deployment?.deployment_plan || []).map((d, i) => {
                   // Deterministic offsets for officer markers (no Math.random)
                   const offsets = [[0.004, 0.002], [-0.003, 0.004], [-0.004, -0.003], [0.002, -0.004], [0.005, 0], [0, 0.005]];
                   const [dlat, dlon] = offsets[i % offsets.length];
@@ -442,9 +442,9 @@ export default function MissionControl() {
                   );
                 })}
                 {/* Barricade markers */}
-                {barricades.barricades.map((b, i) => (
+                {(barricades?.barricades || barricades?.positions || []).map((b, i) => (
                   <Marker key={`bar-${i}`} position={[b.lat, b.lon]} icon={barricadeIcon}>
-                    <Popup><strong>{b.location}</strong><br/>{b.reason}</Popup>
+                    <Popup><strong>{b.location || b.name || 'Barricade'}</strong><br/>{b.reason}</Popup>
                   </Marker>
                 ))}
               </MapContainer>
@@ -465,7 +465,7 @@ export default function MissionControl() {
                     </tr>
                   </thead>
                   <tbody>
-                    {deployment.deployment_plan.map((d, i) => (
+                    {(deployment?.deployment_plan || []).map((d, i) => (
                       <tr key={i}>
                         <td style={tdStyle}>{d.from_station}</td>
                         <td style={{...tdStyle, fontWeight: 700, color: '#2563eb'}}>{d.officers_assigned}</td>
@@ -489,11 +489,11 @@ export default function MissionControl() {
                     </tr>
                   </thead>
                   <tbody>
-                    {barricades.barricades.map((b, i) => (
+                    {(barricades?.barricades || barricades?.positions || []).map((b, i) => (
                       <tr key={i}>
-                        <td style={tdStyle}>{b.location}</td>
-                        <td style={tdStyle}>{b.distance_from_event_km}km</td>
-                        <td style={{...tdStyle, color: '#ea580c', fontWeight: 600}}>{b.historical_closure_rate}</td>
+                        <td style={tdStyle}>{b.location || b.name || 'Barricade'}</td>
+                        <td style={tdStyle}>{b.distance_from_event_km || '-'}km</td>
+                        <td style={{...tdStyle, color: '#ea580c', fontWeight: 600}}>{b.historical_closure_rate || '-'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -552,20 +552,20 @@ export default function MissionControl() {
                 {similar.map((s, i) => (
                   <div key={i} style={{
                     background: 'white', border: '1px solid #e2e8f0', borderRadius: 10, padding: '1rem',
-                    borderLeft: `4px solid ${s.similarity_pct > 80 ? '#2563eb' : '#94a3b8'}`
+                    borderLeft: `4px solid ${(s.similarity_pct || s.similarity_score * 100) > 80 ? '#2563eb' : '#94a3b8'}`
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                      <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>{s.event_type.replace(/_/g, ' ')}</span>
+                      <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>{(s.event_type || s.cause || '').replace(/_/g, ' ')}</span>
                       <span style={{
-                        background: s.similarity_pct > 80 ? '#dbeafe' : '#f1f5f9',
-                        color: s.similarity_pct > 80 ? '#1d4ed8' : '#64748b',
+                        background: (s.similarity_pct || s.similarity_score * 100) > 80 ? '#dbeafe' : '#f1f5f9',
+                        color: (s.similarity_pct || s.similarity_score * 100) > 80 ? '#1d4ed8' : '#64748b',
                         padding: '2px 8px', borderRadius: 6, fontSize: '0.75rem', fontWeight: 700
-                      }}>{s.similarity_pct}% match</span>
+                      }}>{Math.round(s.similarity_pct || s.similarity_score * 100)}% match</span>
                     </div>
                     <div style={{ fontSize: '0.8rem', color: '#64748b', lineHeight: 1.6 }}>
-                      <div>{s.total_historical_events} events | Closure: {s.historical_closure_rate}</div>
-                      <div>Resolution: {s.avg_resolution_hrs ? `${s.avg_resolution_hrs}h avg` : 'N/A'}</div>
-                      <div style={{ marginTop: '0.25rem', color: '#1e293b', fontStyle: 'italic', fontSize: '0.78rem' }}>{s.recommendation}</div>
+                      <div>{s.total_historical_events || '-'} events | Closure: {s.historical_closure_rate || '-'}</div>
+                      <div>Resolution: {s.avg_resolution_hrs ? `${s.avg_resolution_hrs}h avg` : s.resolution_hrs ? `${s.resolution_hrs}h avg` : 'N/A'}</div>
+                      <div style={{ marginTop: '0.25rem', color: '#1e293b', fontStyle: 'italic', fontSize: '0.78rem' }}>{s.recommendation || ''}</div>
                     </div>
                   </div>
                 ))}
@@ -585,7 +585,7 @@ export default function MissionControl() {
               }}>
                 <div>
                   <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#7c3aed', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Expected Patterns</div>
-                  {brief.event_template.expected_patterns.map((p, i) => (
+                  {(brief.event_template.expected_patterns || []).map((p, i) => (
                     <div key={i} style={{ fontSize: '0.82rem', color: '#475569', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
                       <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#7c3aed', flexShrink: 0 }} /> {p}
                     </div>
@@ -595,7 +595,7 @@ export default function MissionControl() {
                   <div style={{ fontSize: '0.82rem', marginBottom: 6 }}><strong>Typical Duration:</strong> {brief.event_template.typical_duration_hrs}</div>
                   <div style={{ fontSize: '0.82rem', marginBottom: 6 }}><strong>Peak Congestion:</strong> {brief.event_template.peak_congestion}</div>
                   <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#7c3aed', textTransform: 'uppercase', marginBottom: 4, marginTop: 8 }}>Critical Infrastructure</div>
-                  {brief.event_template.critical_infrastructure.map((c, i) => (
+                  {(brief.event_template.critical_infrastructure || []).map((c, i) => (
                     <div key={i} style={{ fontSize: '0.82rem', color: '#475569' }}>• {c}</div>
                   ))}
                 </div>
@@ -653,12 +653,12 @@ export default function MissionControl() {
               </h4>
               <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '1rem' }}>
                 <div>
-                  <div style={{ fontSize: '2rem', fontWeight: 800, color: '#059669' }}>{brief.public_impact.estimated_commuters_display}</div>
+                  <div style={{ fontSize: '2rem', fontWeight: 800, color: '#059669' }}>{brief.public_impact.estimated_commuters_display || brief.public_impact.commuters_affected?.toLocaleString() || '—'}</div>
                   <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>Estimated Commuters Affected</div>
                 </div>
               </div>
               <div style={{ fontSize: '0.88rem', color: '#1e293b' }}>
-                {brief.public_impact.advisory.map((a, i) => (
+                {(brief.public_impact.advisory || []).map((a, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                     <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#059669', flexShrink: 0 }} />
                     {a}
@@ -711,7 +711,7 @@ export default function MissionControl() {
                   </div>
                 ))}
                 <h5 style={{ fontWeight: 700, margin: '0.75rem 0 0.5rem' }}>Affected Junctions</h5>
-                <div>{impact.affected_junction_names.join(', ')}</div>
+                <div>{(impact.affected_junction_names || []).join(', ') || 'N/A'}</div>
               </div>
             )}
           </div>

@@ -144,15 +144,20 @@ function buildStaticBrief(config) {
     reason: `closure_prob=${p.closure.toFixed(2)}, priority=${p.risk === 'CRITICAL' || p.risk === 'HIGH' ? 'High' : 'Low'}`
   }))
 
-  // Build barricade positions
+  // Build barricade positions (field names must match backend: location, distance_from_event_km, historical_closure_rate)
+  const barricadeNames = ['Majestic Junction', 'Town Hall Circle', 'Vidhana Soudha Gate', 'Hudson Circle']
   const barricadePositions = Array.from({ length: p.barricades }, (_, i) => ({
-    name: `Barricade ${i + 1} - ${['North Perimeter', 'South Perimeter', 'East Perimeter', 'West Perimeter'][i % 4]}`,
+    location: barricadeNames[i % barricadeNames.length],
     lat: config.lat + [0.008, -0.008, 0.003, -0.003][i % 4],
     lon: config.lon + [0.003, -0.003, 0.008, -0.008][i % 4],
-    type: i === 0 ? 'Full Closure' : 'Partial Restriction',
-    priority: i === 0 ? 'Critical' : 'High',
+    distance_from_event_km: +(1.2 + i * 0.7).toFixed(2),
+    barricade_score: +(12.5 - i * 2.3).toFixed(2),
+    junction_type: i === 0 ? 'Interchange' : 'Signal Junction',
+    junction_connectivity: 7 - i,
     reason: 'High-connectivity junction on perimeter',
-    connectivity_score: +(0.85 - i * 0.1).toFixed(2)
+    historical_closure_rate: `${(22 + i * 5).toFixed(1)}%`,
+    historical_events: 150 + i * 30,
+    zone: i < 2 ? 'inner' : 'perimeter'
   }))
 
   // Temporal impact curve
@@ -209,6 +214,19 @@ function buildStaticBrief(config) {
       positions: barricadePositions,
       barricades: barricadePositions,
       containment_pct: p.barricades >= 3 ? 87 : 72,
+      containment_score: p.barricades >= 3 ? 0.87 : 0.72,
+      impact_radius_km: p.radius,
+      junctions_in_radius: p.junctions,
+      inner_zone_junctions: Math.ceil(p.junctions / 2),
+      perimeter_junctions_analyzed: Math.floor(p.junctions / 2),
+      without_barricades: {
+        affected_junctions: p.junctions,
+        spillover_risk: 'HIGH'
+      },
+      with_barricades: {
+        affected_junctions: Math.max(2, p.junctions - p.barricades),
+        spillover_risk: 'MEDIUM'
+      },
       methodology: 'Junction-based perimeter containment at high-connectivity intersections'
     },
     diversion_summary: {
@@ -250,21 +268,37 @@ function buildStaticBrief(config) {
       estimated_queue_vehicles: Math.round(p.vcRatio * 2.1 * 45)
     },
     congestion_spillover: {
-      affected_corridors: p.corridor === 'CBD' ? ['Hosur Road', 'MG Road', 'Bellary Road'] : [p.corridor],
-      spillover_risk: p.risk === 'CRITICAL' ? 'HIGH' : 'MODERATE',
-      propagation_time_min: Math.round(p.radius * 8)
+      source_corridor: config.corridor,
+      affected_corridors: (config.corridor === 'CBD'
+        ? [{ corridor: 'MG Road', congestion_increase_pct: 33, severity: 'HIGH' }, { corridor: 'Hosur Road', congestion_increase_pct: 22, severity: 'MEDIUM' }, { corridor: 'Bellary Road', congestion_increase_pct: 18, severity: 'MEDIUM' }]
+        : [{ corridor: config.corridor, congestion_increase_pct: 25, severity: 'HIGH' }]),
+      total_affected: config.corridor === 'CBD' ? 3 : 1,
+      methodology: 'Adjacency-based corridor propagation'
     },
     public_impact: {
-      commuters_affected: Math.round(p.junctions * 1200),
-      bus_routes_impacted: Math.round(p.junctions * 1.5),
-      estimated_economic_loss_lakhs: +(p.closure * p.junctions * 2.5).toFixed(1)
+      estimated_commuters_affected: Math.round(p.junctions * 1200),
+      estimated_commuters_display: `${(Math.round(p.junctions * 1200)).toLocaleString()}`,
+      advisory: [
+        `Expect ${Math.round(p.junctions * 1.5)} BMTC bus routes impacted`,
+        `${Math.round(p.junctions * 1200)} commuters may face delays of ${Math.round(p.closure * 25)}+ minutes`,
+        'Consider alternate routes via metro or parallel corridors'
+      ],
+      severity: p.risk === 'CRITICAL' ? 'SEVERE' : p.risk === 'HIGH' ? 'MODERATE' : 'MINOR'
     },
     event_template: {
-      recommended_actions: [
-        'Deploy officers to all affected junctions',
-        'Activate barricade perimeter',
-        'Enable diversion routes for approaching traffic',
-        'Alert BMTC for bus route modifications'
+      name: config.cause.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+      expected_patterns: [
+        'Pre-event buildup 1-2 hours before start',
+        'Peak congestion during event + 30min after',
+        'Gradual clearance over 1-2 hours post-event',
+        'Secondary surge on parallel corridors'
+      ],
+      typical_duration_hrs: `${p.resolution.median_hrs}-${p.resolution.p75_hrs} hours`,
+      peak_congestion: 'During and 30-60 minutes post-event',
+      critical_infrastructure: [
+        `${p.junctions} junctions in ${p.radius}km radius`,
+        `${p.stations.length} police stations within response range`,
+        `${p.diversions} approach corridors for diversion`
       ]
     },
     confidence_intervals: {
@@ -273,9 +307,9 @@ function buildStaticBrief(config) {
       resolution_range_hrs: [p.resolution.median_hrs, p.resolution.p75_hrs]
     },
     similar_events: [
-      { cause: config.cause, corridor: config.corridor, closure_rate: p.closure, priority: p.risk === 'CRITICAL' ? 'High' : 'Medium', similarity_score: 0.92, resolution_hrs: p.resolution.median_hrs },
-      { cause: config.cause, corridor: 'Outer Ring Road', closure_rate: +(p.closure * 0.8).toFixed(2), priority: 'Medium', similarity_score: 0.78, resolution_hrs: +(p.resolution.median_hrs * 1.2).toFixed(2) },
-      { cause: config.cause, corridor: 'Hosur Road', closure_rate: +(p.closure * 0.65).toFixed(2), priority: 'Low', similarity_score: 0.65, resolution_hrs: +(p.resolution.median_hrs * 0.8).toFixed(2) },
+      { event_type: config.cause, similarity_pct: 88.2, match_reason: 'Similar severity profile', total_historical_events: 278, historical_closure_rate: `${(p.closure * 100).toFixed(1)}%`, historical_high_priority_rate: '81.7%', avg_resolution_hrs: p.resolution.median_hrs, affected_stations_count: p.stations.length, recommendation: `High priority zone. Deploy rapid response units. ${Math.round(p.closure * 100)}% historical closure rate.` },
+      { event_type: 'construction', similarity_pct: 72.5, match_reason: 'Similar corridor profile', total_historical_events: 185, historical_closure_rate: `${(p.closure * 80).toFixed(1)}%`, historical_high_priority_rate: '65.3%', avg_resolution_hrs: +(p.resolution.median_hrs * 1.2).toFixed(2), affected_stations_count: 6, recommendation: 'Moderate priority. Standard deployment protocol recommended.' },
+      { event_type: 'accident', similarity_pct: 61.8, match_reason: 'Similar temporal pattern', total_historical_events: 142, historical_closure_rate: `${(p.closure * 65).toFixed(1)}%`, historical_high_priority_rate: '45.2%', avg_resolution_hrs: +(p.resolution.median_hrs * 0.8).toFixed(2), affected_stations_count: 4, recommendation: 'Lower priority. Monitor and escalate if needed.' },
     ],
     plain_language_summary: `SEVA assesses this as a ${p.risk} risk event. ${p.risk === 'CRITICAL' || p.risk === 'HIGH' ? 'Immediate action required. ' : ''}Deploy ${p.officers} officers from nearby stations. Install ${p.barricades} barricades at perimeter junctions to contain spillover. Activate ${p.diversions} diversion routes for approaching traffic. Expected resolution: ${p.resolution.display}. ${p.junctions} nearby junctions affected within ${p.radius}km radius.`,
     methodology: {
