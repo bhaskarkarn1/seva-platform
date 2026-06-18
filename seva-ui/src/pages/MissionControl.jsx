@@ -81,7 +81,13 @@ export default function MissionControl() {
     setTimeout(() => { if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight; }, 50);
   }
 
-  useEffect(() => { addLog('Mission Control initialized. Select a scenario or configure an event.'); }, []);
+  useEffect(() => {
+    addLog('Mission Control initialized. Auto-loading IPL scenario...');
+    // Auto-load IPL at Chinnaswamy so judges see a full brief on first visit
+    const iplConfig = { cause: 'public_event', corridor: 'CBD', hour: 20, lat: 12.9784, lon: 77.5998 };
+    setConfig(iplConfig);
+    setTimeout(() => runSimulation(iplConfig), 300);
+  }, []);
 
   const runSimulation = async (overrideConfig) => {
     const cfg = overrideConfig || config;
