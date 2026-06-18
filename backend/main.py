@@ -190,9 +190,9 @@ async def load_all():
                     _time.sleep(60)
     threading.Thread(target=_keep_alive, daemon=True).start()
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 async def health_check():
-    """Health check endpoint for monitoring and keep-alive."""
+    """Health check endpoint for monitoring and keep-alive. Supports GET and HEAD (for UptimeRobot)."""
     return {
         "status": "healthy",
         "models_loaded": len(models),
