@@ -41,10 +41,12 @@ export default function ImpactStats() {
   useEffect(() => {
     fetchScenario().then(data => setScenario(data)).catch(() => null)
 
-    fetchMissionBrief({
+    // fetchMissionBrief is synchronous — call directly
+    const briefData = fetchMissionBrief({
       cause: 'public_event', lat: 12.9784, lon: 77.5998,
       corridor: 'CBD', hour: 20
-    }).then(data => setMissionBrief(data)).catch(() => null)
+    })
+    setMissionBrief(briefData)
   }, [])
 
   const delayWithout = missionBrief?.bpr_delay_analysis?.delay_without_seva_min || 6.5
