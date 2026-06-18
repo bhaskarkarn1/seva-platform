@@ -81,22 +81,17 @@ export default function MissionControl() {
     setTimeout(() => { if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight; }, 50);
   }
 
-  useEffect(() => {
-    addLog('Mission Control initialized. Auto-loading IPL scenario...');
-    // Auto-load IPL at Chinnaswamy so judges see a full brief on first visit
-    const iplConfig = { cause: 'public_event', corridor: 'CBD', hour: 20, lat: 12.9784, lon: 77.5998 };
-    setConfig(iplConfig);
-    setTimeout(() => runSimulation(iplConfig), 300);
-  }, []);
-
   const runSimulation = async (overrideConfig) => {
     const cfg = overrideConfig || config;
     setLoading(true);
     setError(null);
     addLog(`Simulation started: ${cfg.cause.replace(/_/g, ' ')} | ${cfg.corridor} | ${cfg.hour}:00`);
+    
+    // SAFETY: force loading=false after 3 seconds no matter what
+    const safetyTimer = setTimeout(() => setLoading(false), 3000);
+    
     try {
       const data = await fetchMissionBrief(cfg, (liveData) => {
-        // Silent upgrade: replace static data with live backend data when it arrives
         setBrief(liveData);
         const risk = liveData.impact_assessment?.risk_level || 'UNKNOWN';
         addLog(`⬆ Live backend data received — upgrading brief (${risk} risk)`, 'success');
@@ -118,10 +113,18 @@ export default function MissionControl() {
       setError('Simulation failed. Please try again.');
       addLog(`ERROR: ${e.message}`, 'error');
     } finally {
-      // GUARANTEE loading clears — this runs no matter what
+      clearTimeout(safetyTimer);
       setLoading(false);
     }
   };
+
+  // Auto-load IPL scenario on first visit (defined AFTER runSimulation)
+  useEffect(() => {
+    addLog('Mission Control initialized. Auto-loading IPL scenario...');
+    const iplConfig = { cause: 'public_event', corridor: 'CBD', hour: 20, lat: 12.9784, lon: 77.5998 };
+    setConfig(iplConfig);
+    setTimeout(() => runSimulation(iplConfig), 100);
+  }, []);
 
   const impact = brief?.impact_assessment;
   const deployment = brief?.officer_deployment;
