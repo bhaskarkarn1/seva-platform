@@ -325,8 +325,8 @@ function buildStaticBrief(config) {
   }
 }
 
-export async function fetchMissionBrief(config, onUpgrade) {
-  // ALWAYS return static data immediately — zero network wait
+export function fetchMissionBrief(config, onUpgrade) {
+  // SYNCHRONOUS: return static data immediately, no Promise, no await
   const staticData = buildStaticBrief(config)
 
   // Fire-and-forget: try backend in background, upgrade if it responds

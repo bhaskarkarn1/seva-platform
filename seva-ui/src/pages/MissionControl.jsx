@@ -81,23 +81,21 @@ export default function MissionControl() {
     setTimeout(() => { if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight; }, 50);
   }
 
-  const runSimulation = async (overrideConfig) => {
+  const runSimulation = (overrideConfig) => {
     const cfg = overrideConfig || config;
-    setLoading(true);
     setError(null);
     addLog(`Simulation started: ${cfg.cause.replace(/_/g, ' ')} | ${cfg.corridor} | ${cfg.hour}:00`);
     
-    // SAFETY: force loading=false after 3 seconds no matter what
-    const safetyTimer = setTimeout(() => setLoading(false), 3000);
-    
     try {
-      const data = await fetchMissionBrief(cfg, (liveData) => {
+      // fetchMissionBrief is now SYNCHRONOUS — returns data immediately
+      const data = fetchMissionBrief(cfg, (liveData) => {
+        // Silent upgrade from backend (fires later if backend responds)
         setBrief(liveData);
         const risk = liveData.impact_assessment?.risk_level || 'UNKNOWN';
         addLog(`⬆ Live backend data received — upgrading brief (${risk} risk)`, 'success');
       });
       if (!data || !data.impact_assessment) {
-        throw new Error('Invalid response');
+        throw new Error('Invalid response from simulation engine');
       }
       if (brief) {
         setBriefHistory(prev => [{ brief, timestamp: new Date().toLocaleTimeString(), config: { ...config } }, ...prev].slice(0, 10));
@@ -112,18 +110,16 @@ export default function MissionControl() {
       console.error('Mission control error:', e);
       setError('Simulation failed. Please try again.');
       addLog(`ERROR: ${e.message}`, 'error');
-    } finally {
-      clearTimeout(safetyTimer);
-      setLoading(false);
     }
+    // No loading state needed — everything is synchronous and instant
   };
 
-  // Auto-load IPL scenario on first visit (defined AFTER runSimulation)
+  // Auto-load IPL scenario on first visit
   useEffect(() => {
     addLog('Mission Control initialized. Auto-loading IPL scenario...');
     const iplConfig = { cause: 'public_event', corridor: 'CBD', hour: 20, lat: 12.9784, lon: 77.5998 };
     setConfig(iplConfig);
-    setTimeout(() => runSimulation(iplConfig), 100);
+    runSimulation(iplConfig);
   }, []);
 
   const impact = brief?.impact_assessment;
@@ -221,13 +217,13 @@ export default function MissionControl() {
             </div>
           </div>
         </div>
-        <button onClick={runSimulation} disabled={loading} style={{
-          width: '100%', marginTop: '1rem', padding: '0.875rem', background: loading ? '#94a3b8' : '#2563eb',
+        <button onClick={() => runSimulation()} style={{
+          width: '100%', marginTop: '1rem', padding: '0.875rem', background: '#2563eb',
           color: 'white', border: 'none', borderRadius: 10, fontSize: '1rem', fontWeight: 700,
-          cursor: loading ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+          cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
           transition: 'background 0.2s'
         }}>
-          <Zap size={18} /> {loading ? 'Computing Operational Brief...' : 'Run Event Simulation'}
+          <Zap size={18} /> Run Event Simulation
         </button>
       </div>
 
