@@ -168,6 +168,35 @@ async def load_all():
             print(f"Road graph load warning: {e}")
     threading.Thread(target=_load_graph, daemon=True).start()
 
+    # Keep-alive self-ping to prevent Render free tier sleep (every 13 min)
+    import urllib.request
+    import time as _time
+    def _keep_alive():
+        render_url = os.environ.get("RENDER_EXTERNAL_URL")
+        if not render_url:
+            print("[KeepAlive] No RENDER_EXTERNAL_URL set, skipping self-ping")
+            return
+        health_url = f"{render_url}/health"
+        print(f"[KeepAlive] Started — pinging {health_url} every 13 min")
+        while True:
+            _time.sleep(780)  # 13 minutes
+            try:
+                urllib.request.urlopen(health_url, timeout=10)
+                print(f"[KeepAlive] Ping OK at {datetime.now().strftime('%H:%M:%S')}")
+            except Exception as e:
+                print(f"[KeepAlive] Ping failed: {e}")
+    threading.Thread(target=_keep_alive, daemon=True).start()
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for monitoring and keep-alive."""
+    return {
+        "status": "healthy",
+        "models_loaded": len(models),
+        "stations": len(station_data),
+        "timestamp": datetime.now().isoformat()
+    }
+
 # ---- Original Endpoints (kept) ----
 
 @app.get("/eda")
