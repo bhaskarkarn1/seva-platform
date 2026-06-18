@@ -95,7 +95,12 @@ export default function MissionControl() {
     setError(null);
     addLog(`Simulation started: ${cfg.cause.replace(/_/g, ' ')} | ${cfg.corridor} | ${cfg.hour}:00`);
     try {
-      const data = await fetchMissionBrief(cfg);
+      const data = await fetchMissionBrief(cfg, (liveData) => {
+        // Silent upgrade: replace static data with live backend data when it arrives
+        setBrief(liveData);
+        const risk = liveData.impact_assessment?.risk_level || 'UNKNOWN';
+        addLog(`⬆ Live backend data received — upgrading brief (${risk} risk)`, 'success');
+      });
       if (!data || !data.impact_assessment) {
         throw new Error('Invalid response');
       }

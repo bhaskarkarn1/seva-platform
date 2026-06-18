@@ -10,7 +10,7 @@ import stationData from '../data/station_data.json'
 
 const LIVE_API = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL)
   || 'https://seva-platform-iexc.onrender.com'
-const TIMEOUT_MS = 8000
+const TIMEOUT_MS = 4000
 
 let backendAlive = null // null = unknown, true/false = cached
 
@@ -325,9 +325,15 @@ function buildStaticBrief(config) {
   }
 }
 
-export async function fetchMissionBrief(config) {
-  // Try live backend first
-  const live = await tryFetch(`${LIVE_API}/mission-control`, {
+export async function fetchMissionBrief(config, onUpgrade) {
+  // FAST PATH: if backend was already marked dead, skip network entirely
+  if (backendAlive === false) {
+    return buildStaticBrief(config)
+  }
+
+  // RACE: return static data after 1.5s OR backend response, whichever comes first
+  const staticPromise = new Promise(resolve => setTimeout(() => resolve(null), 1500))
+  const livePromise = tryFetch(`${LIVE_API}/mission-control`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -339,9 +345,27 @@ export async function fetchMissionBrief(config) {
       hour: config.hour
     })
   })
-  if (live) return live
-  // Fallback to pre-computed static data
-  return buildStaticBrief(config)
+
+  const winner = await Promise.race([livePromise, staticPromise])
+
+  if (winner && winner.impact_assessment) {
+    // Backend was fast enough — use live data
+    return winner
+  }
+
+  // Backend too slow — return static immediately
+  const staticData = buildStaticBrief(config)
+
+  // Silently attempt backend upgrade in background
+  if (onUpgrade) {
+    livePromise.then(live => {
+      if (live && live.impact_assessment) {
+        onUpgrade(live)
+      }
+    }).catch(() => {})
+  }
+
+  return staticData
 }
 
 export async function fetchScenario() {
