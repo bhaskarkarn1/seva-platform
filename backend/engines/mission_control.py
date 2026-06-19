@@ -361,7 +361,8 @@ def _compute_diversion_summary(lat, lon, impact, station_data):
 def _generate_plain_summary(impact, deployment, barricades, diversions):
     """Generate a plain-language summary for non-technical users."""
     risk = impact['risk_level']
-    officers = deployment.get('total_officers_deployed', 0)
+    teams = deployment.get('total_officers_deployed', 0)
+    personnel = teams * 5  # Each team: 1 ASI/SI + 2-4 constables + 1-2 Home Guards
     barricade_count = barricades.get('total', 0)
     diversion_count = diversions.get('total_diversions', 0)
     resolution = impact['estimated_resolution']['display']
@@ -371,10 +372,10 @@ def _generate_plain_summary(impact, deployment, barricades, diversions):
     if risk in ('CRITICAL', 'HIGH'):
         summary += f"Immediate action required. "
     
-    summary += f"Deploy {officers} officers from nearby stations. "
+    summary += f"Deploy {teams} teams (~{personnel} personnel) from nearby stations. "
     
     if barricade_count > 0:
-        summary += f"Install {barricade_count} barricades at perimeter junctions to contain spillover. "
+        summary += f"Install {barricade_count} barricade zones at perimeter junctions to contain spillover. "
     
     if diversion_count > 0:
         summary += f"Activate {diversion_count} diversion routes for approaching traffic. "

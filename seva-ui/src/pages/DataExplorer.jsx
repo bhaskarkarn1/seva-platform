@@ -13,7 +13,7 @@ export default function DataExplorer({ eda }) {
 
   return (
     <div>
-      <p style={{ color: '#475569', marginBottom: 28, lineHeight: 1.7 }}>
+      <p style={{ color: '#475569', marginBottom: 28, lineHeight: 1.7, fontSize: '0.9rem' }}>
         Comprehensive breakdown of 8,057 traffic events recorded across Bengaluru.
       </p>
 

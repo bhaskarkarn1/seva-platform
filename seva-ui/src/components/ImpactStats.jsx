@@ -67,10 +67,10 @@ export default function ImpactStats() {
     <section className="section" id="impact">
       <RevealSection>
         <div className="section-label">Scenario: IPL Match at Chinnaswamy Stadium</div>
-        <div className="section-title">What changes when SEVA is deployed</div>
+        <div className="section-title">What Changes When SEVA Is Deployed</div>
         <p className="section-desc">
           35,000 fans exit Chinnaswamy Stadium at 10 PM. These numbers show what happens
-          to traffic on MG Road corridor - with and without SEVA.
+          to traffic on MG Road corridor — with and without SEVA.
         </p>
       </RevealSection>
       <RevealSection>
@@ -83,7 +83,7 @@ export default function ImpactStats() {
               <div className="impact-metric-value red"><CountUp end={delayWithout} decimals={1} /> min</div>
             </div>
             <div className="impact-row">
-              <div className="impact-metric-label">Junction officer coverage</div>
+              <div className="impact-metric-label">Junction team coverage</div>
               <div className="impact-metric-value red"><CountUp end={coverageWithout} />%</div>
             </div>
             <div className="impact-row">
@@ -110,7 +110,7 @@ export default function ImpactStats() {
               <div className="impact-metric-value green"><CountUp end={delayWith} decimals={1} /> min</div>
             </div>
             <div className="impact-row">
-              <div className="impact-metric-label">Junction officer coverage</div>
+              <div className="impact-metric-label">Junction team coverage</div>
               <div className="impact-metric-value green"><CountUp end={coverageWith} />%</div>
             </div>
             <div className="impact-row">
@@ -124,7 +124,7 @@ export default function ImpactStats() {
           </div>
         </div>
         <p className="impact-footnote">
-          Delay computed via BPR formula (Bureau of Public Roads) - the global standard used by FHWA for link-level delay estimation.
+          Delay computed via BPR formula (Bureau of Public Roads) — the global standard used by FHWA for link-level delay estimation.
           Coverage from MILP optimization across 54 police stations.
         </p>
       </RevealSection>

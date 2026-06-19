@@ -64,16 +64,9 @@ a:hover { color: var(--blue-dark); }
 
 /* ---- SCROLL PROGRESS BAR ---- */
 .scroll-progress {
-  position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
-  background: linear-gradient(90deg, #2563EB, #7c3aed, #2563EB);
-  background-size: 200% 100%;
-  animation: gradientShift 3s ease infinite;
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 200;
+  background: var(--blue);
   transition: width 0.1s linear;
-}
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 /* ---- NAVBAR ---- */
@@ -163,8 +156,8 @@ a:hover { color: var(--blue-dark); }
 
 /* Title */
 .hero-title {
-  font-size: 5rem; font-weight: 900; line-height: 1;
-  margin-bottom: 12px; letter-spacing: -0.04em;
+  font-size: 4.5rem; font-weight: 900; line-height: 1.05;
+  margin-bottom: 14px; letter-spacing: -0.03em;
   color: #0f172a;
 }
 .hero-title-accent {
@@ -245,7 +238,7 @@ a:hover { color: var(--blue-dark); }
   font-size: 0.75rem; font-weight: 700; color: var(--blue);
   text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;
 }
-.section-title { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+.section-title { font-size: 1.85rem; font-weight: 700; margin-bottom: 12px; }
 .section-desc {
   font-size: 1rem; color: var(--gray-600); max-width: 640px; line-height: 1.75;
   margin-bottom: 40px;
@@ -282,19 +275,19 @@ a:hover { color: var(--blue-dark); }
   border-left: 4px solid transparent;
 }
 .card:hover {
-  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.15), 0 0 20px rgba(37,99,235,0.08);
-  transform: translateY(-6px) scale(1.02);
-  border-color: var(--blue);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+  border-color: var(--gray-300);
   border-left-color: var(--blue);
   z-index: 2;
 }
 .card:active {
-  transform: translateY(-2px) scale(0.99);
-  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .card.card-active, .card.card-pop {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 16px 48px rgba(37, 99, 235, 0.2), 0 0 30px rgba(37,99,235,0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
   border-color: var(--blue);
   border-left: 4px solid var(--blue);
 }
@@ -303,7 +296,7 @@ a:hover { color: var(--blue-dark); }
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 16px; transition: all 0.35s ease;
 }
-.card:hover .card-icon { transform: scale(1.15) rotate(4deg); }
+.card:hover .card-icon { transform: scale(1.08); }
 .card-icon.blue { background: var(--blue-light); color: var(--blue); }
 .card-icon.green { background: var(--green-light); color: var(--green); }
 .card-icon.red { background: var(--red-light); color: var(--red); }
@@ -322,12 +315,12 @@ a:hover { color: var(--blue-dark); }
   cursor: pointer; position: relative;
 }
 .metric-box:hover {
-  box-shadow: 0 8px 24px rgba(37,99,235,0.12), 0 0 16px rgba(37,99,235,0.06);
-  transform: translateY(-5px) scale(1.03);
-  border-color: var(--blue);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  transform: translateY(-2px);
+  border-color: var(--gray-300);
 }
 .metric-box:active {
-  transform: translateY(-1px) scale(0.98);
+  transform: translateY(0);
 }
 .metric-box .label {
   font-size: 0.72rem; font-weight: 600; color: var(--gray-400);
@@ -743,12 +736,12 @@ a:hover { color: var(--blue-dark); }
   flex-direction: column;
 }
 .approach-card:hover {
-  box-shadow: 0 12px 36px rgba(37,99,235,0.12), 0 0 20px rgba(37,99,235,0.06);
-  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  transform: translateY(-3px);
   border-top-color: var(--blue);
 }
 .approach-card:hover .approach-num {
-  transform: scale(1.12);
+  transform: scale(1.06);
 }
 .approach-card-header {
   display: flex;
@@ -837,11 +830,11 @@ a:hover { color: var(--blue-dark); }
 
 /* ---- OPERATIONAL GLOW ---- */
 .op-glow {
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s ease;
 }
 .op-glow:hover {
-  box-shadow: 0 8px 28px rgba(37,99,235,0.15), 0 0 20px rgba(37,99,235,0.08);
-  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  transform: translateY(-2px);
   border-color: var(--blue) !important;
 }
 

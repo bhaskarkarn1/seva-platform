@@ -102,7 +102,7 @@ export default function MissionControl() {
       }
       setBrief(data);
       const risk = data.impact_assessment?.risk_level || 'UNKNOWN';
-      addLog(`Brief computed: ${risk} risk | ${data.officer_deployment?.total_officers || 0} officers | ${data.barricade_plan?.total || 0} barricades`, risk === 'CRITICAL' ? 'error' : risk === 'HIGH' ? 'warning' : 'success');
+      addLog(`Brief computed: ${risk} risk | ${data.officer_deployment?.total_officers || 0} teams | ${data.barricade_plan?.total || 0} barricade zones`, risk === 'CRITICAL' ? 'error' : risk === 'HIGH' ? 'warning' : 'success');
       if (data.diversion_summary?.total_diversions) {
         addLog(`${data.diversion_summary.total_diversions} diversion routes activated | ~${data.diversion_summary.expected_delay_reduction_pct}% delay reduction`, 'success');
       }
@@ -129,15 +129,15 @@ export default function MissionControl() {
 
   return (
     <div>
-      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.25rem' }}>Mission Control</h3>
-      <p style={{ color: '#64748b', marginBottom: '1rem', fontSize: '0.9rem' }}>
+      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.35rem', color: '#0f172a' }}>Mission Control</h3>
+      <p style={{ color: '#64748b', marginBottom: '1rem', fontSize: '0.9rem', lineHeight: 1.7 }}>
         One button. One screen. Complete operational brief for Bengaluru Traffic Police.
       </p>
 
       {/* Command Center Live Banner */}
       <div style={{
         background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-        borderRadius: 14, padding: '1rem 1.5rem', marginBottom: '1.25rem',
+        borderRadius: 12, padding: '1rem 1.5rem', marginBottom: '1.25rem',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -147,8 +147,8 @@ export default function MissionControl() {
         <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
           {[
             { label: 'Active Incidents', value: brief ? '1' : '0', color: brief?.impact_assessment?.risk_level === 'CRITICAL' ? '#ef4444' : '#f59e0b' },
-            { label: 'Officers Deployed', value: brief?.officer_deployment?.total_officers || '-', color: '#3b82f6' },
-            { label: 'Barricades Active', value: brief?.barricade_plan?.total || '-', color: '#f97316' },
+            { label: 'Teams Deployed', value: brief?.officer_deployment?.total_officers || '-', color: '#3b82f6' },
+            { label: 'Barricade Zones', value: brief?.barricade_plan?.total || '-', color: '#f97316' },
             { label: 'Diversions Live', value: brief?.diversion_summary?.total_diversions || '-', color: '#22c55e' },
           ].map(item => (
             <div key={item.label} style={{ textAlign: 'center' }}>
@@ -241,7 +241,7 @@ export default function MissionControl() {
           <div style={{
             background: RISK_BG[impact.risk_level],
             border: `2px solid ${RISK_COLORS[impact.risk_level]}`,
-            borderRadius: 14, padding: '1.5rem', marginBottom: '1.5rem'
+            borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: '1rem' }}>
               <div style={{
@@ -256,7 +256,7 @@ export default function MissionControl() {
               </span>
             </div>
 
-            <p style={{ fontSize: '1rem', lineHeight: 1.7, color: '#1e293b', marginBottom: '1.25rem' }}>
+            <p style={{ fontSize: '0.95rem', lineHeight: 1.7, color: '#1e293b', marginBottom: '1.25rem' }}>
               {brief.plain_language_summary}
             </p>
 
@@ -274,14 +274,15 @@ export default function MissionControl() {
                   { label: 'Impact Radius', value: `${impact.impact_radius_km} km` },
                   { label: 'Key Junctions', value: impact.affected_junction_names?.slice(0, 3).join(', ') || 'N/A' },
                 ]} />
-              <MetricCard icon={<Users size={18} />} label="Officers Required" value={deployment.total_officers} sub={brief.confidence_intervals ? `${brief.confidence_intervals.officers_range[0]}–${brief.confidence_intervals.officers_range[1]}` : null} color="#2563eb"
+              <MetricCard icon={<Users size={18} />} label="Teams Required" value={deployment.total_officers} sub={brief.confidence_intervals ? `${brief.confidence_intervals.officers_range[0]}–${brief.confidence_intervals.officers_range[1]}` : null} color="#2563eb"
                 intel={[
+                  { label: 'Total Personnel', value: `~${(deployment.total_officers || 0) * 5} (ASI + constables + Home Guards)` },
                   { label: 'Optimizer', value: 'OR-Tools MILP' },
                   { label: 'Stations Used', value: `${deployment.deployment_plan?.length || 0} stations` },
-                  { label: 'Max Distance', value: '5 km constraint' },
                 ]} />
-              <MetricCard icon={<Construction size={18} />} label="Barricades" value={barricades.total} sub={barricades.containment_pct ? `${barricades.containment_pct}% containment` : null} color="#ea580c"
+              <MetricCard icon={<Construction size={18} />} label="Barricade Zones" value={barricades.total} sub={barricades.containment_pct ? `${barricades.containment_pct}% containment` : null} color="#ea580c"
                 intel={[
+                  { label: 'Per Zone', value: '4–8 barriers + cones + sign boards' },
                   { label: 'Method', value: 'Junction perimeter containment' },
                   { label: 'Coverage', value: `${barricades.containment_pct || 0}% area contained` },
                 ]} />
@@ -448,7 +449,7 @@ export default function MissionControl() {
                   const [dlat, dlon] = offsets[i % offsets.length];
                   return (
                     <Marker key={`off-${i}`} position={[config.lat + dlat, config.lon + dlon]} icon={officerIcon}>
-                      <Popup>{d.from_station}: {d.officers_assigned} officers</Popup>
+                      <Popup>{d.from_station}: {d.officers_assigned} teams</Popup>
                     </Marker>
                   );
                 })}
@@ -464,14 +465,14 @@ export default function MissionControl() {
             {/* Deployment Orders */}
             <div>
               <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: 6 }}>
-                <Users size={16} color="#2563eb" /> Officer Deployment Orders
+                <Users size={16} color="#2563eb" /> Team Deployment Orders
               </h4>
               <div style={{ maxHeight: 160, overflowY: 'auto' }}>
                 <table style={tableStyle}>
                   <thead>
                     <tr>
                       <th style={thStyle}>Station</th>
-                      <th style={thStyle}>Officers</th>
+                      <th style={thStyle}>Teams</th>
                       <th style={thStyle}>Distance</th>
                     </tr>
                   </thead>
@@ -488,7 +489,7 @@ export default function MissionControl() {
               </div>
 
               <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '1rem 0 0.75rem', display: 'flex', alignItems: 'center', gap: 6 }}>
-                <Construction size={16} color="#ea580c" /> Barricade Positions
+                <Construction size={16} color="#ea580c" /> Barricade Zone Positions
               </h4>
               <div style={{ maxHeight: 160, overflowY: 'auto' }}>
                 <table style={tableStyle}>
@@ -686,13 +687,13 @@ export default function MissionControl() {
               marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '2rem'
             }}>
               <div style={{ textAlign: 'center', flex: 1 }}>
-                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#dc2626', textTransform: 'uppercase', marginBottom: 4 }}>Without Barricades</div>
+                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#dc2626', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>Without Barricade Zones</div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#dc2626' }}>{barricades.without_barricades.affected_junctions}</div>
                 <div style={{ fontSize: '0.75rem', color: '#64748b' }}>junctions affected</div>
               </div>
               <ArrowRight size={24} color="#f97316" />
               <div style={{ textAlign: 'center', flex: 1 }}>
-                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', marginBottom: 4 }}>With Barricades</div>
+                <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>With Barricade Zones</div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#16a34a' }}>{barricades.with_barricades.affected_junctions}</div>
                 <div style={{ fontSize: '0.75rem', color: '#64748b' }}>junctions affected</div>
               </div>

@@ -223,10 +223,10 @@ export default function ScenarioPlanner() {
 
   return (
     <div>
-      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: 4 }}>Scenario Planner</h3>
+      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 6, color: '#0f172a' }}>Scenario Planner</h3>
       <p style={{ color: '#475569', marginBottom: 20, lineHeight: 1.7, fontSize: '0.9rem' }}>
-        Compare intuition-based deployment versus SEVA's MILP-optimized allocation across real Bengaluru scenarios.
-        Each scenario uses unique junction data, officer counts, and coverage metrics.
+        Compare intuition-based deployment versus SEVA’s MILP-optimized allocation across real Bengaluru scenarios.
+        Each scenario uses unique junction data, team counts, and coverage metrics.
       </p>
 
       {/* Scenario Cards */}
@@ -276,8 +276,8 @@ export default function ScenarioPlanner() {
             <div className="title">SEVA Improvement - {result.title}</div>
             <div className="value">+{result.improvement.coverage_gain}% Coverage</div>
             <div className="detail">
-              +{result.improvement.additional_officers} officers | {result.improvement.junctions_secured} junctions secured
-              | {result.barricades.length} barricade positions | {result.delay.reduction}% delay reduction
+              +{result.improvement.additional_officers} teams | {result.improvement.junctions_secured} junctions secured
+              | {result.barricades.length} barricade zone positions | {result.delay.reduction}% delay reduction
             </div>
           </div>
 
@@ -308,11 +308,11 @@ export default function ScenarioPlanner() {
           {/* Side by Side Comparison */}
           <div className="grid-2">
             <div>
-              <div className="scenario-header without">Without SEVA (Intuition Based)</div>
+              <div className="scenario-header without">Without SEVA (Intuition-Based)</div>
               <div className="metric-box" style={{ marginBottom: 16 }}>
                 <div className="label">Coverage</div>
                 <div className="value red">{(result.without.coverage * 100).toFixed(0)}%</div>
-                <div className="sub">{result.without.officers} officers | {result.without.junctions_covered}/{result.without.junctions_total} junctions</div>
+                <div className="sub">{result.without.officers} teams | {result.without.junctions_covered}/{result.without.junctions_total} junctions</div>
               </div>
 
               {result.without.uncovered.length > 0 && (
@@ -325,7 +325,7 @@ export default function ScenarioPlanner() {
 
               <div style={{ overflowX: 'auto' }}>
                 <table className="data-table" style={{ minWidth: 400 }}>
-                  <thead><tr><th>Junction</th><th>Officers</th><th>Station</th><th>Dist</th></tr></thead>
+                  <thead><tr><th>Junction</th><th>Teams</th><th>Station</th><th>Dist</th></tr></thead>
                   <tbody>
                     {result.without.plan.map((p, i) => (
                       <tr key={i}>
@@ -341,11 +341,11 @@ export default function ScenarioPlanner() {
             </div>
 
             <div>
-              <div className="scenario-header with">With SEVA (MILP Optimized)</div>
+              <div className="scenario-header with">With SEVA (MILP-Optimized)</div>
               <div className="metric-box" style={{ marginBottom: 16 }}>
                 <div className="label">Coverage</div>
                 <div className="value green">{(result.with.coverage * 100).toFixed(0)}%</div>
-                <div className="sub">{result.with.officers} officers | {result.with.junctions_covered}/{result.with.junctions_total} junctions</div>
+                <div className="sub">{result.with.officers} teams | {result.with.junctions_covered}/{result.with.junctions_total} junctions</div>
               </div>
 
               {result.with.uncovered.length === 0 && (
@@ -357,7 +357,7 @@ export default function ScenarioPlanner() {
 
               <div style={{ overflowX: 'auto' }}>
                 <table className="data-table" style={{ minWidth: 400 }}>
-                  <thead><tr><th>Junction</th><th>Officers</th><th>Station</th><th>Dist</th></tr></thead>
+                  <thead><tr><th>Junction</th><th>Teams</th><th>Station</th><th>Dist</th></tr></thead>
                   <tbody>
                     {result.with.plan.map((p, i) => (
                       <tr key={i}>
@@ -377,7 +377,7 @@ export default function ScenarioPlanner() {
           {result.barricades.length > 0 && (
             <div style={{ marginTop: 24, background: 'white', border: '1px solid #e2e8f0', borderRadius: 12, padding: '1.25rem' }}>
               <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                <Construction size={16} color="#ea580c" /> Perimeter Barricade Plan
+                <Construction size={16} color="#ea580c" /> Perimeter Barricade Zone Plan
                 <span style={{ marginLeft: 'auto', background: '#fff7ed', color: '#ea580c', padding: '3px 10px', borderRadius: 6, fontSize: '0.75rem', fontWeight: 700 }}>
                   {result.barricades.length} positions | {result.containment}% containment
                 </span>
@@ -408,7 +408,7 @@ export default function ScenarioPlanner() {
               </div>
               <div style={{ marginTop: '0.75rem', padding: '0.75rem', background: '#f8fafc', borderRadius: 8, fontSize: '0.78rem', color: '#475569' }}>
                 <Shield size={12} style={{ marginRight: 4, verticalAlign: 'middle' }} />
-                <strong>Methodology:</strong> Junction-based perimeter containment at high-connectivity intersections using angular distribution analysis
+                <strong>Methodology:</strong> Junction-based perimeter containment at high-connectivity intersections using angular distribution analysis.
               </div>
             </div>
           )}

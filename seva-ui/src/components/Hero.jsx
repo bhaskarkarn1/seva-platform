@@ -44,8 +44,8 @@ const APPROACH_STEPS = [
   { num: '02', icon: TrendingDown, color: '#2563eb', title: 'Traffic Impact Forecasting',
     desc: 'BPR delay function forecasts congestion. Estimates attendance to vehicle to V/C ratios per corridor.',
     detail: 'BPR: t0 x (1 + 0.15 x (V/C)^4)' },
-  { num: '03', icon: Users, color: '#7c3aed', title: 'Optimal Officer Deployment',
-    desc: 'MILP via OR-Tools allocates officers from 54 stations with capacity and distance constraints.',
+  { num: '03', icon: Users, color: '#7c3aed', title: 'Optimal Team Deployment',
+    desc: 'MILP via OR-Tools allocates teams from 54 stations with capacity and distance constraints.',
     detail: '5km max, station limits' },
   { num: '04', icon: Construction, color: '#ea580c', title: 'Barricade Placement',
     desc: 'Junction-based perimeter containment at high-connectivity intersections using angular distribution.',
@@ -80,11 +80,11 @@ export default function Hero({ eda }) {
           <h1 className="hero-title">
             <span className="hero-title-accent">SEVA</span>
           </h1>
-          <p className="hero-tagline">Smart Event-driven Vulnerability Analyzer</p>
+          <p className="hero-tagline">Smart Event-Driven Vulnerability Analyzer</p>
           <p className="hero-description">
             An AI-powered operational command center for <strong>Bengaluru Traffic Police</strong> that forecasts 
-            event-driven congestion, deploys officers optimally, places barricades strategically, and 
-            activates diversions - all before the first vehicle arrives.
+            event-driven congestion, deploys teams optimally, places barricades strategically, and 
+            activates diversions — all before the first vehicle arrives.
           </p>
 
           {/* Stats Row */}

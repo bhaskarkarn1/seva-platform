@@ -24,13 +24,13 @@ export default function PostEventLearning() {
 
   return (
     <div>
-      <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.25rem' }}>Performance Monitoring & Feedback</h3>
-      <p style={{ color: '#64748b', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+      <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.35rem', color: '#0f172a' }}>Performance Monitoring &amp; Feedback</h3>
+      <p style={{ color: '#64748b', marginBottom: '1.5rem', fontSize: '0.9rem', lineHeight: 1.7 }}>
         Closed-loop feedback: how SEVA predictions compare to actual ASTraM outcomes, with concrete retraining triggers.
       </p>
 
       {/* Model Accuracy Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
         <AccuracyCard
           title="Road Closure Prediction"
           model={accuracy.closure_prediction.model}
@@ -164,7 +164,7 @@ export default function PostEventLearning() {
       </div>
 
       {/* System Status */}
-      <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '1rem', fontSize: '0.8rem', color: '#475569' }}>
+      <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 10, padding: '1rem 1.25rem', fontSize: '0.8rem', color: '#475569', lineHeight: 1.6 }}>
         <strong>System Learning Status:</strong> Last trained on {report.system_learning_status.last_training_date} | 
         Training set: {report.system_learning_status.events_in_training_set} events | 
         Test set: {report.system_learning_status.events_in_test_set} events | 

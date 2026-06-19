@@ -4,7 +4,7 @@ import { RevealSection, StaggerGrid } from '../hooks/useReveal'
 
 const items = [
   { icon: Shield, color: 'blue', title: 'Mission Control',
-    desc: 'One button produces a complete operational brief: risk assessment, officer deployment, barricade positions, and diversion routes.',
+    desc: 'One button produces a complete operational brief: risk assessment, team deployment, barricade positions, and diversion routes.',
     detail: 'Generates comprehensive operational plans in <500ms. Combines all 5 engines into a single actionable briefing.',
     metrics: 'Input → Output in 1 click' },
   { icon: BarChart3, color: 'blue', title: 'Road Closure Prediction',
@@ -15,9 +15,9 @@ const items = [
     desc: 'ROC-AUC 0.9999 multi-class classifier. Key drivers: corridor status, historical event frequency.',
     detail: 'Multi-class classification into priority levels. SHAP explainability for every prediction.',
     metrics: 'ROC-AUC: 0.9999' },
-  { icon: Users, color: 'amber', title: 'Officer Deployment (MILP)',
-    desc: 'OR-Tools Mixed Integer Programming across 54 stations with capacity and 5km distance constraints.',
-    detail: 'Minimizes total deployment cost while ensuring coverage. Respects station capacity limits.',
+  { icon: Users, color: 'amber', title: 'Team Deployment (MILP)',
+    desc: 'OR-Tools Mixed Integer Programming across 54 stations with capacity and 5 km distance constraints.',
+    detail: 'Minimizes total deployment cost while ensuring full coverage. Respects station capacity limits.',
     metrics: '54 stations, 5km max distance' },
   { icon: Construction, color: 'amber', title: 'Barricade Planner',
     desc: 'Junction-based perimeter containment at high-connectivity intersections using angular distribution and ASTraM event density.',
@@ -36,7 +36,7 @@ const items = [
     detail: 'Monitors prediction drift, data quality, and model confidence. Automatic retraining recommendations.',
     metrics: 'Continuous improvement loop' },
   { icon: Search, color: 'blue', title: 'SHAP Explainability',
-    desc: 'Every prediction explained with TreeSHAP feature attributions. No black boxes. Fully defensible.',
+    desc: 'Every prediction explained with TreeSHAP feature attributions. No black boxes — fully defensible.',
     detail: 'Judges can ask "why this prediction?" and get a quantitative answer for every metric.',
     metrics: 'Full transparency' },
 ]
@@ -50,7 +50,7 @@ export default function Capabilities() {
         <div className="section-label">Capabilities</div>
         <div className="section-title">3 ML Models + 5 Operational Engines</div>
         <p className="section-desc">
-          Every capability is backed by real data, validated models, and mathematical optimization - not magic numbers.
+          Every capability is backed by real data, validated models, and mathematical optimization — not magic numbers.
         </p>
       </RevealSection>
       <StaggerGrid className="card-grid">

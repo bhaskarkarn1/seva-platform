@@ -51,7 +51,7 @@ export default function CommandCenter({ stations, apiBase }) {
       const data = await res.json()
       setResult(data)
       setLoading(false)
-      addLog(`MILP solved: ${data.status} | ${data.total_officers_deployed} officers | Coverage: ${(data.coverage_score * 100).toFixed(0)}%`, 'success')
+      addLog(`MILP solved: ${data.status} | ${data.total_officers_deployed} teams | Coverage: ${(data.coverage_score * 100).toFixed(0)}%`, 'success')
       if (data.uncovered_junctions?.length > 0) {
         addLog(`Uncovered junctions: ${data.uncovered_junctions.join(', ')}`, 'warning')
       }
@@ -60,7 +60,7 @@ export default function CommandCenter({ stations, apiBase }) {
       const fallback = buildFallback(events, selectedTier)
       setResult(fallback)
       setLoading(false)
-      addLog(`Backend unreachable. Using pre-computed fallback | ${fallback.total_officers_deployed} officers`, 'warning')
+      addLog(`Backend unreachable. Using pre-computed fallback | ${fallback.total_officers_deployed} teams`, 'warning')
     }
   }
 
@@ -153,7 +153,7 @@ export default function CommandCenter({ stations, apiBase }) {
         <select value={tier} onChange={e => handleTierChange(e.target.value)}
           style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1px solid #e2e8f0',
             fontSize: '0.88rem', color: '#334155', marginBottom: 12, background: '#fff' }}>
-          <option value="conservative">Conservative (fewer officers)</option>
+          <option value="conservative">Conservative (fewer teams)</option>
           <option value="expected">Expected (balanced)</option>
           <option value="peak">Peak (max readiness)</option>
         </select>
@@ -177,7 +177,7 @@ export default function CommandCenter({ stations, apiBase }) {
                 <div className="sub">{result.status}</div>
               </div>
               <div className="metric-box">
-                <div className="label">Officers</div>
+                <div className="label">Teams Deployed</div>
                 <div className="value blue">{result.total_officers_deployed}</div>
                 <div className="sub">
                   {new Set(result.deployment_plan.map(p => p.from_station)).size} stations
@@ -192,7 +192,7 @@ export default function CommandCenter({ stations, apiBase }) {
                 <div className={`deploy-order ${isHigh ? 'high' : ''}`} key={i}>
                   <strong>{p.junction}</strong>
                   <div className="station">
-                    {p.officers_assigned} officers from {p.from_station} ({p.distance_km}km)
+                    {p.officers_assigned} teams from {p.from_station} ({p.distance_km}km)
                   </div>
                 </div>
               )

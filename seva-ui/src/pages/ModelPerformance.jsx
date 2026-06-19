@@ -36,7 +36,7 @@ export default function ModelPerformance({ metrics }) {
 
   return (
     <div>
-      <p style={{ color: '#475569', marginBottom: 28, lineHeight: 1.7 }}>
+      <p style={{ color: '#475569', marginBottom: 28, lineHeight: 1.7, fontSize: '0.9rem' }}>
         All metrics computed on unseen test data (temporal hold-out: March to April 2024).
         SHAP explanations are real TreeSHAP values. No data leakage.
       </p>
@@ -45,7 +45,7 @@ export default function ModelPerformance({ metrics }) {
       <div style={{ marginBottom: 8 }}>
         <span className="badge badge-blue">MODEL 1</span>
       </div>
-      <h4 style={{ marginBottom: 16 }}>Road Closure Prediction</h4>
+      <h4 style={{ marginBottom: 16, color: '#0f172a' }}>Road Closure Prediction</h4>
       <div className="metric-grid">
         <div className="metric-box">
           <div className="label">PR-AUC</div>
@@ -75,7 +75,7 @@ export default function ModelPerformance({ metrics }) {
       <div style={{ marginBottom: 8 }}>
         <span className="badge badge-red">MODEL 2</span>
       </div>
-      <h4 style={{ marginBottom: 16 }}>Priority Classification</h4>
+      <h4 style={{ marginBottom: 16, color: '#0f172a' }}>Priority Classification</h4>
       <div className="metric-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
         <div className="metric-box">
           <div className="label">ROC-AUC</div>
@@ -94,7 +94,7 @@ export default function ModelPerformance({ metrics }) {
       <div style={{ marginBottom: 8 }}>
         <span className="badge badge-amber">MODEL 3</span>
       </div>
-      <h4 style={{ marginBottom: 16 }}>Resolution Time Estimation (Quantile Regression)</h4>
+      <h4 style={{ marginBottom: 16, color: '#0f172a' }}>Resolution Time Estimation (Quantile Regression)</h4>
       <div className="metric-grid metric-grid-3">
         <div className="metric-box">
           <div className="label">MAE (Median)</div>
