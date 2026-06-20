@@ -47,28 +47,30 @@ export default function ModelPerformance({ metrics }) {
     if (!data.length) return null
 
     return (
-      <div className="chart-container">
+      <div className="chart-container" style={{ overflowX: 'auto' }}>
         <div className="chart-title">{title}</div>
         <p className="chart-description">{SHAP_DESCRIPTION}</p>
-        <ResponsiveContainer width="100%" height={Math.max(data.length * 36, 120)}>
-          <BarChart data={data} layout="vertical" margin={{ left: 160 }}>
-            <defs>
-              <linearGradient id={`shap-${color.replace('#','')}`} x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor={color} stopOpacity={0.85} />
-                <stop offset="100%" stopColor={colorLight} stopOpacity={0.5} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
-            <XAxis type="number" tick={{ fill: '#64748b', fontSize: 11 }} />
-            <YAxis type="category" dataKey="name" tick={{ fill: '#475569', fontSize: 11.5, fontWeight: 500 }} width={150} />
-            <Tooltip
-              contentStyle={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, fontSize: '0.82rem', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
-              formatter={v => [v.toFixed(4), 'Mean |SHAP|']}
-              cursor={{ fill: 'rgba(37,99,235,0.03)' }}
-            />
-            <Bar dataKey="value" fill={`url(#shap-${color.replace('#','')})`} radius={[0, 6, 6, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <div style={{ minWidth: 400 }}>
+          <ResponsiveContainer width="100%" height={Math.max(data.length * 36, 120)}>
+            <BarChart data={data} layout="vertical" margin={{ left: 120 }}>
+              <defs>
+                <linearGradient id={`shap-${color.replace('#','')}`} x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor={color} stopOpacity={0.85} />
+                  <stop offset="100%" stopColor={colorLight} stopOpacity={0.5} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" horizontal={false} />
+              <XAxis type="number" tick={{ fill: '#64748b', fontSize: 11 }} />
+              <YAxis type="category" dataKey="name" tick={{ fill: '#475569', fontSize: 11, fontWeight: 500 }} width={115} />
+              <Tooltip
+                contentStyle={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, fontSize: '0.82rem', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
+                formatter={v => [v.toFixed(4), 'Mean |SHAP|']}
+                cursor={{ fill: 'rgba(37,99,235,0.03)' }}
+              />
+              <Bar dataKey="value" fill={`url(#shap-${color.replace('#','')})`} radius={[0, 6, 6, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     )
   }

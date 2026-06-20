@@ -321,7 +321,7 @@ export default function MissionControl() {
                 </span>
               </h4>
               <p className="chart-description">Converts estimated event attendance into vehicle demand per corridor using historical ratios, then computes Volume/Capacity ratios to predict congestion severity.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
                 {[
                   { label: 'Est. Attendance', value: brief.traffic_demand_forecast.estimated_attendance.toLocaleString(), color: '#7c3aed' },
                   { label: 'Additional Vehicles', value: brief.traffic_demand_forecast.estimated_vehicles.toLocaleString(), color: '#2563eb' },
@@ -354,7 +354,7 @@ export default function MissionControl() {
                 </span>
               </h4>
               <p className="chart-description">Bureau of Public Roads delay formula — the global standard (FHWA) for link-level delay estimation. Compares average delay per vehicle with and without SEVA interventions.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '1rem', marginBottom: '1rem' }}>
                 <div style={{ background: '#fef2f2', borderRadius: 10, padding: '1rem', textAlign: 'center', border: '1px solid #fecaca' }}>
                   <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#dc2626', textTransform: 'uppercase', marginBottom: 4 }}>Without SEVA</div>
                   <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#dc2626' }}>{brief.bpr_delay_analysis.delay_without_seva_min}<span style={{ fontSize: '0.9rem' }}> min</span></div>
@@ -371,7 +371,7 @@ export default function MissionControl() {
                   <div style={{ fontSize: '0.72rem', color: '#94a3b8' }}>V/C = {brief.bpr_delay_analysis.vc_ratio_with_seva}</div>
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '2rem', fontSize: '0.78rem', color: '#475569' }}>
+              <div style={{ display: 'flex', gap: '1rem', fontSize: '0.78rem', color: '#475569', flexWrap: 'wrap' }}>
                 <div>📐 <strong>Formula:</strong> <code style={{ fontSize: '0.72rem', background: '#f1f5f9', padding: '2px 6px', borderRadius: 4 }}>{brief.bpr_delay_analysis.formula}</code></div>
                 <div>📏 <strong>Queue:</strong> {brief.bpr_delay_analysis.estimated_queue_length_km} km ({brief.bpr_delay_analysis.estimated_queue_vehicles} vehicles)</div>
               </div>
@@ -400,7 +400,7 @@ export default function MissionControl() {
                   const isPeak = t.congestion_multiplier === brief.temporal_impact_curve.peak_congestion_multiplier;
                   return (
                     <div key={i} style={{
-                      display: 'grid', gridTemplateColumns: '80px 1fr 120px 60px',
+                      display: 'grid', gridTemplateColumns: '70px 1fr auto auto',
                       alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.5rem',
                       background: isPeak ? '#fef3c7' : i % 2 === 0 ? '#fafafa' : 'white',
                       borderRadius: 6, border: isPeak ? '1px solid #fbbf24' : 'none',
@@ -413,12 +413,12 @@ export default function MissionControl() {
                           background: `linear-gradient(90deg, ${barColor}, ${barColor}cc)`,
                           borderRadius: 4, transition: 'width 0.5s ease-out'
                         }} />
-                        <span style={{ fontSize: '0.72rem', color: '#475569', whiteSpace: 'nowrap' }}>
+                        <span style={{ fontSize: '0.72rem', color: '#475569', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
                           {t.label} {isPeak && '⭐'}
                         </span>
                       </div>
-                      <div style={{ fontSize: '0.72rem', color: '#64748b', textAlign: 'right' }}>
-                        {t.estimated_delay_min} min delay
+                      <div style={{ fontSize: '0.72rem', color: '#64748b', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                        {t.estimated_delay_min} min
                       </div>
                       <div style={{
                         fontSize: '0.68rem', fontWeight: 700, textAlign: 'center',
@@ -432,7 +432,7 @@ export default function MissionControl() {
               </div>
             </div>
           )}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
             {/* Map */}
             <div style={{ borderRadius: 12, overflow: 'hidden', border: '1px solid #e2e8f0', height: 400 }}>
               <MapContainer center={[config.lat, config.lon]} zoom={14} style={{ height: '100%', width: '100%' }}>
@@ -690,20 +690,20 @@ export default function MissionControl() {
           {barricades.without_barricades && (
             <div style={{
               background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: 10, padding: '1rem',
-              marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '2rem'
+              marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center'
             }}>
-              <div style={{ textAlign: 'center', flex: 1 }}>
+              <div style={{ textAlign: 'center', flex: '1 1 120px', minWidth: 120 }}>
                 <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#dc2626', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>Without Barricade Zones</div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#dc2626' }}>{barricades.without_barricades.affected_junctions}</div>
                 <div style={{ fontSize: '0.75rem', color: '#64748b' }}>junctions affected</div>
               </div>
               <ArrowRight size={24} color="#f97316" />
-              <div style={{ textAlign: 'center', flex: 1 }}>
+              <div style={{ textAlign: 'center', flex: '1 1 120px', minWidth: 120 }}>
                 <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 4 }}>With Barricade Zones</div>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#16a34a' }}>{barricades.with_barricades.affected_junctions}</div>
                 <div style={{ fontSize: '0.75rem', color: '#64748b' }}>junctions affected</div>
               </div>
-              <div style={{ textAlign: 'center', flex: 1, background: '#dcfce7', borderRadius: 8, padding: '0.75rem' }}>
+              <div style={{ textAlign: 'center', flex: '1 1 120px', minWidth: 120, background: '#dcfce7', borderRadius: 8, padding: '0.75rem' }}>
                 <div style={{ fontSize: '1.5rem', fontWeight: 800, color: '#059669' }}>{barricades.containment_pct}%</div>
                 <div style={{ fontSize: '0.75rem', color: '#064e3b', fontWeight: 600 }}>Containment</div>
               </div>

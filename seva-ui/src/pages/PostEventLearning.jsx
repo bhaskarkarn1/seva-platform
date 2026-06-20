@@ -70,7 +70,7 @@ export default function PostEventLearning() {
       </div>
 
       {/* Per-Type Accuracy Chart */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 12, padding: '1.25rem' }}>
           <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: 6 }}>
             <TrendingUp size={16} color="#2563eb" /> Prediction Confidence by Event Type
@@ -80,7 +80,7 @@ export default function PostEventLearning() {
             confidence, amber bars indicate medium confidence requiring more training data.
           </p>
           <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={perType} layout="vertical" margin={{ left: 100 }}>
+            <BarChart data={perType} layout="vertical" margin={{ left: 80 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
               <XAxis type="number" tick={{ fontSize: 11, fill: '#64748b' }} />
               <YAxis dataKey="event_type" type="category" tick={{ fontSize: 11, fill: '#475569', fontWeight: 500 }} width={95} />
