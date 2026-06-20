@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Shield, Radio, Clock, Database } from 'lucide-react'
+import { Shield, Radio, Clock } from 'lucide-react'
 
 export default function Navbar() {
   const [time, setTime] = useState(new Date())
@@ -20,19 +20,15 @@ export default function Navbar() {
         <span style={{ fontWeight: 900, color: '#0f172a' }}>SEVA</span>
       </div>
 
-      {/* Live operational strip */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+      {/* Live operational strip — compact, no ASTraM label */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <div className="nav-status-item">
           <div className="nav-live-dot" />
-          <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.06em' }}>System Live</span>
+          <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Live</span>
         </div>
         <div className="nav-status-item">
-          <Clock size={13} color="#64748b" />
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#475569', fontVariantNumeric: 'tabular-nums' }}>{istTime} IST</span>
-        </div>
-        <div className="nav-status-item">
-          <Database size={13} color="#64748b" />
-          <span style={{ fontSize: '0.72rem', color: '#64748b' }}>ASTraM Dataset</span>
+          <Clock size={12} color="#94a3b8" />
+          <span style={{ fontSize: '0.72rem', fontWeight: 600, color: '#64748b', fontVariantNumeric: 'tabular-nums' }}>{istTime}</span>
         </div>
       </div>
 

@@ -71,10 +71,15 @@ export default function Hero({ eda }) {
       {/* Hero Section */}
       <section className="hero" id="overview">
         <div className="hero-inner">
-          {/* Badge - compact */}
-          <div className="hero-badge">
-            <span className="hero-badge-dot" />
-            Flipkart Gridlock 6.0 — Problem Statement 2
+          {/* Gridlock tag — subtle, not dominant */}
+          <div style={{ 
+            position: 'absolute', top: 24, right: 0, 
+            fontSize: '0.6rem', fontWeight: 600, color: '#94a3b8', 
+            letterSpacing: '0.06em', textTransform: 'uppercase',
+            background: '#f8fafc', border: '1px solid #f1f5f9',
+            padding: '4px 12px', borderRadius: 6
+          }}>
+            Gridlock 6.0 · PS 2
           </div>
 
           <h1 className="hero-title">

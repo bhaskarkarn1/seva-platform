@@ -60,9 +60,9 @@ function buildStaticBrief(config) {
       junctionNames: ['Cubbon Park PS', 'Halasuru PS', 'Ashoknagar PS', 'High Grounds PS', 'SJ Park PS', 'Shivajinagar PS', 'Commercial St PS', 'Ulsoor PS'],
       attendance: 35000, vehicles: 8750, vcRatio: 1.31,
       divRoutes: [
-        { direction: 'North', blocked_route: 'Bellary Road / Palace Road', diversion_route: 'Cunningham Road via Vasanth Nagar', estimated_detour_km: 3.1 },
-        { direction: 'South', blocked_route: 'Hosur Road / Lalbagh Road', diversion_route: 'Bannerghatta Road via JP Nagar', estimated_detour_km: 3.1 },
-        { direction: 'East', blocked_route: 'MG Road / Old Airport Road', diversion_route: 'Indiranagar 100ft Road via CMH Road', estimated_detour_km: 3.9 },
+        { direction: 'North', blocked_route: 'Bellary Road / Palace Road', diversion_route: 'Cunningham Road via Vasanth Nagar', estimated_detour_km: 4.2 },
+        { direction: 'South', blocked_route: 'Hosur Road / Residency Road', diversion_route: 'Bannerghatta Road via JP Nagar', estimated_detour_km: 5.8 },
+        { direction: 'East', blocked_route: 'MG Road / Old Airport Road', diversion_route: 'Indiranagar 100ft Road via CMH Road', estimated_detour_km: 3.5 },
       ]
     },
     protest_CBD: {
@@ -74,9 +74,9 @@ function buildStaticBrief(config) {
       junctionNames: ['Cottonpet PS', 'Kempegowda Nagar PS', 'VV Puram PS', 'Basavanagudi PS', 'Hanumanthnagar PS', 'Chamarajpet PS', 'Chickpet PS', 'Market PS'],
       attendance: 15000, vehicles: 2250, vcRatio: 1.13,
       divRoutes: [
-        { direction: 'North', blocked_route: 'Bellary Road / Palace Road', diversion_route: 'Cunningham Road via Vasanth Nagar', estimated_detour_km: 3.1 },
-        { direction: 'South', blocked_route: 'Hosur Road / Lalbagh Road', diversion_route: 'Bannerghatta Road via JP Nagar', estimated_detour_km: 3.1 },
-        { direction: 'West', blocked_route: 'Mysore Road / Chord Road', diversion_route: 'Rajajinagar via Magadi Road', estimated_detour_km: 3.9 },
+        { direction: 'North', blocked_route: 'Seshadri Road / Kumara Krupa', diversion_route: 'Sankey Road via Sadashivanagar', estimated_detour_km: 2.7 },
+        { direction: 'South', blocked_route: 'KR Road / Lalbagh Gate', diversion_route: 'DVG Road via Basavanagudi', estimated_detour_km: 3.4 },
+        { direction: 'West', blocked_route: 'Mysore Road / Chord Road', diversion_route: 'Rajajinagar via Magadi Road', estimated_detour_km: 4.6 },
       ]
     },
     construction_ORR: {
@@ -88,8 +88,8 @@ function buildStaticBrief(config) {
       junctionNames: ['Marathahalli PS', 'Whitefield PS', 'Varthur PS', 'Bellandur PS', 'Doddanekundi PS'],
       attendance: 0, vehicles: 0, vcRatio: 0.92,
       divRoutes: [
-        { direction: 'North', blocked_route: 'Bellary Road / Palace Road', diversion_route: 'Cunningham Road via Vasanth Nagar', estimated_detour_km: 3.1 },
-        { direction: 'East', blocked_route: 'MG Road / Old Airport Road', diversion_route: 'Indiranagar 100ft Road via CMH Road', estimated_detour_km: 3.9 },
+        { direction: 'North', blocked_route: 'ORR via Marathahalli Bridge', diversion_route: 'HAL Old Airport Road via Domlur', estimated_detour_km: 6.3 },
+        { direction: 'South', blocked_route: 'ORR via Silk Board', diversion_route: 'Sarjapur Road via Bellandur', estimated_detour_km: 5.1 },
       ]
     },
     procession_Mysore: {
@@ -101,9 +101,9 @@ function buildStaticBrief(config) {
       junctionNames: ['Kengeri PS', 'Rajarajeshwari Nagar PS', 'Byatarayanapura PS', 'Nagarbhavi PS', 'Vijayanagar PS', 'Basaveshwar Nagar PS'],
       attendance: 20000, vehicles: 4000, vcRatio: 1.17,
       divRoutes: [
-        { direction: 'South', blocked_route: 'Hosur Road / Lalbagh Road', diversion_route: 'Bannerghatta Road via JP Nagar', estimated_detour_km: 3.1 },
-        { direction: 'East', blocked_route: 'MG Road / Old Airport Road', diversion_route: 'Indiranagar 100ft Road via CMH Road', estimated_detour_km: 3.9 },
-        { direction: 'West', blocked_route: 'Mysore Road / Chord Road', diversion_route: 'Rajajinagar via Magadi Road', estimated_detour_km: 3.9 },
+        { direction: 'North', blocked_route: 'Mysore Road / Nayandahalli', diversion_route: 'Chord Road via Rajajinagar', estimated_detour_km: 4.8 },
+        { direction: 'East', blocked_route: 'Bull Temple Road / DVG Road', diversion_route: 'Kanakapura Road via Banashankari', estimated_detour_km: 3.2 },
+        { direction: 'West', blocked_route: 'Mysore Road / Kengeri', diversion_route: 'NICE Road via Bidadi', estimated_detour_km: 7.5 },
       ]
     },
     VIP_movement_Bellary: {
@@ -115,9 +115,9 @@ function buildStaticBrief(config) {
       junctionNames: ['Sadashivanagar PS', 'High Grounds PS', 'RT Nagar PS', 'Palace Guttahalli PS', 'Yeshwanthpur PS', 'Malleshwaram PS', 'Sanjaynagar PS'],
       attendance: 0, vehicles: 0, vcRatio: 0.95,
       divRoutes: [
-        { direction: 'North', blocked_route: 'Bellary Road / Palace Road', diversion_route: 'Cunningham Road via Vasanth Nagar', estimated_detour_km: 3.1 },
-        { direction: 'South', blocked_route: 'Hosur Road / Lalbagh Road', diversion_route: 'Bannerghatta Road via JP Nagar', estimated_detour_km: 3.1 },
-        { direction: 'West', blocked_route: 'Mysore Road / Chord Road', diversion_route: 'Rajajinagar via Magadi Road', estimated_detour_km: 3.9 },
+        { direction: 'North', blocked_route: 'Bellary Road / Hebbal Flyover', diversion_route: 'Thanisandra Main Road via Nagawara', estimated_detour_km: 5.4 },
+        { direction: 'South', blocked_route: 'Palace Road / Race Course', diversion_route: 'Sankey Road via Malleshwaram', estimated_detour_km: 2.9 },
+        { direction: 'West', blocked_route: 'Yeshwanthpur Circle', diversion_route: 'Tumkur Road via Goraguntepalya', estimated_detour_km: 4.1 },
       ]
     },
   }
