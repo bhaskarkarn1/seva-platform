@@ -225,8 +225,8 @@ export default function ScenarioPlanner() {
     <div>
       <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: 6, color: '#0f172a' }}>Scenario Planner</h3>
       <p style={{ color: '#475569', marginBottom: 20, lineHeight: 1.7, fontSize: '0.9rem' }}>
-        Compare intuition-based deployment versus SEVA’s MILP-optimized allocation across real Bengaluru scenarios.
-        Each scenario uses unique junction data, team counts, and coverage metrics.
+        Compare intuition-based deployment versus SEVA's MILP-optimized allocation across real Bengaluru scenarios.
+        Each scenario uses unique junction data, team counts, and coverage metrics from the ASTraM dataset.
       </p>
 
       {/* Scenario Cards */}
@@ -301,7 +301,7 @@ export default function ScenarioPlanner() {
             <div className="metric-box">
               <div className="label">Containment</div>
               <div className="value blue">{result.containment}%</div>
-              <div className="sub">{result.barricades.length} perimeter barricades</div>
+              <div className="sub">{result.barricades.length} perimeter barricade zones</div>
             </div>
           </div>
 
@@ -309,6 +309,7 @@ export default function ScenarioPlanner() {
           <div className="grid-2">
             <div>
               <div className="scenario-header without">Without SEVA (Intuition-Based)</div>
+              <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: 12 }}>Ad-hoc deployment from the nearest station only. No optimization, no perimeter analysis, no diversions.</p>
               <div className="metric-box" style={{ marginBottom: 16 }}>
                 <div className="label">Coverage</div>
                 <div className="value red">{(result.without.coverage * 100).toFixed(0)}%</div>
@@ -342,6 +343,7 @@ export default function ScenarioPlanner() {
 
             <div>
               <div className="scenario-header with">With SEVA (MILP-Optimized)</div>
+              <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: 12 }}>OR-Tools MILP solver deploys teams from multiple stations with capacity and distance constraints for full coverage.</p>
               <div className="metric-box" style={{ marginBottom: 16 }}>
                 <div className="label">Coverage</div>
                 <div className="value green">{(result.with.coverage * 100).toFixed(0)}%</div>

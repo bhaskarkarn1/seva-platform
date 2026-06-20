@@ -72,54 +72,71 @@ export default function PostEventLearning() {
       {/* Per-Type Accuracy Chart */}
       <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
         <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 12, padding: '1.25rem' }}>
-          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: 6 }}>
             <TrendingUp size={16} color="#2563eb" /> Prediction Confidence by Event Type
           </h4>
+          <p className="chart-description">
+            Shows how reliably SEVA predicts outcomes for each event category. Blue bars indicate high prediction
+            confidence, amber bars indicate medium confidence requiring more training data.
+          </p>
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={perType} layout="vertical" margin={{ left: 100 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis type="number" tick={{ fontSize: 11 }} />
-              <YAxis dataKey="event_type" type="category" tick={{ fontSize: 11 }} width={95} />
-              <Tooltip contentStyle={{ borderRadius: 8, fontSize: '0.8rem' }} />
-              <Bar dataKey="count" name="Event Count" radius={[0, 4, 4, 0]}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+              <XAxis type="number" tick={{ fontSize: 11, fill: '#64748b' }} />
+              <YAxis dataKey="event_type" type="category" tick={{ fontSize: 11, fill: '#475569', fontWeight: 500 }} width={95} />
+              <Tooltip
+                contentStyle={{ borderRadius: 10, fontSize: '0.82rem', border: '1px solid #e2e8f0', boxShadow: '0 4px 16px rgba(0,0,0,0.08)' }}
+                formatter={(val, name, props) => [val, `Events (${props.payload.prediction_confidence} confidence)`]}
+                cursor={{ fill: 'rgba(37,99,235,0.03)' }}
+              />
+              <Bar dataKey="count" name="Event Count" radius={[0, 6, 6, 0]}>
                 {perType.map((entry, i) => (
                   <Cell key={i} fill={entry.prediction_confidence === 'High' ? '#2563eb' : entry.prediction_confidence === 'Medium' ? '#ca8a04' : '#94a3b8'} />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+          <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: '0.72rem', color: '#94a3b8' }}>
+            {[{ label: 'High confidence', color: '#2563eb' }, { label: 'Medium confidence', color: '#ca8a04' }, { label: 'Low confidence', color: '#94a3b8' }].map((l, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{ width: 10, height: 10, borderRadius: 3, background: l.color }} />
+                {l.label}
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Data Quality Report */}
         <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 12, padding: '1.25rem' }}>
-          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: 6 }}>
             <Database size={16} color="#7c3aed" /> Data Quality Assessment
           </h4>
+          <p className="chart-description">Measures completeness and reliability of the ASTraM dataset. Higher coverage enables more accurate model predictions.</p>
           <div style={{ marginBottom: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
               <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Resolution Time Coverage</span>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700 }}>{quality.resolution_coverage_pct}%</span>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: quality.resolution_coverage_pct > 50 ? '#16a34a' : quality.resolution_coverage_pct > 30 ? '#ca8a04' : '#dc2626' }}>{quality.resolution_coverage_pct}%</span>
             </div>
-            <div style={{ background: '#f1f5f9', borderRadius: 6, height: 8, overflow: 'hidden' }}>
-              <div style={{ background: quality.resolution_coverage_pct > 50 ? '#2563eb' : '#ca8a04', height: '100%', width: `${quality.resolution_coverage_pct}%`, borderRadius: 6, transition: 'width 1s' }} />
+            <div style={{ background: '#f1f5f9', borderRadius: 6, height: 10, overflow: 'hidden' }}>
+              <div style={{ background: quality.resolution_coverage_pct > 50 ? '#16a34a' : quality.resolution_coverage_pct > 30 ? '#ca8a04' : '#dc2626', height: '100%', width: `${quality.resolution_coverage_pct}%`, borderRadius: 6, transition: 'width 1s' }} />
             </div>
           </div>
           <div style={{ marginBottom: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
               <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Event Spread Coverage</span>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700 }}>{quality.spread_coverage_pct}%</span>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: quality.spread_coverage_pct > 50 ? '#16a34a' : quality.spread_coverage_pct > 30 ? '#ca8a04' : '#dc2626' }}>{quality.spread_coverage_pct}%</span>
             </div>
-            <div style={{ background: '#f1f5f9', borderRadius: 6, height: 8, overflow: 'hidden' }}>
-              <div style={{ background: quality.spread_coverage_pct > 50 ? '#2563eb' : '#ca8a04', height: '100%', width: `${quality.spread_coverage_pct}%`, borderRadius: 6, transition: 'width 1s' }} />
+            <div style={{ background: '#f1f5f9', borderRadius: 6, height: 10, overflow: 'hidden' }}>
+              <div style={{ background: quality.spread_coverage_pct > 50 ? '#16a34a' : quality.spread_coverage_pct > 30 ? '#ca8a04' : '#dc2626', height: '100%', width: `${quality.spread_coverage_pct}%`, borderRadius: 6, transition: 'width 1s' }} />
             </div>
           </div>
           <div style={{ marginBottom: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
               <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Overall Quality Score</span>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700 }}>{quality.overall_quality_score}/100</span>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#16a34a' }}>{quality.overall_quality_score}/100</span>
             </div>
-            <div style={{ background: '#f1f5f9', borderRadius: 6, height: 8, overflow: 'hidden' }}>
-              <div style={{ background: '#16a34a', height: '100%', width: `${quality.overall_quality_score}%`, borderRadius: 6, transition: 'width 1s' }} />
+            <div style={{ background: '#f1f5f9', borderRadius: 6, height: 10, overflow: 'hidden' }}>
+              <div style={{ background: 'linear-gradient(90deg, #16a34a, #22c55e)', height: '100%', width: `${quality.overall_quality_score}%`, borderRadius: 6, transition: 'width 1s' }} />
             </div>
           </div>
 
@@ -132,9 +149,10 @@ export default function PostEventLearning() {
 
       {/* Improvement Recommendations */}
       <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: 12, padding: '1.25rem', marginBottom: '1.5rem' }}>
-        <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: 6 }}>
           <RefreshCw size={16} color="#16a34a" /> System Learning Recommendations
         </h4>
+        <p className="chart-description">Actionable recommendations ranked by priority. Implementing these would improve SEVA's prediction accuracy and operational reliability.</p>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.8rem' }}>
           <thead>
             <tr>

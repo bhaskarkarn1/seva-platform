@@ -312,7 +312,7 @@ export default function MissionControl() {
               background: 'white', border: '1px solid #e2e8f0', borderRadius: 14,
               padding: '1.25rem', marginBottom: '1.5rem'
             }}>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Megaphone size={16} color="#7c3aed" /> Traffic Demand Forecast
                 <span style={{ marginLeft: 'auto', background: brief.traffic_demand_forecast.demand_status === 'OVER_CAPACITY' ? '#fef2f2' : '#fffbeb',
                   color: brief.traffic_demand_forecast.demand_status === 'OVER_CAPACITY' ? '#dc2626' : '#ca8a04',
@@ -320,6 +320,7 @@ export default function MissionControl() {
                   {brief.traffic_demand_forecast.demand_status}
                 </span>
               </h4>
+              <p className="chart-description">Converts estimated event attendance into vehicle demand per corridor using historical ratios, then computes Volume/Capacity ratios to predict congestion severity.</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
                 {[
                   { label: 'Est. Attendance', value: brief.traffic_demand_forecast.estimated_attendance.toLocaleString(), color: '#7c3aed' },
@@ -346,12 +347,13 @@ export default function MissionControl() {
               background: 'linear-gradient(135deg, #faf5ff 0%, #f0f9ff 100%)',
               border: '1px solid #ddd6fe', borderRadius: 14, padding: '1.25rem', marginBottom: '1.5rem'
             }}>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <TrendingDown size={16} color="#059669" /> BPR Delay Analysis
                 <span style={{ marginLeft: 'auto', background: '#ecfdf5', color: '#059669', padding: '3px 10px', borderRadius: 6, fontSize: '0.72rem', fontWeight: 700 }}>
                   {brief.bpr_delay_analysis.delay_reduction_pct}% delay reduction
                 </span>
               </h4>
+              <p className="chart-description">Bureau of Public Roads delay formula — the global standard (FHWA) for link-level delay estimation. Compares average delay per vehicle with and without SEVA interventions.</p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                 <div style={{ background: '#fef2f2', borderRadius: 10, padding: '1rem', textAlign: 'center', border: '1px solid #fecaca' }}>
                   <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#dc2626', textTransform: 'uppercase', marginBottom: 4 }}>Without SEVA</div>
@@ -388,8 +390,8 @@ export default function MissionControl() {
                   Peak: {brief.temporal_impact_curve.peak_label}
                 </span>
               </h4>
-              <p style={{ fontSize: '0.78rem', color: '#64748b', marginBottom: '1rem' }}>
-                Hour-by-hour congestion forecast for event lifecycle. {brief.temporal_impact_curve.hours_over_capacity} hours over capacity, {brief.temporal_impact_curve.hours_near_capacity} hours near capacity.
+              <p className="chart-description">
+                Hour-by-hour congestion forecast across the event lifecycle. Red bars indicate over-capacity periods requiring active intervention. Use this to plan team shift schedules and barricade activation timing.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                 {brief.temporal_impact_curve.timeline.map((t, i) => {
@@ -464,9 +466,10 @@ export default function MissionControl() {
 
             {/* Deployment Orders */}
             <div>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Users size={16} color="#2563eb" /> Team Deployment Orders
               </h4>
+              <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.5rem' }}>MILP-optimized allocation from nearest stations with capacity constraints.</p>
               <div style={{ maxHeight: 160, overflowY: 'auto' }}>
                 <table style={tableStyle}>
                   <thead>
@@ -488,9 +491,10 @@ export default function MissionControl() {
                 </table>
               </div>
 
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '1rem 0 0.75rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '1rem 0 0.35rem', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Construction size={16} color="#ea580c" /> Barricade Zone Positions
               </h4>
+              <p style={{ fontSize: '0.75rem', color: '#94a3b8', marginBottom: '0.5rem' }}>Perimeter junctions selected by connectivity score and historical closure density.</p>
               <div style={{ maxHeight: 160, overflowY: 'auto' }}>
                 <table style={tableStyle}>
                   <thead>
@@ -517,12 +521,13 @@ export default function MissionControl() {
           {/* Diversion Routes */}
           {brief.diversion_summary?.diversions?.length > 0 && (
             <div style={{ marginBottom: '1.5rem' }}>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Navigation size={16} color="#16a34a" /> Diversion Routes
                 <span style={{ marginLeft: 'auto', background: '#ecfdf5', color: '#059669', padding: '3px 10px', borderRadius: 6, fontSize: '0.75rem', fontWeight: 700 }}>
                   {brief.diversion_summary.expected_delay_reduction_pct}% delay reduction
                 </span>
               </h4>
+              <p className="chart-description">Alternative routes computed via OSMnx Bengaluru road graph (155K nodes, 394K edges). Each diversion shows the blocked corridor and the recommended reroute with detour distance.</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '0.75rem' }}>
                 {brief.diversion_summary.diversions.map((d, i) => (
                   <div key={i} style={{
@@ -557,9 +562,10 @@ export default function MissionControl() {
           {/* Similar Events */}
           {similar && similar.length > 0 && (
             <div style={{ marginBottom: '1.5rem' }}>
-              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: 6 }}>
                 <Shield size={16} color="#7c3aed" /> Similar Historical Events
               </h4>
+              <p className="chart-description">Events with similar operational profiles (cause, severity, corridor) from the ASTraM dataset. Similarity scores help validate deployment recommendations.</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.75rem' }}>
                 {similar.map((s, i) => (
                   <div key={i} style={{

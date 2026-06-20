@@ -529,9 +529,49 @@ a:hover { color: var(--blue-dark); }
 /* ---- CHARTS ---- */
 .chart-container {
   background: var(--white); border: 1px solid var(--gray-200);
-  border-radius: var(--radius-md); padding: 24px; margin-bottom: 24px;
+  border-radius: var(--radius-md); padding: 28px; margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  transition: box-shadow 0.3s ease;
 }
-.chart-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 16px; }
+.chart-container:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.chart-title {
+  font-size: 0.92rem; font-weight: 700; color: var(--dark); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Chart description - contextual explanation under every chart */
+.chart-description {
+  font-size: 0.8rem; color: var(--gray-500); line-height: 1.6;
+  margin-bottom: 20px; max-width: 720px;
+}
+.chart-description strong { color: var(--gray-700); }
+
+/* Metric insight - contextual text under metric boxes */
+.metric-insight {
+  font-size: 0.75rem; color: var(--gray-400); line-height: 1.55;
+  margin-top: 8px; font-style: italic;
+}
+.metric-box .metric-insight { border-top: 1px solid var(--gray-100); padding-top: 8px; }
+
+/* Enhanced table styling */
+.data-table tbody tr:nth-child(even) td {
+  background: var(--gray-50);
+}
+.data-table tbody tr:hover td {
+  background: var(--blue-light);
+}
+.data-table td {
+  padding: 12px 16px; border-bottom: 1px solid var(--gray-100); color: var(--gray-700);
+  transition: background 0.15s ease;
+}
+
+/* Section description - used under dashboard section headers */
+.section-insight {
+  font-size: 0.82rem; color: var(--gray-500); line-height: 1.7;
+  max-width: 700px; margin-bottom: 20px;
+}
 
 /* ---- RESPONSIVE ---- */
 

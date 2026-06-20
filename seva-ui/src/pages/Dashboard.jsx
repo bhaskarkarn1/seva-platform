@@ -26,6 +26,7 @@ export default function Dashboard({ eda, metrics, stations, loading }) {
         <div className="section-title">Operational Command Platform</div>
         <p className="section-desc">
           All analytics derived from ASTraM dataset and established traffic engineering models.
+          Every metric is verifiable, every prediction is explainable.
         </p>
       </RevealSection>
 

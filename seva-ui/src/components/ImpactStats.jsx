@@ -52,6 +52,8 @@ export default function ImpactStats() {
   const delayWithout = missionBrief?.bpr_delay_analysis?.delay_without_seva_min || 6.5
   const delayWith = missionBrief?.bpr_delay_analysis?.delay_with_seva_min || 4.9
   const delayReduction = missionBrief?.bpr_delay_analysis?.delay_reduction_pct || 25
+  const diversionsActive = missionBrief?.diversion_summary?.total_diversions || 3
+  const diversionsWithout = 0 // No diversions without SEVA
 
   const coverageWithout = scenario
     ? Math.round((scenario.without_seva?.coverage_score || 0.33) * 100)
@@ -92,7 +94,7 @@ export default function ImpactStats() {
             </div>
             <div className="impact-row">
               <div className="impact-metric-label">Diversion routes active</div>
-              <div className="impact-metric-value red">0</div>
+              <div className="impact-metric-value red">{diversionsWithout}</div>
             </div>
           </div>
 
@@ -119,13 +121,13 @@ export default function ImpactStats() {
             </div>
             <div className="impact-row">
               <div className="impact-metric-label">Diversion routes active</div>
-              <div className="impact-metric-value green">3</div>
+              <div className="impact-metric-value green">{diversionsActive}</div>
             </div>
           </div>
         </div>
         <p className="impact-footnote">
           Delay computed via BPR formula (Bureau of Public Roads) — the global standard used by FHWA for link-level delay estimation.
-          Coverage from MILP optimization across 54 police stations.
+          Coverage from MILP optimization across 54 police stations. Diversion routes computed via OSMnx Bengaluru road graph.
         </p>
       </RevealSection>
     </section>

@@ -42,16 +42,16 @@ const APPROACH_STEPS = [
     desc: 'LightGBM models classify events by type, severity, and expected impact from 8,057 ASTraM events.',
     detail: 'PR-AUC: 0.9945' },
   { num: '02', icon: TrendingDown, color: '#2563eb', title: 'Traffic Impact Forecasting',
-    desc: 'BPR delay function forecasts congestion. Estimates attendance to vehicle to V/C ratios per corridor.',
-    detail: 'BPR: t0 x (1 + 0.15 x (V/C)^4)' },
+    desc: 'BPR delay function forecasts congestion. Estimates attendance → vehicles → V/C ratios per corridor.',
+    detail: 'BPR: t₀ × (1 + 0.15 × (V/C)⁴)' },
   { num: '03', icon: Users, color: '#7c3aed', title: 'Optimal Team Deployment',
     desc: 'MILP via OR-Tools allocates teams from 54 stations with capacity and distance constraints.',
     detail: '5km max, station limits' },
-  { num: '04', icon: Construction, color: '#ea580c', title: 'Barricade Placement',
+  { num: '04', icon: Construction, color: '#ea580c', title: 'Barricade Zone Placement',
     desc: 'Junction-based perimeter containment at high-connectivity intersections using angular distribution.',
-    detail: '70-90% containment' },
+    detail: '70–90% containment' },
   { num: '05', icon: Navigation, color: '#16a34a', title: 'Diversion Planning',
-    desc: 'OSMnx road graph rerouting computes shortest alternative paths with delay reduction estimates.',
+    desc: 'OSMnx road graph rerouting computes shortest alternative paths when junctions are blocked.',
     detail: '155K nodes, 394K edges' },
   { num: '06', icon: Zap, color: '#0891b2', title: 'Real-Time Execution',
     desc: 'One-click briefing generates deployment orders, barricade positions, and diversion routes.',
@@ -71,10 +71,10 @@ export default function Hero({ eda }) {
       {/* Hero Section */}
       <section className="hero" id="overview">
         <div className="hero-inner">
-          {/* Badge */}
+          {/* Badge - compact */}
           <div className="hero-badge">
             <span className="hero-badge-dot" />
-            Flipkart Gridlock 6.0 | Problem Statement 2
+            Flipkart Gridlock 6.0 — Problem Statement 2
           </div>
 
           <h1 className="hero-title">
@@ -83,11 +83,11 @@ export default function Hero({ eda }) {
           <p className="hero-tagline">Smart Event-Driven Vulnerability Analyzer</p>
           <p className="hero-description">
             An AI-powered operational command center for <strong>Bengaluru Traffic Police</strong> that forecasts 
-            event-driven congestion, deploys teams optimally, places barricades strategically, and 
-            activates diversions — all before the first vehicle arrives.
+            event-driven congestion, deploys teams optimally, and activates diversions — 
+            all before the first vehicle arrives.
           </p>
 
-          {/* Stats Row */}
+          {/* Stats Row - sleek horizontal strip */}
           <div className="hero-stats-row">
             {STATS.map((s, i) => (
               <div key={i} className="hero-stat-item">
@@ -112,7 +112,8 @@ export default function Hero({ eda }) {
           <div className="section-label">Our Approach</div>
           <div className="section-title">How SEVA Tackles Event-Driven Congestion</div>
           <p className="section-desc">
-            A 7-stage operational pipeline that transforms raw event data into actionable traffic management plans.
+            A 7-stage operational pipeline that transforms raw ASTraM event data into actionable traffic management plans.
+            Every prediction is traceable, every metric is verifiable.
           </p>
         </RevealSection>
         <div className="approach-grid">
