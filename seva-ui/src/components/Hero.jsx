@@ -79,7 +79,7 @@ export default function Hero({ eda }) {
             background: '#f8fafc', border: '1px solid #f1f5f9',
             padding: '4px 12px', borderRadius: 6
           }}>
-            Gridlock 6.0 · PS 2
+            Gridlock 2.0 · PS 2
           </div>
 
           <h1 className="hero-title">
