@@ -279,71 +279,95 @@ def _build_event_list(lat, lon, cause, impact):
 
 
 def _compute_diversion_summary(lat, lon, impact, station_data):
-    """Compute diversion route summary with Bengaluru-specific road names."""
-    # Bengaluru approach corridors mapped by cardinal direction
-    approach_corridors = {
-        'North': {
-            'primary': 'Bellary Road / Palace Road',
-            'diversion': 'Cunningham Road via Vasanth Nagar',
-            'dlat': 0.02, 'dlon': 0
-        },
-        'South': {
-            'primary': 'Hosur Road / Lalbagh Road',
-            'diversion': 'Bannerghatta Road via JP Nagar',
-            'dlat': -0.02, 'dlon': 0
-        },
-        'East': {
-            'primary': 'MG Road / Old Airport Road',
-            'diversion': 'Indiranagar 100ft Road via CMH Road',
-            'dlat': 0, 'dlon': 0.025
-        },
-        'West': {
-            'primary': 'Mysore Road / Chord Road',
-            'diversion': 'Rajajinagar via Magadi Road',
-            'dlat': 0, 'dlon': -0.025
-        }
+    """Compute diversion route summary with corridor-specific Bengaluru roads."""
+    
+    # Find event corridor from impact data
+    event_corridor = None
+    for jname in impact.get('affected_junction_names', []):
+        for cname in _CORRIDOR_ADJACENCY:
+            if jname.lower() in cname.lower() or cname.lower() in jname.lower():
+                event_corridor = cname
+                break
+        if event_corridor:
+            break
+    if not event_corridor:
+        event_corridor = 'CBD'
+
+    # Corridor-specific diversion routes with unique detour distances
+    _CORRIDOR_DIVERSIONS = {
+        'CBD': [
+            {'direction': 'North', 'primary': 'Bellary Road / Palace Road', 'diversion': 'Cunningham Road via Vasanth Nagar', 'dlat': 0.02, 'dlon': 0, 'detour_km': 4.2},
+            {'direction': 'South', 'primary': 'Hosur Road / Residency Road', 'diversion': 'Bannerghatta Road via JP Nagar', 'dlat': -0.02, 'dlon': 0, 'detour_km': 5.8},
+            {'direction': 'East', 'primary': 'MG Road / Old Airport Road', 'diversion': 'Indiranagar 100ft Road via CMH Road', 'dlat': 0, 'dlon': 0.025, 'detour_km': 3.5},
+            {'direction': 'West', 'primary': 'Seshadri Road / Anand Rao Circle', 'diversion': 'Chord Road via Rajajinagar', 'dlat': 0, 'dlon': -0.025, 'detour_km': 4.9},
+        ],
+        'Outer Ring Road': [
+            {'direction': 'North', 'primary': 'ORR via Marathahalli Bridge', 'diversion': 'HAL Old Airport Road via Domlur', 'dlat': 0.02, 'dlon': 0, 'detour_km': 6.3},
+            {'direction': 'South', 'primary': 'ORR via Silk Board Junction', 'diversion': 'Sarjapur Road via Bellandur', 'dlat': -0.02, 'dlon': 0, 'detour_km': 5.1},
+            {'direction': 'East', 'primary': 'ORR via KR Puram', 'diversion': 'Old Madras Road via Indiranagar', 'dlat': 0, 'dlon': 0.025, 'detour_km': 7.2},
+        ],
+        'Bellary Road': [
+            {'direction': 'North', 'primary': 'Bellary Road / Hebbal Flyover', 'diversion': 'Thanisandra Main Road via Nagawara', 'dlat': 0.02, 'dlon': 0, 'detour_km': 5.4},
+            {'direction': 'South', 'primary': 'Palace Road / Race Course', 'diversion': 'Sankey Road via Malleshwaram', 'dlat': -0.02, 'dlon': 0, 'detour_km': 2.9},
+            {'direction': 'West', 'primary': 'Yeshwanthpur Circle', 'diversion': 'Tumkur Road via Goraguntepalya', 'dlat': 0, 'dlon': -0.025, 'detour_km': 4.1},
+        ],
+        'Mysore Road': [
+            {'direction': 'North', 'primary': 'Mysore Road / Nayandahalli', 'diversion': 'Chord Road via Rajajinagar', 'dlat': 0.02, 'dlon': 0, 'detour_km': 4.8},
+            {'direction': 'East', 'primary': 'Bull Temple Road / DVG Road', 'diversion': 'Kanakapura Road via Banashankari', 'dlat': 0, 'dlon': 0.025, 'detour_km': 3.2},
+            {'direction': 'West', 'primary': 'Mysore Road / Kengeri', 'diversion': 'NICE Road via Bidadi', 'dlat': 0, 'dlon': -0.025, 'detour_km': 7.5},
+        ],
+        'Hosur Road': [
+            {'direction': 'North', 'primary': 'Hosur Road / Silk Board', 'diversion': 'Koramangala Inner Ring Road', 'dlat': 0.02, 'dlon': 0, 'detour_km': 3.8},
+            {'direction': 'South', 'primary': 'Hosur Road / Madiwala', 'diversion': 'Bannerghatta Road via Arekere', 'dlat': -0.02, 'dlon': 0, 'detour_km': 4.5},
+            {'direction': 'East', 'primary': 'Hosur Road / BTM Layout', 'diversion': 'Sarjapur Road via HSR Layout', 'dlat': 0, 'dlon': 0.025, 'detour_km': 5.2},
+        ],
+        'MG Road': [
+            {'direction': 'North', 'primary': 'MG Road / Trinity Circle', 'diversion': 'Residency Road via Richmond Circle', 'dlat': 0.02, 'dlon': 0, 'detour_km': 2.1},
+            {'direction': 'East', 'primary': 'MG Road / Old Airport Road', 'diversion': 'Indiranagar 100ft Road via Domlur', 'dlat': 0, 'dlon': 0.025, 'detour_km': 3.6},
+            {'direction': 'West', 'primary': 'MG Road / Brigade Road', 'diversion': 'Church Street via Cubbon Road', 'dlat': 0, 'dlon': -0.025, 'detour_km': 1.8},
+        ],
     }
     
+    # Get corridor-specific diversions, fallback to CBD
+    corridor_divs = _CORRIDOR_DIVERSIONS.get(event_corridor, _CORRIDOR_DIVERSIONS['CBD'])
+    
     diversions = []
-    for direction, info in approach_corridors.items():
-        # Only include directions that have affected stations
+    for info in corridor_divs:
+        # Only include directions with nearby stations
         has_nearby = False
         for name, sd in station_data.items():
             dlat = sd['lat'] - lat
             dlon = sd['lon'] - lon
-            # Check if station is roughly in this direction
-            if direction == 'North' and dlat > 0.005:
+            if info['direction'] == 'North' and dlat > 0.005:
                 has_nearby = True; break
-            elif direction == 'South' and dlat < -0.005:
+            elif info['direction'] == 'South' and dlat < -0.005:
                 has_nearby = True; break
-            elif direction == 'East' and dlon > 0.005:
+            elif info['direction'] == 'East' and dlon > 0.005:
                 has_nearby = True; break
-            elif direction == 'West' and dlon < -0.005:
+            elif info['direction'] == 'West' and dlon < -0.005:
                 has_nearby = True; break
         
         if has_nearby or len(diversions) < 3:
             diversions.append({
-                'direction': direction,
+                'direction': info['direction'],
                 'blocked_route': info['primary'],
                 'diversion_route': info['diversion'],
                 'approach_lat': lat + info['dlat'],
                 'approach_lon': lon + info['dlon'],
-                'estimated_detour_km': round(abs(info['dlat'] + info['dlon']) * 111 * 1.4, 1)
+                'estimated_detour_km': info['detour_km']
             })
     
     # Limit to 3 most relevant diversions
     diversions = diversions[:3]
     
     # Compute expected delay reduction from SEVA intervention
-    # Based on: officer coverage reducing congestion + barricade containment
     closure_prob = impact['closure_probability']
-    base_delay_minutes = closure_prob * 45  # Avg delay in minutes during closure
+    base_delay_minutes = closure_prob * 45
     
-    # With SEVA optimization, delay is reduced by coverage improvement
     officers_deployed = impact.get('affected_junctions', 3)
-    reduction_from_officers = min(0.25, officers_deployed * 0.04)  # 4% per officer, max 25%
-    reduction_from_barricades = 0.12  # Barricades prevent spillover ~12%
-    reduction_from_diversions = len(diversions) * 0.06  # Each diversion route ~6%
+    reduction_from_officers = min(0.25, officers_deployed * 0.04)
+    reduction_from_barricades = 0.12
+    reduction_from_diversions = len(diversions) * 0.06
     
     total_reduction = min(reduction_from_officers + reduction_from_barricades + reduction_from_diversions, 0.55)
     
