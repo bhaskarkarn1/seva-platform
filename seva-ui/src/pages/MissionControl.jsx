@@ -128,7 +128,7 @@ export default function MissionControl() {
   const similar = brief?.similar_events;
 
   return (
-    <div>
+    <div style={{ overflowX: 'hidden' }}>
       <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.35rem', color: '#0f172a' }}>Mission Control</h3>
       <p style={{ color: '#64748b', marginBottom: '1rem', fontSize: '0.9rem', lineHeight: 1.7 }}>
         One button. One screen. Complete operational brief for Bengaluru Traffic Police.
@@ -552,7 +552,7 @@ export default function MissionControl() {
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: '0.75rem', display: 'flex', gap: '1.5rem', fontSize: '0.8rem', color: '#475569' }}>
+              <div style={{ marginTop: '0.75rem', display: 'flex', gap: '1rem', fontSize: '0.8rem', color: '#475569', flexWrap: 'wrap' }}>
                 <div>Without SEVA: <strong style={{ color: '#dc2626' }}>{brief.diversion_summary.without_seva_delay_min} min</strong> avg delay</div>
                 <div>With SEVA: <strong style={{ color: '#16a34a' }}>{brief.diversion_summary.with_seva_delay_min} min</strong> avg delay</div>
               </div>
@@ -599,7 +599,7 @@ export default function MissionControl() {
               </h4>
               <div style={{
                 background: '#faf5ff', border: '1px solid #e9d5ff', borderRadius: 10, padding: '1rem',
-                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem'
+                display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem'
               }}>
                 <div>
                   <div style={{ fontSize: '0.72rem', fontWeight: 700, color: '#7c3aed', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Expected Patterns</div>

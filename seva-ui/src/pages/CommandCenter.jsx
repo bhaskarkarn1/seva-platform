@@ -116,7 +116,7 @@ export default function CommandCenter({ stations, apiBase }) {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
       {/* Left: Events + Controls */}
       <div>
         <h4 style={{ fontSize: '0.9rem', marginBottom: 12, color: '#0f172a' }}>Active Events</h4>
@@ -170,7 +170,7 @@ export default function CommandCenter({ stations, apiBase }) {
           <div className="loading"><div className="spinner" />Optimizing...</div>
         ) : result ? (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 10, marginBottom: 16 }}>
               <div className="metric-box">
                 <div className="label">Coverage</div>
                 <div className="value green">{(result.coverage_score * 100).toFixed(0)}%</div>
