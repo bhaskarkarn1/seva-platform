@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEVA | Flipkart Gridlock 2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<style>
+:root {
+  --navy: #0d1b2a;
+  --navy-800: #1b2e44;
+  --navy-700: #253d56;
+  --navy-600: #3a536b;
+  --gray-50: #f7f8fa;
+  --gray-100: #eef0f4;
+  --gray-200: #dce1e8;
+  --gray-300: #b8c1cd;
+  --gray-400: #8a95a5;
+  --gray-500: #6b7685;
+  --gray-600: #4e5968;
+  --blue: #2563eb;
+  --blue-bright: #3b82f6;
+  --blue-light: #eff6ff;
+  --blue-50: #dbeafe;
+  --yellow: #f59e0b;
+  --yellow-bright: #fbbf24;
+  --yellow-light: #fffbeb;
+  --yellow-50: #fef3c7;
+  --green: #059669;
+  --green-bright: #10b981;
+  --green-light: #ecfdf5;
+  --green-50: #d1fae5;
+  --red: #ef4444;
+  --red-bright: #f87171;
+  --red-light: #fef2f2;
+  --red-50: #fee2e2;
+  --violet: #7c3aed;
+  --violet-light: #f5f3ff;
+  --violet-50: #ede9fe;
+  --orange: #f97316;
+  --orange-light: #fff7ed;
+  --cyan: #0891b2;
+  --cyan-light: #ecfeff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #e8ecf1;
+  -webkit-font-smoothing: antialiased;
+  color: var(--navy);
+}
+
+/* ===== SLIDE ===== */
+.slide {
+  width: 1280px;
+  height: 720px;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+  margin: 10px auto;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+}
+
+.slide-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 72px;
+}
+
+/* Slide footer */
+.s-footer {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 72px;
+  border-top: 1px solid var(--gray-100);
+  flex-shrink: 0;
+}
+.s-footer span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+/* Top accent */
+.s-accent {
+  height: 4px;
+  flex-shrink: 0;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.h1 {
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.h1 .hl-blue { color: var(--blue); }
+.h1 .hl-yellow { color: var(--yellow); }
+.h1 .hl-green { color: var(--green-bright); }
+.h1 .hl-red { color: var(--red); }
+.h1 .hl-violet { color: var(--violet); }
+
+.sub {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.6;
+  max-width: 750px;
+}
+
+.body-area {
+  margin-top: 28px;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: #fff;
+  border: 1px solid var(--gray-100);
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  padding: 24px;
+}
+
+.card-elevated {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+/* ===== NUMBER DOTS (Flipkart style) ===== */
+.num-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ================ SLIDE 1: COVER ================ */
+.cover-slide {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.cover-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ================ SLIDE 2: PROBLEM ================ */
+
+/* Callout box */
+.problem-callout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 100%);
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 14px 22px;
+  margin-top: 14px;
+  margin-bottom: 22px;
+}
+
+.callout-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(239,68,68,0.25);
+}
+
+.callout-text {
+  font-size: 14px;
+  color: #1e293b;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Flow strip with color progression */
+.flow-strip {
+  display: flex;
+  gap: 0;
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.flow-box {
+  flex: 1;
+  text-align: center;
+  padding: 18px 8px 16px;
+  border: none;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.flow-box:hover {
+  transform: translateY(-2px);
+}
+
+/* Color progression: green → yellow → orange → red → dark red */
+.flow-box:nth-child(1) { background: #ecfdf5; border-radius: 12px 0 0 12px; }
+.flow-box:nth-child(2) { background: #fefce8; }
+.flow-box:nth-child(3) { background: #fff7ed; }
+.flow-box:nth-child(4) { background: #fef2f2; }
+.flow-box:nth-child(5) { background: #fef2f2; border-radius: 0 12px 12px 0; background: linear-gradient(135deg, #fef2f2, #fee2e2); }
+
+/* Chevron arrows between steps */
+.flow-box:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  z-index: 2;
+}
+
+.flow-box:nth-child(1)::after { border-left: 10px solid #ecfdf5; }
+.flow-box:nth-child(2)::after { border-left: 10px solid #fefce8; }
+.flow-box:nth-child(3)::after { border-left: 10px solid #fff7ed; }
+.flow-box:nth-child(4)::after { border-left: 10px solid #fef2f2; }
+
+.flow-icon-wrap {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 6px;
+}
+
+.flow-num {
+  font-size: 8px; font-weight: 800;
+  letter-spacing: 0.18em;
+  margin-bottom: 6px;
+}
+
+.flow-box:nth-child(1) .flow-num { color: #059669; }
+.flow-box:nth-child(2) .flow-num { color: #d97706; }
+.flow-box:nth-child(3) .flow-num { color: #ea580c; }
+.flow-box:nth-child(4) .flow-num { color: #dc2626; }
+.flow-box:nth-child(5) .flow-num { color: #b91c1c; }
+
+.flow-title {
+  font-size: 12px; font-weight: 700;
+  color: var(--navy);
+  margin-top: 4px;
+}
+
+.flow-desc {
+  font-size: 10px;
+  color: var(--gray-400);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* Pain cards with icons */
+.pain-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.pain-card {
+  border-radius: 14px;
+  padding: 24px;
+  border-left: 4px solid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pain-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.pain-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.pain-icon-wrap {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.pain-num {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.pain-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.pain-text {
+  font-size: 12px;
+  color: #1e293b;
+  line-height: 1.65;
+}
+
+/* ================ SLIDE 3: SOLUTION ================ */
+.sol-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+/* Left: Minimal input */
+.sol-input-card {
+  width: 210px;
+  border-radius: 14px 0 0 14px;
+  padding: 22px 18px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid rgba(37,99,235,0.12);
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sol-input-num {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 900; color: #fff;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+
+/* Center: Engine with glow */
+.sol-engine-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  gap: 0;
+  position: relative;
+  background: transparent;
+}
+
+.sol-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20px;
+}
+
+.sol-arrow-line {
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid rgba(37,99,235,0.35);
+}
+
+.sol-engine {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border-radius: 16px;
+  padding: 18px 24px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.35), 0 0 60px rgba(37,99,235,0.1);
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes enginePulse {
+  0%, 100% { box-shadow: 0 8px 32px rgba(37,99,235,0.35), 0 0 60px rgba(37,99,235,0.1); }
+  50% { box-shadow: 0 8px 32px rgba(37,99,235,0.45), 0 0 80px rgba(37,99,235,0.15); }
+}
+
+.sol-engine { animation: enginePulse 3s ease-in-out infinite; }
+
+.sol-engine-name { font-size: 28px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
+.sol-engine-sub { font-size: 7px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 3px; }
+
+/* Right: Rich output grid */
+.sol-output-card {
+  flex: 1;
+  border-radius: 0 14px 14px 0;
+  padding: 18px 18px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-left: none;
+}
+
+.sol-label {
+  font-size: 10px; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.sol-label::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+.sol-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  transition: transform 0.15s ease;
+}
+.sol-item:last-child { border-bottom: none; }
+.sol-item:hover { transform: translateX(3px); }
+
+.sol-icon {
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.sol-item-title { font-size: 12px; font-weight: 700; color: var(--navy); }
+.sol-item-desc { font-size: 10px; color: var(--gray-400); margin-top: 1px; }
+
+.sol-output-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 14px;
+}
+
+/* ================ SLIDE 4: EDA VISUALS ================ */
+.eda-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.eda-panel {
+  border: 1px solid var(--gray-100);
+  border-radius: 14px;
+  padding: 18px;
+  border-top: 3px solid;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.eda-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.eda-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.eda-panel-title {
+  font-size: 12px; font-weight: 800;
+  color: var(--navy);
+}
+
+/* Horizontal bar chart */
+.hbar { margin-bottom: 6px; }
+.hbar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.hbar-label {
+  font-size: 9px; font-weight: 700;
+  color: var(--gray-500);
+  width: 72px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.hbar-track {
+  flex: 1;
+  height: 14px;
+  background: var(--gray-50);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.hbar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+.hbar-val {
+  font-size: 8px; font-weight: 800;
+  color: var(--gray-400);
+  width: 34px;
+  flex-shrink: 0;
+}
+
+/* Donut chart */
+.donut-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.donut {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+}
+.donut-hole {
+  position: absolute;
+  top: 12px; left: 12px;
+  width: 66px; height: 66px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.donut-val { font-size: 18px; font-weight: 900; }
+.donut-lbl { font-size: 7px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.06em; }
+.donut-legend { flex: 1; }
+.donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--gray-500);
+  margin-bottom: 5px;
+}
+.donut-legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.donut-legend-val { font-weight: 800; margin-left: auto; }
+
+/* Mini bars for hourly */
+.mini-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 52px;
+  padding-top: 4px;
+}
+.mini-bar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  min-height: 3px;
+  transition: height 0.4s ease;
+}
+.mini-bar-labels {
+  display: flex;
+  gap: 2px;
+  margin-top: 3px;
+}
+.mini-bar-lbl {
+  flex: 1;
+  text-align: center;
+  font-size: 6px;
+  font-weight: 700;
+  color: var(--gray-300);
+}
+
+/* Station risk bars */
+.risk-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.risk-name {
+  font-size: 9px; font-weight: 700;
+  color: var(--gray-500);
+  width: 85px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.risk-track {
+  flex: 1;
+  height: 12px;
+  background: var(--gray-50);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.risk-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+.risk-val {
+  font-size: 9px; font-weight: 800;
+  width: 32px;
+  flex-shrink: 0;
+}
+
+.eda-decision {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--gray-50);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ================ SLIDE 5: PIPELINE ================ */
+.pipe-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.pipe-card {
+  flex: 1;
+  border-radius: 12px;
+  padding: 14px 10px 12px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.04);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* Chevron connector between cards */
+.pipe-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid rgba(37,99,235,0.2);
+  z-index: 2;
+}
+
+.pipe-icon-wrap {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 6px;
+}
+
+.pipe-num {
+  font-size: 9px; font-weight: 900;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.pipe-title {
+  font-size: 11px; font-weight: 800;
+  color: var(--navy);
+  margin-top: 2px;
+  margin-bottom: 3px;
+}
+
+.pipe-desc {
+  font-size: 8.5px;
+  color: var(--gray-400);
+  line-height: 1.4;
+}
+
+.pipe-tech-badge {
+  display: inline-block;
+  font-size: 7px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 6px;
+  letter-spacing: 0.03em;
+}
+
+/* Flow connector between rows */
+.pipe-flow-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  gap: 6px;
+}
+.pipe-flow-line {
+  width: 2px;
+  height: 14px;
+  background: linear-gradient(180deg, rgba(124,58,237,0.2), rgba(16,185,129,0.3));
+  border-radius: 1px;
+}
+.pipe-flow-label {
+  font-size: 8px;
+  font-weight: 800;
+  color: var(--gray-300);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.tech-strip {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.tech-tag {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 9px; font-weight: 700;
+  color: var(--navy-700);
+  display: flex; align-items: center; gap: 5px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.tech-tag:hover {
+  transform: translateY(-1px);
+  border-color: var(--blue);
+}
+
+/* ================ SLIDE 6: MISSION CONTROL ================ */
+.mc-row {
+  display: flex;
+  gap: 14px;
+}
+
+.mc-panel {
+  flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  border: 1.5px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  background: #f8fafc;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mc-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.mc-panel img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.mc-badge {
+  position: absolute;
+  top: 6px; left: 6px;
+  z-index: 2;
+  color: #fff;
+  font-size: 8px; font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.mc-stats-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.mc-stat-mini {
+  flex: 1;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border: 1px solid var(--gray-100);
+  border-radius: 10px;
+  padding: 9px 6px;
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mc-stat-mini:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+.mc-stat-mini-val {
+  font-size: 16px; font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.mc-stat-mini-label {
+  font-size: 7px; font-weight: 700;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+/* ================ SLIDE 7: OPTIMIZATION ================ */
+.opt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+}
+
+.opt-card {
+  border: 1px solid var(--gray-100);
+  border-radius: 14px;
+  padding: 14px;
+  border-top: 3px solid;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.opt-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+}
+
+.opt-title {
+  font-size: 12px; font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.opt-desc {
+  font-size: 10px;
+  color: var(--gray-500);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.opt-code {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 8px;
+  color: #fbbf24;
+  margin-bottom: 8px;
+  line-height: 1.5;
+  border-left: 3px solid;
+}
+
+.opt-list { list-style: none; }
+
+.opt-list li {
+  font-size: 9px;
+  color: var(--gray-600);
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--gray-50);
+}
+
+.check-circle {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Result banner */
+.opt-result-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.opt-result-chip {
+  flex: 1;
+  text-align: center;
+  padding: 10px 6px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-100);
+  transition: transform 0.15s ease;
+}
+
+.opt-result-chip:hover { transform: translateY(-2px); }
+
+.opt-result-val {
+  font-size: 20px; font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.opt-result-label {
+  font-size: 7px; font-weight: 700;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+
+/* ================ SLIDE 8: IMPACT ================ */
+
+.impact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.impact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--gray-100);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.impact-row:hover {
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+.impact-row-icon {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.impact-row-metric {
+  width: 110px;
+  font-size: 11px; font-weight: 800;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.impact-row-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.impact-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.impact-bar-label {
+  font-size: 7px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.impact-bar {
+  height: 14px;
+  border-radius: 4px;
+  position: relative;
+  min-width: 20px;
+  transition: width 0.6s ease;
+}
+
+.impact-bar-val {
+  position: absolute;
+  right: 6px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 8px; font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.impact-row-badge {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  color: #059669;
+  font-size: 9px; font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hero-stats {
+  display: flex; gap: 10px; margin-top: 14px;
+}
+
+.hero-stat-card {
+  text-align: center;
+  padding: 14px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--gray-100);
+  flex: 1;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.hero-stat-val { font-size: 22px; font-weight: 900; letter-spacing: -1px; }
+.hero-stat-label { font-size: 7px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+/* ================ SLIDE 9: RELIABILITY ================ */
+.rel-layout {
+  display: flex;
+  gap: 16px;
+}
+
+/* Left: Tech Stack */
+.rel-stack {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rel-layer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--gray-100);
+  border-left: 3px solid;
+  background: #fff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rel-layer:hover {
+  transform: translateX(3px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+.rel-layer-icon {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.rel-layer-info { flex: 1; }
+
+.rel-layer-name {
+  font-size: 11px; font-weight: 800;
+  color: var(--navy);
+}
+
+.rel-layer-tech {
+  font-size: 8px; font-weight: 600;
+  color: var(--gray-400);
+  margin-top: 1px;
+}
+
+.rel-layer-badge {
+  font-size: 7px; font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+}
+
+/* Right: Proof Points */
+.rel-proofs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rel-proof {
+  border: 1px solid var(--gray-100);
+  border-radius: 12px;
+  padding: 14px;
+  border-top: 3px solid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rel-proof:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.rel-proof-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.rel-proof-icon {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.rel-proof-title {
+  font-size: 11px; font-weight: 800;
+  color: var(--navy);
+}
+
+.rel-proof-desc {
+  font-size: 9px;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+/* URL strip */
+.rel-urls {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.rel-url {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 10px; font-weight: 700;
+  transition: transform 0.15s ease;
+}
+
+.rel-url:hover { transform: translateY(-2px); }
+
+/* ================ SLIDE 10: ROADMAP ================ */
+.road-row {
+  display: flex; gap: 12px;
+  position: relative;
+}
+
+.road-row::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 36px; right: 36px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--violet), var(--green-bright), var(--yellow), var(--red));
+  border-radius: 2px;
+}
+
+.road-item {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.road-dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  margin: 10px auto 14px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px;
+  position: relative;
+}
+
+.road-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+
+.road-card {
+  border: 1px solid var(--gray-100);
+  border-radius: 12px;
+  padding: 16px 12px;
+  border-top: 3px solid;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.road-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.road-phase {
+  font-size: 9px; font-weight: 800;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.road-title {
+  font-size: 12px; font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.road-desc {
+  font-size: 9.5px;
+  color: var(--gray-400);
+  line-height: 1.5;
+}
+
+.road-time {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 8px; font-weight: 800;
+  padding: 3px 12px;
+  border-radius: 5px;
+  letter-spacing: 0.04em;
+}
+
+/* ================ CLOSING ================ */
+.close-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding: 48px 64px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  position: relative;
+}
+
+.close-inner::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed, #10b981, #fbbf24, #ef4444);
+}
+
+.close-title {
+  font-size: 48px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #0d1b2a 20%, #1e40af 60%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+
+.close-text {
+  font-size: 15px;
+  color: var(--gray-500);
+  line-height: 1.8;
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.close-bold { color: var(--navy); font-weight: 800; }
+
+.close-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.close-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  border: 1px solid;
+  transition: transform 0.15s ease;
+}
+
+.close-badge:hover { transform: translateY(-2px); }
+
+.close-links {
+  display: flex; gap: 12px;
+}
+
+.close-link {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700;
+  color: var(--gray-500);
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border: 1px solid var(--gray-200);
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.close-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--blue);
+}
+
+/* Roadmap reliability strip */
+.road-rel-strip {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.road-rel-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* ===== PRESENT MODE ===== */
+.present-btn {
+  position: fixed; top: 14px; right: 14px;
+  background: var(--blue); color: #fff;
+  border: none; padding: 10px 22px; border-radius: 8px;
+  font-size: 12px; font-weight: 800; cursor: pointer;
+  font-family: inherit; z-index: 200;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+
+.nav-bar {
+  position: fixed; bottom: 20px; right: 20px;
+  display: none; gap: 6px; z-index: 200;
+}
+
+.nav-btn {
+  width: 40px; height: 40px; border-radius: 10px;
+  border: 1px solid var(--gray-200); background: #fff;
+  color: var(--navy); display: flex; align-items: center;
+  justify-content: center; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.nav-btn:hover { background: var(--blue-light); border-color: var(--blue); color: var(--blue); }
+
+.nav-cnt {
+  position: fixed; bottom: 28px; right: 150px;
+  font-size: 11px; font-weight: 800; color: var(--gray-400);
+  z-index: 200; display: none;
+}
+
+body.presenting { background: #fff; }
+body.presenting .slide { margin: 0 auto; position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); display: none; box-shadow: none; }
+body.presenting .slide.active { display: flex; }
+body.presenting .nav-bar { display: flex; }
+body.presenting .nav-cnt { display: block; }
+body.presenting .present-btn { display: none; }
+
+@media print {
+  body { background: #fff; }
+  .present-btn, .nav-bar, .nav-cnt { display: none !important; }
+  .slide { margin: 0; box-shadow: none; page-break-after: always; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<button class="present-btn" onclick="toggleP()">
+  <i data-lucide="play" style="width:13px;height:13px"></i> Present
+</button>
+
+<!-- ====== S1: COVER ====== -->
+<div class="slide" id="s1">
+  <div class="cover-slide">
+    <img src="title_page.png" alt="SEVA - Smart Event-Driven Vulnerability Analyzer">
+  </div>
+</div>
+
+<!-- ====== S2: PROBLEM ====== -->
+<div class="slide" id="s2">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--red),var(--orange))"></div>
+  <div class="slide-inner">
+    <div class="tag" style="color:var(--red)">The Problem</div>
+    <div class="h1">Bengaluru's event congestion response is <span class="hl-red">reactive, not predictive.</span></div>
+
+    <!-- Dramatic callout -->
+    <div class="problem-callout">
+      <div class="callout-icon"><i data-lucide="siren" style="width:20px;height:20px;color:#fff"></i></div>
+      <div class="callout-text">When <strong style="color:var(--navy)">35,000 people</strong> leave Chinnaswamy Stadium after an IPL match, uncoordinated response <strong style="color:var(--red)">gridlocks the entire CBD</strong> within <strong style="color:var(--navy)">20 minutes</strong>.</div>
+    </div>
+
+    <div class="body-area">
+      <!-- Flow strip with color degradation -->
+      <div class="flow-strip">
+        <div class="flow-box">
+          <div class="flow-num">STEP 1</div>
+          <div class="flow-icon-wrap" style="background:rgba(5,150,105,0.12)"><i data-lucide="calendar-clock" style="width:20px;height:20px;color:#059669"></i></div>
+          <div class="flow-title">Event Occurs</div>
+          <div class="flow-desc">No pre-assessment</div>
+        </div>
+        <div class="flow-box">
+          <div class="flow-num">STEP 2</div>
+          <div class="flow-icon-wrap" style="background:rgba(217,119,6,0.12)"><i data-lucide="brain" style="width:20px;height:20px;color:#d97706"></i></div>
+          <div class="flow-title">Officers Estimate</div>
+          <div class="flow-desc">Gut-feel guessing</div>
+        </div>
+        <div class="flow-box">
+          <div class="flow-num">STEP 3</div>
+          <div class="flow-icon-wrap" style="background:rgba(234,88,12,0.12)"><i data-lucide="users" style="width:20px;height:20px;color:#ea580c"></i></div>
+          <div class="flow-title">Deploy Teams</div>
+          <div class="flow-desc">Under or over-staffed</div>
+        </div>
+        <div class="flow-box">
+          <div class="flow-num">STEP 4</div>
+          <div class="flow-icon-wrap" style="background:rgba(220,38,38,0.12)"><i data-lucide="alert-triangle" style="width:20px;height:20px;color:#dc2626"></i></div>
+          <div class="flow-title">Gridlock Hits</div>
+          <div class="flow-desc">Cascading congestion</div>
+        </div>
+        <div class="flow-box">
+          <div class="flow-num">STEP 5</div>
+          <div class="flow-icon-wrap" style="background:rgba(185,28,28,0.15)"><i data-lucide="trash-2" style="width:20px;height:20px;color:#b91c1c"></i></div>
+          <div class="flow-title">Lessons Lost</div>
+          <div class="flow-desc">No institutional memory</div>
+        </div>
+      </div>
+
+      <!-- Pain cards with icons -->
+      <div class="pain-cards">
+        <div class="pain-card" style="background:var(--red-light);border-left-color:var(--red)">
+          <div class="pain-card-header">
+            <div class="pain-icon-wrap" style="background:rgba(239,68,68,0.12)"><i data-lucide="bar-chart-3" style="width:20px;height:20px;color:var(--red)"></i></div>
+            <div class="pain-num" style="color:var(--red)">01</div>
+          </div>
+          <div class="pain-title">No Impact Quantification</div>
+          <div class="pain-text">Traffic impact unknown before event starts. No forecasting of vehicle demand, queue lengths, or spillover.</div>
+        </div>
+        <div class="pain-card" style="background:var(--yellow-light);border-left-color:var(--yellow)">
+          <div class="pain-card-header">
+            <div class="pain-icon-wrap" style="background:rgba(245,158,11,0.12)"><i data-lucide="shuffle" style="width:20px;height:20px;color:var(--yellow)"></i></div>
+            <div class="pain-num" style="color:var(--yellow)">02</div>
+          </div>
+          <div class="pain-title">Experience-Driven Deployment</div>
+          <div class="pain-text">Officer allocation based on gut-feel. Resources wasted from over-deployment or critically missing.</div>
+        </div>
+        <div class="pain-card" style="background:var(--blue-light);border-left-color:var(--blue)">
+          <div class="pain-card-header">
+            <div class="pain-icon-wrap" style="background:rgba(37,99,235,0.12)"><i data-lucide="repeat" style="width:20px;height:20px;color:var(--blue)"></i></div>
+            <div class="pain-num" style="color:var(--blue)">03</div>
+          </div>
+          <div class="pain-title">No Learning Loop</div>
+          <div class="pain-text">Post-event outcomes never captured. Same mistakes repeat across similar events, year after year.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>02</span></div>
+</div>
+
+<!-- ====== S3: SOLUTION (THE AHA) ====== -->
+<div class="slide" id="s3">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--blue),var(--green-bright))"></div>
+  <div class="slide-inner">
+    <div class="tag" style="color:var(--blue)">The Solution</div>
+    <div class="h1">SEVA converts one event into a <span class="hl-blue">complete deployment brief</span> in seconds.</div>
+    <div class="problem-callout" style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);border-color:rgba(37,99,235,0.15)">
+      <div class="callout-icon" style="background:var(--blue)"><i data-lucide="sparkles" style="width:20px;height:20px;color:#fff"></i></div>
+      <div class="callout-text">An officer enters <strong style="color:var(--navy)">event type, location, and time</strong>. SEVA returns <strong style="color:var(--blue)">risk, officers, barricades, diversions, and public advisory</strong>, all in one brief.</div>
+    </div>
+    <div class="body-area">
+      <div class="sol-flow">
+        <!-- LEFT: 3 Simple Inputs -->
+        <div class="sol-input-card">
+          <div class="sol-label" style="color:var(--blue)">Operator Input</div>
+          <div class="sol-item">
+            <div class="sol-input-num">1</div>
+            <div><div class="sol-item-title">Event Type</div><div class="sol-item-desc">IPL Match, Rally, VIP...</div></div>
+          </div>
+          <div class="sol-item">
+            <div class="sol-input-num">2</div>
+            <div><div class="sol-item-title">Location</div><div class="sol-item-desc">Corridor + coordinates</div></div>
+          </div>
+          <div class="sol-item">
+            <div class="sol-input-num">3</div>
+            <div><div class="sol-item-title">Time</div><div class="sol-item-desc">Date and hour</div></div>
+          </div>
+        </div>
+
+        <!-- CENTER: SEVA Engine -->
+        <div class="sol-engine-area">
+          <div class="sol-arrow"><div class="sol-arrow-line"></div></div>
+          <div class="sol-engine">
+            <div class="sol-engine-name">SEVA</div>
+            <div class="sol-engine-sub">Decision Engine</div>
+          </div>
+          <div class="sol-arrow"><div class="sol-arrow-line"></div></div>
+        </div>
+
+        <!-- RIGHT: 6 Outputs -->
+        <div class="sol-output-card">
+          <div class="sol-label" style="color:var(--green)">Complete Mission Brief</div>
+          <div class="sol-output-grid">
+            <div class="sol-item"><div class="sol-icon" style="background:var(--red-50)"><i data-lucide="alert-triangle" style="width:14px;height:14px;color:var(--red)"></i></div><div><div class="sol-item-title">Risk Assessment</div><div class="sol-item-desc">CRITICAL / HIGH / MEDIUM</div></div></div>
+            <div class="sol-item"><div class="sol-icon" style="background:var(--blue-50)"><i data-lucide="shield" style="width:14px;height:14px;color:var(--blue)"></i></div><div><div class="sol-item-title">Officer Deployment</div><div class="sol-item-desc">Station + junction + count</div></div></div>
+            <div class="sol-item"><div class="sol-icon" style="background:var(--yellow-50)"><i data-lucide="construction" style="width:14px;height:14px;color:var(--yellow)"></i></div><div><div class="sol-item-title">Barricade Zones</div><div class="sol-item-desc">Angular perimeter ring</div></div></div>
+            <div class="sol-item"><div class="sol-icon" style="background:var(--green-50)"><i data-lucide="git-branch" style="width:14px;height:14px;color:var(--green-bright)"></i></div><div><div class="sol-item-title">Diversion Routes</div><div class="sol-item-desc">Corridor-specific detours</div></div></div>
+            <div class="sol-item"><div class="sol-icon" style="background:var(--violet-50)"><i data-lucide="megaphone" style="width:14px;height:14px;color:var(--violet)"></i></div><div><div class="sol-item-title">Citizen Advisory</div><div class="sol-item-desc">Public-facing alerts</div></div></div>
+            <div class="sol-item"><div class="sol-icon" style="background:var(--cyan-light)"><i data-lucide="bar-chart-3" style="width:14px;height:14px;color:var(--cyan)"></i></div><div><div class="sol-item-title">Performance Review</div><div class="sol-item-desc">Predicted vs actual</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>03</span></div>
+</div>
+
+<!-- ====== S4: EDA INSIGHTS ====== -->
+<div class="slide" id="s4">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--cyan),var(--blue))"></div>
+  <div class="slide-inner">
+    <div class="tag" style="color:var(--cyan)">Exploratory Data Analysis</div>
+    <div class="h1">Key insights from <span class="hl-blue">8,057 ASTraM events</span> that shaped every design decision.</div>
+    <div class="body-area">
+      <div class="eda-grid">
+
+        <!-- Panel 1: Cause Distribution Bar Chart -->
+        <div class="eda-panel" style="border-top-color:var(--blue)">
+          <div class="eda-panel-head"><i data-lucide="bar-chart-3" style="width:14px;height:14px;color:var(--blue)"></i><div class="eda-panel-title">Event Cause Distribution</div></div>
+          <div class="hbar">
+            <div class="hbar-row"><div class="hbar-label">Breakdowns</div><div class="hbar-track"><div class="hbar-fill" style="width:100%;background:linear-gradient(90deg,#2563eb,#60a5fa)"></div></div><div class="hbar-val">4,886</div></div>
+            <div class="hbar-row"><div class="hbar-label">Potholes</div><div class="hbar-track"><div class="hbar-fill" style="width:11%;background:linear-gradient(90deg,#06b6d4,#67e8f9)"></div></div><div class="hbar-val">537</div></div>
+            <div class="hbar-row"><div class="hbar-label">Water Log</div><div class="hbar-track"><div class="hbar-fill" style="width:9.4%;background:linear-gradient(90deg,#0891b2,#22d3ee)"></div></div><div class="hbar-val">458</div></div>
+            <div class="hbar-row"><div class="hbar-label">Construction</div><div class="hbar-track"><div class="hbar-fill" style="width:9%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><div class="hbar-val">438</div></div>
+            <div class="hbar-row"><div class="hbar-label">Accidents</div><div class="hbar-track"><div class="hbar-fill" style="width:7.5%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><div class="hbar-val">365</div></div>
+            <div class="hbar-row"><div class="hbar-label">Tree Fall</div><div class="hbar-track"><div class="hbar-fill" style="width:5.8%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><div class="hbar-val">284</div></div>
+            <div class="hbar-row"><div class="hbar-label" style="color:var(--red);font-weight:800">Protests</div><div class="hbar-track"><div class="hbar-fill" style="width:0.3%;background:var(--red);min-width:4px"></div></div><div class="hbar-val" style="color:var(--red)">14</div></div>
+          </div>
+          <div class="eda-decision" style="color:var(--blue)"><i data-lucide="arrow-right" style="width:9px;height:9px"></i> Rare events (protests: 78% closure) need calibrated probability floors</div>
+        </div>
+
+        <!-- Panel 2: Class Imbalance Donut -->
+        <div class="eda-panel" style="border-top-color:var(--red)">
+          <div class="eda-panel-head"><i data-lucide="pie-chart" style="width:14px;height:14px;color:var(--red)"></i><div class="eda-panel-title">Class Imbalance Challenge</div></div>
+          <div class="donut-row">
+            <div class="donut" style="background:conic-gradient(#ef4444 0deg 26.6deg, #e2e8f0 26.6deg 360deg)">
+              <div class="donut-hole"><div class="donut-val" style="color:var(--red)">7.4%</div><div class="donut-lbl">Closures</div></div>
+            </div>
+            <div class="donut-legend">
+              <div class="donut-legend-item"><div class="donut-legend-dot" style="background:var(--red)"></div>Road Closures<div class="donut-legend-val" style="color:var(--red)">596</div></div>
+              <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#e2e8f0"></div>Non-closures<div class="donut-legend-val">7,461</div></div>
+              <div style="height:8px"></div>
+              <div class="donut-legend-item"><div class="donut-legend-dot" style="background:var(--yellow)"></div>High Priority<div class="donut-legend-val" style="color:var(--yellow)">4,974</div></div>
+              <div class="donut-legend-item"><div class="donut-legend-dot" style="background:var(--green-bright)"></div>Low Priority<div class="donut-legend-val">3,083</div></div>
+            </div>
+          </div>
+          <div class="eda-decision" style="color:var(--red)"><i data-lucide="arrow-right" style="width:9px;height:9px"></i> Optimize PR-AUC over ROC-AUC for closure prediction</div>
+        </div>
+
+        <!-- Panel 3: Hourly Pattern Mini Bars -->
+        <div class="eda-panel" style="border-top-color:var(--green-bright)">
+          <div class="eda-panel-head"><i data-lucide="clock" style="width:14px;height:14px;color:var(--green-bright)"></i><div class="eda-panel-title">Temporal Pattern (Hourly)</div></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <div style="font-size:26px;font-weight:900;color:var(--navy);letter-spacing:-1px">95.5%</div>
+            <div style="font-size:9px;color:var(--gray-400);line-height:1.4">events are <strong style="color:var(--navy)">unplanned</strong><br>yet follow learnable patterns</div>
+          </div>
+          <div class="mini-bars">
+            <div class="mini-bar" style="height:15%;background:rgba(16,185,129,0.15)"></div>
+            <div class="mini-bar" style="height:12%;background:rgba(16,185,129,0.15)"></div>
+            <div class="mini-bar" style="height:10%;background:rgba(16,185,129,0.15)"></div>
+            <div class="mini-bar" style="height:14%;background:rgba(16,185,129,0.15)"></div>
+            <div class="mini-bar" style="height:30%;background:rgba(16,185,129,0.2)"></div>
+            <div class="mini-bar" style="height:42%;background:rgba(16,185,129,0.3)"></div>
+            <div class="mini-bar" style="height:55%;background:rgba(16,185,129,0.4)"></div>
+            <div class="mini-bar" style="height:70%;background:rgba(245,158,11,0.5)"></div>
+            <div class="mini-bar" style="height:85%;background:rgba(245,158,11,0.6)"></div>
+            <div class="mini-bar" style="height:72%;background:rgba(245,158,11,0.5)"></div>
+            <div class="mini-bar" style="height:60%;background:rgba(16,185,129,0.35)"></div>
+            <div class="mini-bar" style="height:50%;background:rgba(16,185,129,0.3)"></div>
+            <div class="mini-bar" style="height:45%;background:rgba(16,185,129,0.25)"></div>
+            <div class="mini-bar" style="height:40%;background:rgba(16,185,129,0.2)"></div>
+            <div class="mini-bar" style="height:38%;background:rgba(16,185,129,0.2)"></div>
+            <div class="mini-bar" style="height:42%;background:rgba(16,185,129,0.25)"></div>
+            <div class="mini-bar" style="height:55%;background:rgba(16,185,129,0.35)"></div>
+            <div class="mini-bar" style="height:75%;background:rgba(245,158,11,0.5)"></div>
+            <div class="mini-bar" style="height:90%;background:rgba(245,158,11,0.6)"></div>
+            <div class="mini-bar" style="height:100%;background:rgba(239,68,68,0.55)"></div>
+            <div class="mini-bar" style="height:95%;background:rgba(239,68,68,0.5)"></div>
+            <div class="mini-bar" style="height:70%;background:rgba(16,185,129,0.4)"></div>
+            <div class="mini-bar" style="height:45%;background:rgba(16,185,129,0.25)"></div>
+            <div class="mini-bar" style="height:25%;background:rgba(16,185,129,0.15)"></div>
+          </div>
+          <div class="mini-bar-labels">
+            <div class="mini-bar-lbl">0</div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl">4</div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl" style="color:var(--yellow);font-size:7px">8</div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl" style="color:var(--yellow);font-size:7px">10</div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl">12</div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl">16</div><div class="mini-bar-lbl" style="color:var(--yellow);font-size:7px">17</div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl" style="color:var(--red);font-size:7px">19</div><div class="mini-bar-lbl" style="color:var(--red);font-size:7px">20</div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl"></div><div class="mini-bar-lbl">23</div>
+          </div>
+          <div class="eda-decision" style="color:var(--green-bright)"><i data-lucide="arrow-right" style="width:9px;height:9px"></i> Cyclical sin/cos hour encoding captures these patterns</div>
+        </div>
+
+        <!-- Panel 4: Station Risk Comparison -->
+        <div class="eda-panel" style="border-top-color:var(--violet)">
+          <div class="eda-panel-head"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--violet)"></i><div class="eda-panel-title">Station Closure Risk (Top vs Bottom)</div></div>
+          <div style="font-size:9px;color:var(--gray-400);margin-bottom:10px">CBD stations have <strong style="color:var(--violet)">4x higher closure rates</strong> than outer ring</div>
+          <div class="risk-row"><div class="risk-name" style="color:var(--red);font-weight:800">Halasuru Gate</div><div class="risk-track"><div class="risk-fill" style="width:100%;background:linear-gradient(90deg,#ef4444,#f87171)"></div></div><div class="risk-val" style="color:var(--red)">15.0%</div></div>
+          <div class="risk-row"><div class="risk-name">Hennuru</div><div class="risk-track"><div class="risk-fill" style="width:51%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><div class="risk-val" style="color:var(--violet)">7.7%</div></div>
+          <div class="risk-row"><div class="risk-name">Sadashivanagar</div><div class="risk-track"><div class="risk-fill" style="width:49%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)"></div></div><div class="risk-val" style="color:var(--violet)">7.3%</div></div>
+          <div class="risk-row"><div class="risk-name">Kodigehalli</div><div class="risk-track"><div class="risk-fill" style="width:39%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div><div class="risk-val" style="color:var(--yellow)">5.9%</div></div>
+          <div class="risk-row"><div class="risk-name">Byatarayanapura</div><div class="risk-track"><div class="risk-fill" style="width:29%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><div class="risk-val" style="color:var(--green-bright)">4.4%</div></div>
+          <div class="risk-row"><div class="risk-name">Yelahanka</div><div class="risk-track"><div class="risk-fill" style="width:25%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><div class="risk-val" style="color:var(--green-bright)">3.7%</div></div>
+          <div class="risk-row"><div class="risk-name">Yeshwanthpura</div><div class="risk-track"><div class="risk-fill" style="width:24%;background:linear-gradient(90deg,#10b981,#34d399)"></div></div><div class="risk-val" style="color:var(--green-bright)">3.6%</div></div>
+          <div class="eda-decision" style="color:var(--violet)"><i data-lucide="arrow-right" style="width:9px;height:9px"></i> KMeans clustering captures spatial risk profiles per station</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>04</span></div>
+</div>
+
+<!-- ====== S5: PIPELINE ====== -->
+<div class="slide" id="s5">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--violet),var(--blue),var(--green-bright))"></div>
+  <div class="slide-inner">
+    <div class="tag" style="color:var(--violet)">Architecture</div>
+    <div class="h1">7-stage pipeline: from raw data to <span class="hl-violet">deployment orders.</span></div>
+    <div class="problem-callout" style="background:linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);border-color:rgba(124,58,237,0.15)">
+      <div class="callout-icon" style="background:var(--violet)"><i data-lucide="workflow" style="width:20px;height:20px;color:#fff"></i></div>
+      <div class="callout-text">Fully automated. <strong style="color:var(--navy)">No manual intervention</strong> between event input and operational brief. Each stage is <strong style="color:var(--violet)">modular, testable, and fault-tolerant</strong>.</div>
+    </div>
+    <div class="body-area">
+      <!-- Row 1: Intelligence Pipeline (4 stages) -->
+      <div style="font-size:8px;font-weight:800;color:var(--gray-300);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px"><i data-lucide="brain" style="width:10px;height:10px;display:inline;vertical-align:middle"></i> Intelligence Pipeline</div>
+      <div class="pipe-row">
+        <div class="pipe-card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)">
+          <div class="pipe-num" style="color:var(--blue)">01</div>
+          <div class="pipe-icon-wrap" style="background:rgba(37,99,235,0.15)"><i data-lucide="database" style="width:18px;height:18px;color:var(--blue)"></i></div>
+          <div class="pipe-title">Data Ingestion</div>
+          <div class="pipe-desc">8,057 ASTraM events + 54 station profiles + OSMnx road graphs</div>
+          <div class="pipe-tech-badge" style="background:rgba(37,99,235,0.08);color:var(--blue)">Pandas + KNN Impute</div>
+        </div>
+        <div class="pipe-card" style="background:linear-gradient(135deg,#ecfeff,#cffafe)">
+          <div class="pipe-num" style="color:var(--cyan)">02</div>
+          <div class="pipe-icon-wrap" style="background:rgba(6,182,212,0.15)"><i data-lucide="sparkles" style="width:18px;height:18px;color:var(--cyan)"></i></div>
+          <div class="pipe-title">Feature Engineering</div>
+          <div class="pipe-desc">Cyclical time encoding, spatial clusters, station risk profiles</div>
+          <div class="pipe-tech-badge" style="background:rgba(6,182,212,0.08);color:var(--cyan)">Scikit-learn + KMeans</div>
+        </div>
+        <div class="pipe-card" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe)">
+          <div class="pipe-num" style="color:var(--violet)">03</div>
+          <div class="pipe-icon-wrap" style="background:rgba(124,58,237,0.15)"><i data-lucide="brain" style="width:18px;height:18px;color:var(--violet)"></i></div>
+          <div class="pipe-title">ML Prediction</div>
+          <div class="pipe-desc">Closure probability, priority class, resolution time estimate</div>
+          <div class="pipe-tech-badge" style="background:rgba(124,58,237,0.08);color:var(--violet)">LightGBM + SHAP</div>
+        </div>
+        <div class="pipe-card" style="background:linear-gradient(135deg,#fefce8,#fef3c7)">
+          <div class="pipe-num" style="color:var(--yellow)">04</div>
+          <div class="pipe-icon-wrap" style="background:rgba(245,158,11,0.15)"><i data-lucide="cpu" style="width:18px;height:18px;color:var(--yellow)"></i></div>
+          <div class="pipe-title">MILP Solver</div>
+          <div class="pipe-desc">Optimal officer allocation from multi-station sourcing</div>
+          <div class="pipe-tech-badge" style="background:rgba(245,158,11,0.08);color:#b45309">Google OR-Tools</div>
+        </div>
+      </div>
+
+      <!-- Flow connector -->
+      <div class="pipe-flow-connector">
+        <div class="pipe-flow-line"></div>
+        <div class="pipe-flow-label">Generates Operational Outputs</div>
+        <div class="pipe-flow-line"></div>
+      </div>
+
+      <!-- Row 2: Operational Outputs (3 stages) -->
+      <div style="font-size:8px;font-weight:800;color:var(--gray-300);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px"><i data-lucide="shield" style="width:10px;height:10px;display:inline;vertical-align:middle"></i> Operational Outputs</div>
+      <div class="pipe-row">
+        <div class="pipe-card" style="background:linear-gradient(135deg,#fff7ed,#ffedd5)">
+          <div class="pipe-num" style="color:var(--orange)">05</div>
+          <div class="pipe-icon-wrap" style="background:rgba(234,88,12,0.15)"><i data-lucide="shield" style="width:18px;height:18px;color:var(--orange)"></i></div>
+          <div class="pipe-title">Barricade Plan</div>
+          <div class="pipe-desc">Angular perimeter containment with degree centrality scoring</div>
+          <div class="pipe-tech-badge" style="background:rgba(234,88,12,0.08);color:var(--orange)">BPR + Centrality</div>
+        </div>
+        <div class="pipe-card" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5)">
+          <div class="pipe-num" style="color:var(--green-bright)">06</div>
+          <div class="pipe-icon-wrap" style="background:rgba(16,185,129,0.15)"><i data-lucide="git-branch" style="width:18px;height:18px;color:var(--green-bright)"></i></div>
+          <div class="pipe-title">Diversion Routes</div>
+          <div class="pipe-desc">Corridor-specific detours with delay estimation per alternate</div>
+          <div class="pipe-tech-badge" style="background:rgba(16,185,129,0.08);color:#047857">OSMnx + Leaflet</div>
+        </div>
+        <div class="pipe-card" style="background:linear-gradient(135deg,#f0fdf4,#bbf7d0)">
+          <div class="pipe-num" style="color:var(--green)">07</div>
+          <div class="pipe-icon-wrap" style="background:rgba(5,150,105,0.15)"><i data-lucide="refresh-cw" style="width:18px;height:18px;color:var(--green)"></i></div>
+          <div class="pipe-title">Feedback Loop</div>
+          <div class="pipe-desc">Post-event review with predicted vs actual performance scoring</div>
+          <div class="pipe-tech-badge" style="background:rgba(5,150,105,0.08);color:var(--green)">Closed-Loop ML</div>
+        </div>
+      </div>
+
+      <!-- Tech Stack -->
+      <div class="tech-strip">
+        <div class="tech-tag"><i data-lucide="zap" style="width:11px;height:11px;color:var(--blue)"></i> FastAPI</div>
+        <div class="tech-tag"><i data-lucide="layout" style="width:11px;height:11px;color:var(--cyan)"></i> React 19</div>
+        <div class="tech-tag"><i data-lucide="map" style="width:11px;height:11px;color:var(--green-bright)"></i> MapmyIndia</div>
+        <div class="tech-tag"><i data-lucide="server" style="width:11px;height:11px;color:var(--violet)"></i> Render</div>
+        <div class="tech-tag"><i data-lucide="globe" style="width:11px;height:11px;color:var(--blue)"></i> Vercel</div>
+      </div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>05</span></div>
+</div>
+
+<!-- ====== S6: MISSION CONTROL ====== -->
+<div class="slide" id="s6">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--green-bright),var(--blue))"></div>
+  <div class="slide-inner" style="padding-bottom:28px">
+    <div class="tag" style="color:var(--green-bright)">Live Product</div>
+    <div class="h1">One click. Complete <span class="hl-green">operational brief.</span> Ready to act.</div>
+    <div class="problem-callout" style="background:linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);border-color:rgba(16,185,129,0.15)">
+      <div class="callout-icon" style="background:var(--green-bright)"><i data-lucide="monitor" style="width:20px;height:20px;color:#fff"></i></div>
+      <div class="callout-text">The officer sees <strong style="color:var(--navy)">risk assessment, deployment orders, barricade positions, and diversion routes</strong>, all generated in <strong style="color:#059669">under 3 seconds</strong>. Live at <strong style="color:var(--blue)">seva-ui.vercel.app</strong></div>
+    </div>
+    <div class="body-area" style="flex:1;display:flex;flex-direction:column;margin-top:16px">
+      <div style="font-size:8px;font-weight:800;color:var(--gray-300);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px"><i data-lucide="eye" style="width:10px;height:10px;display:inline;vertical-align:middle"></i> What the Officer Sees</div>
+      <div class="mc-row">
+        <div class="mc-panel">
+          <div class="mc-badge" style="background:rgba(37,99,235,0.9)">Mission Brief</div>
+          <img src="2_mission_control_brief.png" alt="Mission Brief">
+        </div>
+        <div class="mc-panel">
+          <div class="mc-badge" style="background:rgba(5,150,105,0.9)">Timeline + Map</div>
+          <img src="4_timeline_map.png" alt="Timeline & Map">
+        </div>
+      </div>
+      <div class="mc-stats-strip">
+        <div class="mc-stat-mini"><div class="mc-stat-mini-val" style="color:var(--red)">CRITICAL</div><div class="mc-stat-mini-label">Risk Level</div></div>
+        <div class="mc-stat-mini"><div class="mc-stat-mini-val" style="color:var(--yellow)">83%</div><div class="mc-stat-mini-label">Closure Prob</div></div>
+        <div class="mc-stat-mini"><div class="mc-stat-mini-val" style="color:var(--blue)">9</div><div class="mc-stat-mini-label">Teams Deployed</div></div>
+        <div class="mc-stat-mini"><div class="mc-stat-mini-val" style="color:var(--orange)">3</div><div class="mc-stat-mini-label">Barricade Zones</div></div>
+        <div class="mc-stat-mini"><div class="mc-stat-mini-val" style="color:var(--green-bright)">3</div><div class="mc-stat-mini-label">Diversions</div></div>
+        <div class="mc-stat-mini"><div class="mc-stat-mini-val" style="color:var(--violet)">3.5 hrs</div><div class="mc-stat-mini-label">Est. Resolution</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>06</span></div>
+</div>
+
+<!-- ====== S7: OPTIMIZATION ====== -->
+<div class="slide" id="s7">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--yellow),var(--blue))"></div>
+  <div class="slide-inner">
+    <div class="tag" style="color:var(--yellow)">Optimization Engine</div>
+    <div class="h1">ML predictions flow into <span class="hl-blue">operations research solvers.</span></div>
+    <div class="problem-callout" style="background:linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);border-color:rgba(245,158,11,0.15)">
+      <div class="callout-icon" style="background:#d97706"><i data-lucide="cpu" style="width:20px;height:20px;color:#fff"></i></div>
+      <div class="callout-text">Every deployment order is <strong style="color:var(--navy)">mathematically optimal</strong>, not heuristic. The MILP solver guarantees <strong style="color:#d97706">consistent, reproducible results</strong> every time.</div>
+    </div>
+    <div class="body-area">
+      <div style="font-size:8px;font-weight:800;color:var(--gray-300);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px"><i data-lucide="cpu" style="width:10px;height:10px;display:inline;vertical-align:middle"></i> Three Optimization Modules</div>
+      <div class="opt-grid">
+        <!-- Card 1: MILP -->
+        <div class="opt-card" style="border-top-color:var(--blue)">
+          <div class="opt-title"><i data-lucide="cpu" style="width:14px;height:14px;color:var(--blue)"></i> MILP Allocation</div>
+          <div class="opt-desc">OR-Tools solver allocates officers from 54 stations. Maximizes coverage, minimizes travel.</div>
+          <div class="opt-code" style="border-left-color:var(--blue)"><span style="color:#94a3b8">maximize:</span> SUM(w[i] * x[i])<br><span style="color:#94a3b8">subject to:</span><br>  capacity[s] >= assigned[s]<br>  distance[s,j] <= max_km<br>  SUM(x) >= min_coverage</div>
+          <ul class="opt-list">
+            <li><div class="check-circle" style="background:var(--blue-light)"><i data-lucide="check" style="width:9px;height:9px;color:var(--blue)"></i></div> Multi-station sourcing</li>
+            <li><div class="check-circle" style="background:var(--blue-light)"><i data-lucide="check" style="width:9px;height:9px;color:var(--blue)"></i></div> Distance-weighted cost</li>
+            <li><div class="check-circle" style="background:var(--blue-light)"><i data-lucide="check" style="width:9px;height:9px;color:var(--blue)"></i></div> Capacity constraints</li>
+          </ul>
+        </div>
+        <!-- Card 2: Barricade -->
+        <div class="opt-card" style="border-top-color:var(--orange)">
+          <div class="opt-title"><i data-lucide="shield" style="width:14px;height:14px;color:var(--orange)"></i> Barricade Plan</div>
+          <div class="opt-desc">Angular perimeter containment. Junctions scored by degree centrality + historical closure density.</div>
+          <div class="opt-code" style="border-left-color:var(--orange)"><span style="color:#94a3b8">BPR delay formula:</span><br>t = t_ff × (1 + 0.15×(V/C)⁴)<br><span style="color:#94a3b8">officer boost:</span> +200 veh/hr</div>
+          <ul class="opt-list">
+            <li><div class="check-circle" style="background:rgba(234,88,12,0.1)"><i data-lucide="check" style="width:9px;height:9px;color:var(--orange)"></i></div> Degree centrality scoring</li>
+            <li><div class="check-circle" style="background:rgba(234,88,12,0.1)"><i data-lucide="check" style="width:9px;height:9px;color:var(--orange)"></i></div> Angular containment</li>
+            <li><div class="check-circle" style="background:rgba(234,88,12,0.1)"><i data-lucide="check" style="width:9px;height:9px;color:var(--orange)"></i></div> Queue length estimation</li>
+          </ul>
+        </div>
+        <!-- Card 3: Diversion -->
+        <div class="opt-card" style="border-top-color:var(--green-bright)">
+          <div class="opt-title"><i data-lucide="git-branch" style="width:14px;height:14px;color:var(--green-bright)"></i> Diversion Engine</div>
+          <div class="opt-desc">OSMnx-based corridor detours with delay estimation per alternate route. Real road network graph.</div>
+          <div class="opt-code" style="border-left-color:var(--green-bright)"><span style="color:#94a3b8">route_alt = shortest_path(</span><br>  G, source, target,<br>  weight='travel_time'<br><span style="color:#94a3b8">)</span></div>
+          <ul class="opt-list">
+            <li><div class="check-circle" style="background:rgba(16,185,129,0.1)"><i data-lucide="check" style="width:9px;height:9px;color:var(--green-bright)"></i></div> Corridor-specific routes</li>
+            <li><div class="check-circle" style="background:rgba(16,185,129,0.1)"><i data-lucide="check" style="width:9px;height:9px;color:var(--green-bright)"></i></div> Travel time comparison</li>
+            <li><div class="check-circle" style="background:rgba(16,185,129,0.1)"><i data-lucide="check" style="width:9px;height:9px;color:var(--green-bright)"></i></div> V/C ratio monitoring</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Result Strip -->
+      <div style="font-size:8px;font-weight:800;color:var(--gray-300);text-transform:uppercase;letter-spacing:0.12em;margin-top:10px;margin-bottom:4px"><i data-lucide="zap" style="width:10px;height:10px;display:inline;vertical-align:middle"></i> Optimization Output (Chinnaswamy IPL Scenario)</div>
+      <div class="opt-result-strip">
+        <div class="opt-result-chip" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)"><div class="opt-result-val" style="color:var(--blue)">9</div><div class="opt-result-label">Teams from 3 Stations</div></div>
+        <div class="opt-result-chip" style="background:linear-gradient(135deg,#fff7ed,#ffedd5)"><div class="opt-result-val" style="color:var(--orange)">3</div><div class="opt-result-label">Barricade Zones</div></div>
+        <div class="opt-result-chip" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5)"><div class="opt-result-val" style="color:var(--green-bright)">3</div><div class="opt-result-label">Active Diversions</div></div>
+        <div class="opt-result-chip" style="background:linear-gradient(135deg,#fefce8,#fef3c7)"><div class="opt-result-val" style="color:#b45309">25%</div><div class="opt-result-label">Delay Reduction</div></div>
+        <div class="opt-result-chip" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe)"><div class="opt-result-val" style="color:var(--violet)">3.5h</div><div class="opt-result-label">Est. Resolution</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>07</span></div>
+</div>
+
+<!-- ====== S8: IMPACT ====== -->
+<div class="slide" id="s8">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--green-bright),var(--blue),var(--violet))"></div>
+  <div class="slide-inner">
+    <div class="tag" style="color:var(--green-bright)">Quantified Impact</div>
+    <div class="h1">Chinnaswamy IPL scenario: <span class="hl-green">before vs after</span> SEVA.</div>
+    <div class="problem-callout" style="background:linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);border-color:rgba(5,150,105,0.15)">
+      <div class="callout-icon" style="background:#059669;box-shadow:0 4px 12px rgba(5,150,105,0.25)"><i data-lucide="trending-up" style="width:20px;height:20px;color:#fff"></i></div>
+      <div class="callout-text">Under the current system, the <strong style="color:var(--red)">CBD gridlocks for hours</strong> after a major event. With SEVA, we achieve <strong style="color:#059669">complete intersection coverage</strong> and efficient crowd dispersal.</div>
+    </div>
+    <div class="body-area">
+      <div style="font-size:8px;font-weight:800;color:var(--gray-300);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px"><i data-lucide="bar-chart-2" style="width:10px;height:10px;display:inline;vertical-align:middle"></i> Before vs After Comparison</div>
+      <div class="impact-grid">
+        <!-- Row 1: Junction Coverage -->
+        <div class="impact-row">
+          <div class="impact-row-icon" style="background:rgba(37,99,235,0.1)"><i data-lucide="map-pin" style="width:14px;height:14px;color:var(--blue)"></i></div>
+          <div class="impact-row-metric">Junction Coverage</div>
+          <div class="impact-row-bars">
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--red)">Before</div>
+              <div class="impact-bar" style="width:33%;background:linear-gradient(90deg,#ef4444,#dc2626)"><div class="impact-bar-val">33%</div></div>
+            </div>
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--green-bright)">After</div>
+              <div class="impact-bar" style="width:100%;background:linear-gradient(90deg,#10b981,#059669)"><div class="impact-bar-val">100%</div></div>
+            </div>
+          </div>
+          <div class="impact-row-badge">+67%</div>
+        </div>
+        <!-- Row 2: Officer Deployment -->
+        <div class="impact-row">
+          <div class="impact-row-icon" style="background:rgba(139,92,246,0.1)"><i data-lucide="users" style="width:14px;height:14px;color:var(--violet)"></i></div>
+          <div class="impact-row-metric">Officers Deployed</div>
+          <div class="impact-row-bars">
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--red)">Before</div>
+              <div class="impact-bar" style="width:33%;background:linear-gradient(90deg,#ef4444,#dc2626)"><div class="impact-bar-val">3</div></div>
+            </div>
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--green-bright)">After</div>
+              <div class="impact-bar" style="width:100%;background:linear-gradient(90deg,#10b981,#059669)"><div class="impact-bar-val">9 from 3 stations</div></div>
+            </div>
+          </div>
+          <div class="impact-row-badge">3x</div>
+        </div>
+        <!-- Row 3: Avg Delay -->
+        <div class="impact-row">
+          <div class="impact-row-icon" style="background:rgba(245,158,11,0.1)"><i data-lucide="clock" style="width:14px;height:14px;color:var(--yellow)"></i></div>
+          <div class="impact-row-metric">Avg Delay</div>
+          <div class="impact-row-bars">
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--red)">Before</div>
+              <div class="impact-bar" style="width:100%;background:linear-gradient(90deg,#ef4444,#dc2626)"><div class="impact-bar-val">6.5 min</div></div>
+            </div>
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--green-bright)">After</div>
+              <div class="impact-bar" style="width:75%;background:linear-gradient(90deg,#10b981,#059669)"><div class="impact-bar-val">4.9 min</div></div>
+            </div>
+          </div>
+          <div class="impact-row-badge">−25%</div>
+        </div>
+        <!-- Row 4: Queue Length -->
+        <div class="impact-row">
+          <div class="impact-row-icon" style="background:rgba(234,88,12,0.1)"><i data-lucide="move-horizontal" style="width:14px;height:14px;color:var(--orange)"></i></div>
+          <div class="impact-row-metric">Queue Length</div>
+          <div class="impact-row-bars">
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--red)">Before</div>
+              <div class="impact-bar" style="width:100%;background:linear-gradient(90deg,#ef4444,#dc2626)"><div class="impact-bar-val">4.4 km</div></div>
+            </div>
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--green-bright)">After</div>
+              <div class="impact-bar" style="width:48%;background:linear-gradient(90deg,#10b981,#059669)"><div class="impact-bar-val">~2.1 km</div></div>
+            </div>
+          </div>
+          <div class="impact-row-badge">−52%</div>
+        </div>
+        <!-- Row 5: Spillover -->
+        <div class="impact-row">
+          <div class="impact-row-icon" style="background:rgba(239,68,68,0.1)"><i data-lucide="alert-triangle" style="width:14px;height:14px;color:var(--red)"></i></div>
+          <div class="impact-row-metric">Spillover Risk</div>
+          <div class="impact-row-bars">
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--red)">Before</div>
+              <div class="impact-bar" style="width:90%;background:linear-gradient(90deg,#ef4444,#dc2626)"><div class="impact-bar-val">HIGH</div></div>
+            </div>
+            <div class="impact-bar-wrap">
+              <div class="impact-bar-label" style="color:var(--green-bright)">After</div>
+              <div class="impact-bar" style="width:30%;background:linear-gradient(90deg,#10b981,#059669)"><div class="impact-bar-val">LOW</div></div>
+            </div>
+          </div>
+          <div class="impact-row-badge">Contained</div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-card" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)"><div class="hero-stat-val" style="color:var(--blue)">35,000</div><div class="hero-stat-label">Spectators Dispersed</div></div>
+        <div class="hero-stat-card" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe)"><div class="hero-stat-val" style="color:var(--violet)">200K</div><div class="hero-stat-label">Commuters Protected</div></div>
+        <div class="hero-stat-card" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5)"><div class="hero-stat-val" style="color:var(--green-bright)">25%</div><div class="hero-stat-label">BPR Delay Reduction</div></div>
+        <div class="hero-stat-card" style="background:linear-gradient(135deg,#fefce8,#fef3c7)"><div class="hero-stat-val" style="color:#b45309">54</div><div class="hero-stat-label">Stations Modeled</div></div>
+      </div>
+      <div style="text-align:center;font-size:8px;font-style:italic;color:var(--gray-400);margin-top:6px;letter-spacing:0.02em">Scenario-based simulation using BPR congestion model on Chinnaswamy IPL event data</div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>08</span></div>
+</div>
+
+<!-- ====== S9: ROADMAP ====== -->
+<div class="slide" id="s9">
+  <div class="s-accent" style="background:linear-gradient(90deg,var(--blue),var(--violet),var(--green-bright),var(--yellow),var(--red))"></div>
+  <div class="slide-inner">
+    <div class="tag" style="color:var(--violet)">Evolution Roadmap</div>
+    <div class="h1">We know exactly where this platform <span class="hl-violet">should evolve.</span></div>
+    <div class="problem-callout" style="background:linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);border-color:rgba(124,58,237,0.15)">
+      <div class="callout-icon" style="background:var(--violet)"><i data-lucide="rocket" style="width:20px;height:20px;color:#fff"></i></div>
+      <div class="callout-text">Each phase builds on the <strong style="color:var(--navy)">proven, deployed foundation</strong>. Research becomes powerful when <strong style="color:var(--violet)">grounded in operational reality</strong>.</div>
+    </div>
+    <div class="body-area">
+      <div class="road-row">
+        <div class="road-item"><div class="road-dot" style="background:var(--blue);color:var(--blue)"></div><div class="road-card" style="border-top-color:var(--blue)"><div class="road-phase" style="color:var(--blue)">Phase 1</div><div class="road-title">Live Traffic Feeds</div><div class="road-desc">Real-time ASTraM sensors and ITMS camera integration</div><div class="road-time" style="background:var(--blue-light);color:var(--blue)">Months 1-3</div></div></div>
+        <div class="road-item"><div class="road-dot" style="background:var(--violet);color:var(--violet)"></div><div class="road-card" style="border-top-color:var(--violet)"><div class="road-phase" style="color:var(--violet)">Phase 2</div><div class="road-title">Graph Neural Nets</div><div class="road-desc">Spatio-temporal GNN for congestion propagation</div><div class="road-time" style="background:var(--violet-light);color:var(--violet)">Months 3-6</div></div></div>
+        <div class="road-item"><div class="road-dot" style="background:var(--green-bright);color:var(--green-bright)"></div><div class="road-card" style="border-top-color:var(--green-bright)"><div class="road-phase" style="color:var(--green-bright)">Phase 3</div><div class="road-title">Digital Twin (SUMO)</div><div class="road-desc">Simulation sandbox to test plans before execution</div><div class="road-time" style="background:var(--green-light);color:var(--green)">Months 6-9</div></div></div>
+        <div class="road-item"><div class="road-dot" style="background:var(--yellow);color:var(--yellow)"></div><div class="road-card" style="border-top-color:var(--yellow)"><div class="road-phase" style="color:var(--yellow)">Phase 4</div><div class="road-title">Decision-Focused ML</div><div class="road-desc">Train on deployment regret, not prediction accuracy</div><div class="road-time" style="background:var(--yellow-light);color:var(--yellow)">Months 9-12</div></div></div>
+        <div class="road-item"><div class="road-dot" style="background:var(--red);color:var(--red)"></div><div class="road-card" style="border-top-color:var(--red)"><div class="road-phase" style="color:var(--red)">Phase 5</div><div class="road-title">Multi-City Scaling</div><div class="road-desc">Expand to other metros with modular architecture</div><div class="road-time" style="background:var(--red-light);color:var(--red)">Year 2</div></div></div>
+      </div>
+      <div class="road-rel-strip">
+        <div class="road-rel-chip" style="background:rgba(37,99,235,0.06);color:var(--blue)"><i data-lucide="globe" style="width:11px;height:11px"></i> Live at seva-ui.vercel.app</div>
+        <div class="road-rel-chip" style="background:rgba(139,92,246,0.06);color:var(--violet)"><i data-lucide="lock" style="width:11px;height:11px"></i> Deterministic outputs</div>
+        <div class="road-rel-chip" style="background:rgba(245,158,11,0.06);color:#b45309"><i data-lucide="shield-check" style="width:11px;height:11px"></i> Static fallback built-in</div>
+      </div>
+    </div>
+  </div>
+  <div class="s-footer"><span>SEVA Platform</span><span>09</span></div>
+</div>
+
+<!-- ====== CLOSING ====== -->
+<div class="slide" id="s-close">
+  <div class="close-inner">
+    <div class="tag" style="color:var(--blue)">Gridlock 2.0</div>
+    <div class="close-title">Thank You</div>
+    <div class="close-text">
+      SEVA does not just predict. It <span class="close-bold">deploys</span>.<br><br>
+      One event in, <span class="close-bold">one complete operational brief out, in seconds.</span>
+    </div>
+    <div class="close-badges">
+      <div class="close-badge" style="background:rgba(37,99,235,0.06);color:var(--blue);border-color:rgba(37,99,235,0.15)"><i data-lucide="globe" style="width:12px;height:12px"></i> Live Deployed</div>
+      <div class="close-badge" style="background:rgba(139,92,246,0.06);color:var(--violet);border-color:rgba(139,92,246,0.15)"><i data-lucide="cpu" style="width:12px;height:12px"></i> OR-Tools MILP</div>
+      <div class="close-badge" style="background:rgba(16,185,129,0.06);color:var(--green-bright);border-color:rgba(16,185,129,0.15)"><i data-lucide="bar-chart-2" style="width:12px;height:12px"></i> BPR Delay Model</div>
+      <div class="close-badge" style="background:rgba(245,158,11,0.06);color:#b45309;border-color:rgba(245,158,11,0.15)"><i data-lucide="database" style="width:12px;height:12px"></i> 8,057 Events</div>
+    </div>
+    <div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:20px;letter-spacing:0.02em">Bhaskar Ranjan Karn</div>
+    <div class="close-links">
+      <div class="close-link"><i data-lucide="globe" style="width:14px;height:14px;color:var(--blue)"></i> seva-ui.vercel.app</div>
+      <div class="close-link"><i data-lucide="github" style="width:14px;height:14px;color:var(--navy)"></i> github.com/bhaskarkarn1/seva-platform</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-bar">
+  <button class="nav-btn" onclick="prev()"><i data-lucide="chevron-left" style="width:18px;height:18px"></i></button>
+  <button class="nav-btn" onclick="next()"><i data-lucide="chevron-right" style="width:18px;height:18px"></i></button>
+  <button class="nav-btn" onclick="toggleP()"><i data-lucide="x" style="width:18px;height:18px"></i></button>
+</div>
+<div class="nav-cnt" id="nc">1 / 10</div>
+
+<script>
+lucide.createIcons();
+const S = document.querySelectorAll('.slide');
+let c = 0, p = false;
+function show(n) { c = Math.max(0, Math.min(n, S.length-1)); S.forEach((s,i)=>s.classList.toggle('active',i===c)); document.getElementById('nc').textContent=`${c+1} / ${S.length}`; }
+function next() { show(c+1); }
+function prev() { show(c-1); }
+function toggleP() {
+  p=!p; document.body.classList.toggle('presenting',p);
+  document.querySelector('.present-btn').style.display = p ? 'none' : 'flex';
+  if(p){ show(0); document.documentElement.requestFullscreen?.(); } else document.exitFullscreen?.();
+}
+document.addEventListener('keydown', e => {
+  if(!p) return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();prev();}
+  if(e.key==='Escape') toggleP();
+});
+</script>
+</body>
+</html>
