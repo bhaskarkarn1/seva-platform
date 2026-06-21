@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://seva-ui.vercel.app"><img src="https://img.shields.io/badge/Live-seva--ui.vercel.app-2563eb?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" /></a>
-  <a href="https://seva-backend.onrender.com/docs"><img src="https://img.shields.io/badge/API-Swagger_Docs-059669?style=for-the-badge&logo=swagger&logoColor=white" alt="API Docs" /></a>
+  <a href="https://seva-platform-iexc.onrender.com/docs"><img src="https://img.shields.io/badge/API-Swagger_Docs-059669?style=for-the-badge&logo=swagger&logoColor=white" alt="API Docs" /></a>
   <a href="#"><img src="https://img.shields.io/badge/Flipkart-Gridlock_2.0-f59e0b?style=for-the-badge&logo=flipkart&logoColor=white" alt="Gridlock 2.0" /></a>
 </p>
 
@@ -182,7 +182,7 @@ seva-platform/
 The core value proposition. A single API call generates a complete operational brief:
 
 ```bash
-curl -X POST https://seva-backend.onrender.com/mission-control \
+curl -X POST https://seva-platform-iexc.onrender.com/mission-control \
   -H "Content-Type: application/json" \
   -d '{"event_type":"public_event","cause":"ipl_match","lat":12.9784,"lon":77.5998,"corridor":"CBD","hour":20}'
 ```
@@ -255,7 +255,7 @@ Closed-loop feedback system:
 | `GET` | `/road-graph/stats` | Road graph loading status |
 | `GET` | `/health` | Health check for monitoring |
 
-Full interactive documentation available at [`/docs`](https://seva-backend.onrender.com/docs).
+Full interactive documentation available at [`/docs`](https://seva-platform-iexc.onrender.com/docs).
 
 ---
 
@@ -266,8 +266,8 @@ Full interactive documentation available at [`/docs`](https://seva-backend.onren
 | Service | URL |
 |---------|-----|
 | Frontend | [seva-ui.vercel.app](https://seva-ui.vercel.app) |
-| Backend API | [seva-backend.onrender.com](https://seva-backend.onrender.com) |
-| API Docs | [seva-backend.onrender.com/docs](https://seva-backend.onrender.com/docs) |
+| Backend API | [seva-platform-iexc.onrender.com](https://seva-platform-iexc.onrender.com) |
+| API Docs | [seva-platform-iexc.onrender.com/docs](https://seva-platform-iexc.onrender.com/docs) |
 
 ### Local Development
 
