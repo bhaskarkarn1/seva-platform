@@ -9,7 +9,7 @@ import metricsData from '../data/model_metrics.json'
 import stationData from '../data/station_data.json'
 
 const LIVE_API = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL)
-  || 'https://seva-platform-iexc.onrender.com'
+  || 'https://seva-platform-2k0u.onrender.com'
 const TIMEOUT_MS = 4000
 
 let backendAlive = null // null = unknown, true/false = cached
