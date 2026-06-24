@@ -73,8 +73,8 @@ OUTPUT: Complete Mission Brief (one click → one answer)
 | Component | URL |
 |-----------|-----|
 | Frontend | https://seva-ui.vercel.app |
-| Backend API | https://seva-platform-iexc.onrender.com |
-| Health Check | https://seva-platform-iexc.onrender.com/health |
+| Backend API | https://seva-platform-2k0u.onrender.com |
+| Health Check | https://seva-platform-2k0u.onrender.com/health |
 | GitHub | github.com/bhaskarkarn1/seva-platform |
 
 ---
@@ -747,7 +747,7 @@ Health check endpoint. Returns model count, station count, timestamp.
 - **Runtime:** Python 3.11.9 (pinned via `.python-version`)
 - **Start command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
 - **Auto-deploy:** On git push to `main` branch
-- **Domain:** seva-platform-iexc.onrender.com
+- **Domain:** seva-platform-2k0u.onrender.com
 
 ### 16.3 Keep-Alive System (Double Protection)
 
@@ -815,7 +815,7 @@ Health check endpoint. Returns model count, station count, timestamp.
 
 | Evidence | Where |
 |----------|-------|
-| Backend deployed and live | seva-platform-iexc.onrender.com |
+| Backend deployed and live | seva-platform-2k0u.onrender.com |
 | Full static fallback if backend unreachable | api.js buildStaticBrief() |
 | Null safety on all property accesses | MissionControl.jsx — all `.map()` guarded |
 | Keep-alive prevents cold starts | Internal self-ping + UptimeRobot |

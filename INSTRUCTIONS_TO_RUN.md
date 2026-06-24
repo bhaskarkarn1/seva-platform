@@ -2,7 +2,7 @@
 
 ## Live Deployment (Recommended)
 - **Frontend**: https://seva-ui.vercel.app
-- **Backend API**: https://seva-platform-iexc.onrender.com
+- **Backend API**: https://seva-platform-2k0u.onrender.com
 
 No setup needed — open the frontend URL and use Mission Control to generate a deployment brief.
 
