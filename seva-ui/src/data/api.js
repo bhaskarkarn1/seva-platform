@@ -122,8 +122,89 @@ function buildStaticBrief(config) {
     },
   }
 
+  // --- Dynamic cause-based profiles (ASTraM-calibrated) ---
+  // Used when no exact preset key matches. Each cause type has domain-calibrated risk parameters.
+  const causeProfiles = {
+    public_event:     { risk: 'CRITICAL', closure: 0.83, junctions: 8, radius: 3.5, officers: 9, barricades: 3, diversions: 3, delayReduction: 25, resolution: { median_hrs: 3.52, p75_hrs: 7.39, display: '3.5 hours' }, attendance: 35000, vehicles: 8750, vcRatio: 1.31 },
+    protest:          { risk: 'CRITICAL', closure: 0.78, junctions: 8, radius: 3.5, officers: 8, barricades: 3, diversions: 3, delayReduction: 23, resolution: { median_hrs: 4.40, p75_hrs: 9.24, display: '4.4 hours' }, attendance: 15000, vehicles: 2250, vcRatio: 1.13 },
+    procession:       { risk: 'CRITICAL', closure: 0.75, junctions: 6, radius: 3.5, officers: 7, barricades: 3, diversions: 3, delayReduction: 22, resolution: { median_hrs: 3.08, p75_hrs: 6.47, display: '3.1 hours' }, attendance: 20000, vehicles: 4000, vcRatio: 1.17 },
+    VIP_movement:     { risk: 'HIGH',     closure: 0.60, junctions: 7, radius: 3.5, officers: 6, barricades: 2, diversions: 3, delayReduction: 20, resolution: { median_hrs: 1.32, p75_hrs: 2.77, display: '1 hour 19 min' }, attendance: 0, vehicles: 0, vcRatio: 0.95 },
+    accident:         { risk: 'HIGH',     closure: 0.45, junctions: 5, radius: 2.5, officers: 5, barricades: 2, diversions: 2, delayReduction: 18, resolution: { median_hrs: 1.76, p75_hrs: 3.70, display: '1.8 hours' }, attendance: 0, vehicles: 0, vcRatio: 0.88 },
+    construction:     { risk: 'MEDIUM',   closure: 0.25, junctions: 5, radius: 2.0, officers: 3, barricades: 2, diversions: 2, delayReduction: 15, resolution: { median_hrs: 7.04, p75_hrs: 14.78, display: '7.0 hours' }, attendance: 0, vehicles: 0, vcRatio: 0.82 },
+    water_logging:    { risk: 'MEDIUM',   closure: 0.22, junctions: 4, radius: 2.0, officers: 3, barricades: 2, diversions: 2, delayReduction: 14, resolution: { median_hrs: 4.40, p75_hrs: 9.24, display: '4.4 hours' }, attendance: 0, vehicles: 0, vcRatio: 0.80 },
+    tree_fall:        { risk: 'MEDIUM',   closure: 0.28, junctions: 3, radius: 1.5, officers: 2, barricades: 1, diversions: 1, delayReduction: 12, resolution: { median_hrs: 2.64, p75_hrs: 5.54, display: '2.6 hours' }, attendance: 0, vehicles: 0, vcRatio: 0.78 },
+    vehicle_breakdown:{ risk: 'LOW',      closure: 0.09, junctions: 2, radius: 1.0, officers: 1, barricades: 1, diversions: 1, delayReduction: 8,  resolution: { median_hrs: 0.88, p75_hrs: 1.85, display: '53 minutes' }, attendance: 0, vehicles: 0, vcRatio: 0.65 },
+    pot_holes:        { risk: 'LOW',      closure: 0.07, junctions: 2, radius: 1.0, officers: 1, barricades: 1, diversions: 1, delayReduction: 6,  resolution: { median_hrs: 8.80, p75_hrs: 18.48, display: '8.8 hours' }, attendance: 0, vehicles: 0, vcRatio: 0.60 },
+    road_conditions:  { risk: 'LOW',      closure: 0.10, junctions: 3, radius: 1.5, officers: 2, barricades: 1, diversions: 1, delayReduction: 9,  resolution: { median_hrs: 5.28, p75_hrs: 11.09, display: '5.3 hours' }, attendance: 0, vehicles: 0, vcRatio: 0.68 },
+    others:           { risk: 'LOW',      closure: 0.12, junctions: 3, radius: 1.5, officers: 2, barricades: 1, diversions: 1, delayReduction: 10, resolution: { median_hrs: 2.20, p75_hrs: 4.62, display: '2.2 hours' }, attendance: 0, vehicles: 0, vcRatio: 0.70 },
+  }
+
+  // Corridor-specific station sets for realistic deployment display
+  const corridorStations = {
+    'CBD': { stations: ['Cubbon Park PS', 'Halasuru PS', 'Ashoknagar PS'], junctionNames: ['Cubbon Park', 'Shivajinagar', 'Halasuru Gate', 'High Grounds', 'Ashok Nagar', 'Upparpet', 'Pulikeshinagar', 'City Market'] },
+    'Outer Ring Road': { stations: ['Marathahalli PS', 'Whitefield PS', 'Varthur PS'], junctionNames: ['Marathahalli', 'Whitefield', 'Varthur', 'Bellandur', 'Doddanekundi'] },
+    'Bellary Road': { stations: ['Sadashivanagar PS', 'High Grounds PS', 'RT Nagar PS'], junctionNames: ['Sadashivanagar', 'High Grounds', 'RT Nagar', 'Palace Guttahalli', 'Yeshwanthpur', 'Malleshwaram', 'Sanjaynagar'] },
+    'Hosur Road': { stations: ['Adugodi PS', 'Madiwala PS', 'Electronic City PS'], junctionNames: ['Silk Board', 'BTM Layout', 'Bommanahalli', 'Koramangala', 'HSR Layout'] },
+    'Tumkur Road': { stations: ['Yeshwanthpur PS', 'Peenya PS', 'Jalahalli PS'], junctionNames: ['Yeshwanthpur', 'Peenya', 'Jalahalli', 'Goraguntepalya', 'Nagasandra'] },
+    'Mysore Road': { stations: ['Kengeri PS', 'RR Nagar PS', 'Byatarayanapura PS'], junctionNames: ['Kengeri', 'RR Nagar', 'Byatarayanapura', 'Nagarbhavi', 'Vijayanagar', 'Basaveshwar Nagar'] },
+    'Old Airport Road': { stations: ['Domlur PS', 'Indiranagar PS', 'HAL PS'], junctionNames: ['Domlur', 'Indiranagar', 'HAL', 'Kodihalli', 'Murugeshpalya'] },
+    'Bannerghatta Road': { stations: ['JP Nagar PS', 'Jayanagar PS', 'Gottigere PS'], junctionNames: ['JP Nagar', 'Jayanagar', 'Gottigere', 'Arekere', 'Meenakshi Temple'] },
+    'Kanakapura Road': { stations: ['Kumaraswamy Layout PS', 'Uttarahalli PS', 'Konanakunte PS'], junctionNames: ['Kumaraswamy Layout', 'Uttarahalli', 'Konanakunte', 'NICE junction', 'Art of Living'] },
+    'Sarjapur Road': { stations: ['HSR Layout PS', 'Bellandur PS', 'Carmelaram PS'], junctionNames: ['HSR Layout', 'Bellandur', 'Carmelaram', 'Wipro junction', 'Dommasandra'] },
+    'Whitefield Road': { stations: ['Whitefield PS', 'Mahadevapura PS', 'Kadugodi PS'], junctionNames: ['Whitefield', 'Mahadevapura', 'Kadugodi', 'ITPL', 'Hope Farm'] },
+    'Non-corridor': { stations: ['Nearest PS', 'Adjacent PS', 'Support PS'], junctionNames: ['Primary Junction', 'Secondary Junction', 'Tertiary Junction'] },
+  }
+
+  // Corridor-specific diversion routes
+  const corridorDivRoutes = {
+    'CBD': [
+      { direction: 'North', blocked_route: 'Bellary Road / Palace Road', diversion_route: 'Cunningham Road via Vasanth Nagar', estimated_detour_km: 4.2 },
+      { direction: 'South', blocked_route: 'Hosur Road / Residency Road', diversion_route: 'Bannerghatta Road via JP Nagar', estimated_detour_km: 5.8 },
+      { direction: 'East', blocked_route: 'MG Road / Old Airport Road', diversion_route: 'Indiranagar 100ft Road via CMH Road', estimated_detour_km: 3.5 },
+    ],
+    'Hosur Road': [
+      { direction: 'North', blocked_route: 'Hosur Road / Silk Board', diversion_route: 'Sarjapur Road via Bellandur', estimated_detour_km: 5.2 },
+      { direction: 'South', blocked_route: 'Hosur Road / Electronic City', diversion_route: 'Bannerghatta Road via Gottigere', estimated_detour_km: 6.1 },
+      { direction: 'West', blocked_route: 'BTM Layout / Jayanagar', diversion_route: 'Kanakapura Road via JP Nagar', estimated_detour_km: 4.8 },
+    ],
+    'Outer Ring Road': [
+      { direction: 'North', blocked_route: 'ORR via Marathahalli Bridge', diversion_route: 'HAL Old Airport Road via Domlur', estimated_detour_km: 6.3 },
+      { direction: 'South', blocked_route: 'ORR via Silk Board', diversion_route: 'Sarjapur Road via Bellandur', estimated_detour_km: 5.1 },
+    ],
+    'Bellary Road': [
+      { direction: 'North', blocked_route: 'Bellary Road / Hebbal Flyover', diversion_route: 'Thanisandra Main Road via Nagawara', estimated_detour_km: 5.4 },
+      { direction: 'South', blocked_route: 'Palace Road / Race Course', diversion_route: 'Sankey Road via Malleshwaram', estimated_detour_km: 2.9 },
+      { direction: 'West', blocked_route: 'Yeshwanthpur Circle', diversion_route: 'Tumkur Road via Goraguntepalya', estimated_detour_km: 4.1 },
+    ],
+    'Mysore Road': [
+      { direction: 'North', blocked_route: 'Mysore Road / Nayandahalli', diversion_route: 'Chord Road via Rajajinagar', estimated_detour_km: 4.8 },
+      { direction: 'East', blocked_route: 'Bull Temple Road / DVG Road', diversion_route: 'Kanakapura Road via Banashankari', estimated_detour_km: 3.2 },
+      { direction: 'West', blocked_route: 'Mysore Road / Kengeri', diversion_route: 'NICE Road via Bidadi', estimated_detour_km: 7.5 },
+    ],
+    'Tumkur Road': [
+      { direction: 'East', blocked_route: 'Tumkur Road / Yeshwanthpur', diversion_route: 'Chord Road via Rajajinagar', estimated_detour_km: 3.8 },
+      { direction: 'South', blocked_route: 'Tumkur Road / Peenya', diversion_route: 'Ring Road via Jalahalli', estimated_detour_km: 5.2 },
+    ],
+  }
+
   const key = `${config.cause}_${config.corridor === 'Outer Ring Road' ? 'ORR' : config.corridor === 'Mysore Road' ? 'Mysore' : config.corridor === 'Bellary Road' ? 'Bellary' : config.corridor}`
-  const p = presets[key] || presets['public_event_CBD']
+  
+  let p;
+  if (presets[key]) {
+    // Exact preset match (e.g., public_event_CBD, construction_ORR)
+    p = presets[key]
+  } else {
+    // Dynamic: build from cause profile + corridor data
+    const causeP = causeProfiles[config.cause] || causeProfiles['vehicle_breakdown']
+    const corrS = corridorStations[config.corridor] || corridorStations['CBD']
+    const corrD = corridorDivRoutes[config.corridor] || corridorDivRoutes['CBD']
+    p = {
+      ...causeP,
+      stations: corrS.stations,
+      junctionNames: corrS.junctionNames.slice(0, causeP.junctions),
+      divRoutes: corrD.slice(0, causeP.diversions),
+    }
+  }
 
   // BPR delay computation (deterministic)
   const t0 = 5.0 // free-flow travel time minutes
